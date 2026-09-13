@@ -24,6 +24,8 @@ for (const vp of viewports) {
       deviceScaleFactor: 2,
     });
     await page.goto(url + state.hash, { waitUntil: 'networkidle' });
+    // The dev toolbar is not part of the page.
+    await page.addStyleTag({ content: 'astro-dev-toolbar{display:none!important}' });
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(400);
     await page.screenshot({
