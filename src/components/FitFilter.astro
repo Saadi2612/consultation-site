@@ -1,0 +1,88 @@
+---
+/**
+ * Two columns, and the second one has to actually disqualify — not just
+ * list mild preferences. The stack sentence from Settled facts belongs
+ * here, stated once, in plain text.
+ */
+const take = [
+  "It's live, and it's breaking under real traffic.",
+  "The spec is written and ready to build.",
+  "You know the problem, but you haven't written the spec yet.",
+  "Your stack is Django, FastAPI, Express, NestJS, React, Postgres or AWS.",
+];
+
+const turnDown = [
+  "A codebase outside that stack. We don't context-switch fast enough on someone else's framework to be worth what we charge.",
+  "Zero overlap with Pakistan working hours. If nobody on your side is awake during any part of your day and ours, synchronous work doesn't happen.",
+  "Compliance that needs a dedicated team — HIPAA, SOC 2, PCI beyond a standard Stripe integration. We're two engineers, not a compliance department.",
+  "Payment tied to funding that hasn't closed, or equity instead of a fee. We're a studio, not a co-founder.",
+];
+---
+
+<section class="section" id="fit-filter" aria-labelledby="fit-title">
+  <div class="shell split">
+    <h2 class="section-title" id="fit-title">
+      Some of this isn't a fit, and we'd rather say so up front.
+    </h2>
+
+    <div class="fit">
+      <div class="fit-col">
+        <h3 class="fit-heading">Work we take</h3>
+        <ul class="fit-list">
+          {take.map((item) => <li class="fit-item">{item}</li>)}
+        </ul>
+      </div>
+
+      <div class="fit-col">
+        <h3 class="fit-heading">Work we turn down</h3>
+        <ul class="fit-list">
+          {turnDown.map((item) => <li class="fit-item">{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fit {
+    display: grid;
+    row-gap: 40px;
+  }
+
+  .fit-heading {
+    font-size: var(--text-h3);
+    font-stretch: 110%;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .fit-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .fit-item {
+    padding-block: 18px;
+    border-top: 1px solid var(--rule);
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  .fit-item:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  @media (min-width: 768px) {
+    .fit {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 48px;
+      row-gap: 0;
+    }
+
+    .fit-col + .fit-col {
+      padding-left: 48px;
+      border-left: 1px solid var(--rule);
+    }
+  }
+</style>
