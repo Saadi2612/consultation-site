@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Fonts. Self-hosted, latin subset only, taken from the files Google serves.
+   The fallback faces are metric-matched with size-adjust so the swap from
+   system font to webfont does not move a single line of text.
+--------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url("/fonts/archivo-latin-var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/newsreader-latin-300.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/newsreader-latin-300-italic.woff2") format("woff2");
+}
+
+/* Archivo: upm 1000, x-height 526, ascent 878, descent 210.
+   Arial:   upm 2048, x-height 1062, ascent 1854, descent 434.
+   size-adjust = (526/1000) / (1062/2048) = 101.43% */
+@font-face {
+  font-family: "Archivo fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 101.43%;
+  ascent-override: 86.56%;
+  descent-override: 20.7%;
+  line-gap-override: 0%;
+}
+
+/* Newsreader: upm 2000, x-height 852, ascent 1470, descent 530.
+   Times New Roman: upm 2048, x-height 916.
+   size-adjust = (852/2000) / (916/2048) = 95.24% */
+@font-face {
+  font-family: "Newsreader fallback";
+  src: local("Times New Roman"), local("Times");
+  size-adjust: 95.24%;
+  ascent-override: 77.17%;
+  descent-override: 27.82%;
+  line-gap-override: 0%;
+}
+
+/* ---------------------------------------------------------------------------
+   Tokens. Single definition point. Everything else aliases these.
+--------------------------------------------------------------------------- */
+
+@theme {
+  --color-paper: #e4e6e3;
+  --color-ink: #17231e;
+  --color-spot: #1f4fd8;
+  --color-muted: #6e7a74;
+  --color-white: #ffffff;
+  --color-rule: rgba(23, 35, 30, 0.15);
+
+  --font-sans: "Archivo", "Archivo fallback", Arial, sans-serif;
+  --font-serif: "Newsreader", "Newsreader fallback", Times, serif;
+}
+
+:root {
+  /* Colour, under the names the brief uses. */
+  --paper: var(--color-paper);
+  --ink: var(--color-ink);
+  --spot: var(--color-spot);
+  --muted: var(--color-muted);
+  --white: var(--color-white);
+  --rule: var(--color-rule);
+
+  /* Type */
+  --text-display: clamp(3.25rem, 7vw, 6rem);
+  --text-marker: clamp(3rem, 6vw, 5.5rem);
+  --text-h2: clamp(1.75rem, 3vw, 2.75rem);
+  --text-h3: 1.375rem;
+  --text-body: 1.0625rem;
+  --text-small: 0.9375rem;
+
+  /* Motion */
+  --dur-micro: 120ms;
+  --dur-state: 240ms;
+  --dur-enter: 320ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Layout */
+  --measure: 68ch;
+  --gutter: clamp(24px, 5vw, 48px);
+  --section-gap: 72px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-gap: 128px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-stretch: 100%;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-stretch: 115%;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+:where(a, button, input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--spot);
+  outline-offset: 3px;
+}
+
+.shell {
+  width: 100%;
+  max-width: calc(1200px + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* The one clickable shape on the page. Radius 10px marks it as interactive;
+   structural blocks stay at 0. */
+.action {
+  display: inline-block;
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.6875rem 1.125rem;
+  font-size: var(--text-small);
+  font-stretch: 100%;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-micro) var(--ease-standard),
+    color var(--dur-micro) var(--ease-standard),
+    border-color var(--dur-micro) var(--ease-standard);
+}
+
+.action:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}
