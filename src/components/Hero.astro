@@ -1,0 +1,301 @@
+---
+const stages = [
+  {
+    id: "v-unknown",
+    marker: "v?",
+    state: "You know the problem. You don’t have a spec.",
+    headline: "Two weeks of consultation.",
+    deliverable: "You leave with a scope you can hand to anyone.",
+    cta: "Start with a scope",
+  },
+  {
+    id: "v0",
+    marker: "v0",
+    state: "Spec is ready. Nothing is built.",
+    headline: "6 to 8 weeks to an MVP.",
+    deliverable: "Something real users can use.",
+    cta: "Start a build",
+  },
+  {
+    id: "v1",
+    marker: "v1",
+    state: "It’s live, and it breaks under load.",
+    headline: "Four weeks of hardening.",
+    deliverable: "Stability, performance and tests.",
+    cta: "Get it stable",
+  },
+];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="shell">
+    <h1 class="hero-title" id="hero-title">Where is your product right now?</h1>
+  </div>
+
+  <div class="shell">
+    <div class="rail" id="rail" role="group" aria-labelledby="hero-title">
+      {
+        stages.map((stage, i) => (
+          <div class="seg" data-stage={stage.id}>
+            <button
+              class="seg-hit"
+              type="button"
+              aria-pressed="false"
+              aria-labelledby={`marker-${stage.id} state-${stage.id}`}
+              tabindex={i === 0 ? 0 : -1}
+              data-index={i}
+            />
+            <span class="seg-marker" id={`marker-${stage.id}`}>
+              {stage.marker}
+            </span>
+            <p class="seg-state" id={`state-${stage.id}`}>
+              {stage.state}
+            </p>
+            <div class="seg-reveal">
+              <p class="seg-headline">{stage.headline}</p>
+              <p class="seg-deliverable">{stage.deliverable}</p>
+              <a class="action" href="#contact">
+                {stage.cta}
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="shell">
+    <p class="hero-note">
+      Mohib and Saad, 6+ years each, building from Lahore on your working hours.
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(48px, 9vw, 96px) var(--section-gap);
+  }
+
+  .hero-title {
+    max-width: 15ch;
+    font-size: var(--text-display);
+    margin-bottom: clamp(40px, 7vw, 88px);
+  }
+
+  /* --- the rail -----------------------------------------------------------
+     One band on the paper. No outer border, no radius. The only boundaries
+     are the hairlines between the three positions. The band is pulled out by
+     its own padding so the first position's text keeps the page's left edge.
+  ------------------------------------------------------------------------ */
+
+  .rail {
+    --seg-pad: 24px;
+    display: grid;
+    margin-inline: calc(var(--seg-pad) * -1);
+  }
+
+  .seg {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto auto;
+    min-width: 0;
+    padding: var(--seg-pad);
+    background: transparent;
+    transition: background-color var(--dur-state) var(--ease-standard);
+  }
+
+  .seg + .seg {
+    border-top: 1px solid var(--rule);
+  }
+
+  .seg[data-on] {
+    background: var(--white);
+  }
+
+  /* Covers the whole position. The visible text sits above it but passes
+     clicks through, so the hit area is the entire segment. */
+  .seg-hit {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    appearance: none;
+    border: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .seg-hit:focus-visible {
+    outline: 2px solid var(--spot);
+    outline-offset: -4px;
+  }
+
+  .seg-marker,
+  .seg-state,
+  .seg-reveal {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .seg-marker {
+    grid-row: 1;
+    font-size: var(--text-marker);
+    font-stretch: 125%;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 0.86;
+    transition: color var(--dur-state) var(--ease-standard);
+  }
+
+  .seg[data-on] .seg-marker {
+    color: var(--spot);
+  }
+
+  .seg-state {
+    grid-row: 3;
+    align-self: end;
+    max-width: 24ch;
+    min-height: 2.6em; /* two lines, so all three sentences start level */
+    font-size: var(--text-h3);
+    line-height: 1.3;
+    text-wrap: pretty;
+    transition: opacity var(--dur-state) var(--ease-standard);
+  }
+
+  /* Once a position is chosen, the other two hold their markers and drop
+     their sentence. */
+  .rail[data-selected] .seg:not([data-on]) .seg-state {
+    opacity: 0;
+  }
+
+  /* Out of flow entirely until its position is chosen, so an unselected
+     position never reserves a tall empty block. */
+  .seg-reveal {
+    grid-row: 4;
+    display: none;
+    gap: 12px;
+    justify-items: start;
+    max-width: 34ch;
+    margin-top: 24px;
+    opacity: 0;
+    transition:
+      opacity var(--dur-state) var(--ease-standard),
+      display var(--dur-state) allow-discrete;
+  }
+
+  .seg[data-on] .seg-reveal {
+    display: grid;
+    opacity: 1;
+  }
+
+  @starting-style {
+    .seg[data-on] .seg-reveal {
+      opacity: 0;
+    }
+  }
+
+  .seg-reveal .action {
+    pointer-events: auto;
+  }
+
+  .seg-headline {
+    font-size: var(--text-h3);
+    font-stretch: 110%;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .seg-deliverable {
+    font-size: var(--text-body);
+    line-height: 1.5;
+  }
+
+  .hero-note {
+    max-width: var(--measure);
+    margin-top: 28px;
+    font-size: var(--text-small);
+  }
+
+  /* --- stacked: the band runs down and the rows carry the progression ---- */
+
+  @media (max-width: 767.98px) {
+    .rail {
+      grid-template-rows: 1fr 1fr 1fr;
+      min-height: 520px;
+      transition: grid-template-rows var(--dur-state) var(--ease-standard);
+    }
+
+    .rail[data-selected="0"] {
+      grid-template-rows: 2.4fr 0.8fr 0.8fr;
+    }
+    .rail[data-selected="1"] {
+      grid-template-rows: 0.8fr 2.4fr 0.8fr;
+    }
+    .rail[data-selected="2"] {
+      grid-template-rows: 0.8fr 0.8fr 2.4fr;
+    }
+  }
+
+  /* --- the band runs across --------------------------------------------- */
+
+  @media (min-width: 768px) {
+    .rail {
+      --seg-pad: 28px;
+      grid-template-columns: 1fr 1fr 1fr;
+      transition: grid-template-columns var(--dur-state) var(--ease-standard);
+    }
+
+    .rail[data-selected="0"] {
+      grid-template-columns: 2.2fr 0.9fr 0.9fr;
+    }
+    .rail[data-selected="1"] {
+      grid-template-columns: 0.9fr 2.2fr 0.9fr;
+    }
+    .rail[data-selected="2"] {
+      grid-template-columns: 0.9fr 0.9fr 2.2fr;
+    }
+
+    .seg {
+      min-height: 280px;
+    }
+
+    .seg + .seg {
+      border-top: 0;
+      border-left: 1px solid var(--rule);
+    }
+
+    /* Selecting widens the position, and the detail fills the width that
+       opens up rather than pushing the band taller. Marker top left,
+       sentence bottom left, detail down the right. */
+    .seg[data-on] {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      column-gap: 36px;
+    }
+
+    .seg[data-on] .seg-marker,
+    .seg[data-on] .seg-state {
+      grid-column: 1;
+    }
+
+    .seg[data-on] .seg-state {
+      max-width: 22ch;
+    }
+
+    .seg[data-on] .seg-reveal {
+      grid-column: 2;
+      grid-row: 1 / -1;
+      align-content: center;
+      min-width: 0;
+      margin-top: 0;
+    }
+  }
+</style>
+
+<script>
+  import { initHeroRail } from "../scripts/hero-rail";
+
+  initHeroRail();
+</script>
