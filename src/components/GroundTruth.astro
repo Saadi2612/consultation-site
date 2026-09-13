@@ -1,0 +1,122 @@
+---
+/**
+ * Four operating facts. Only the overlap window is settled in SPEC.md; the
+ * other three are marked as missing rather than guessed at.
+ */
+const facts = [
+  {
+    label: "Overlap",
+    value:
+      "Four hours of your working day, every working day. Eight if you are in the UK or the EU.",
+    missing: false,
+  },
+  {
+    label: "Replies",
+    value: "Missing: reply time inside overlap hours, and outside them.",
+    missing: true,
+  },
+  {
+    label: "Code ownership",
+    value: "Missing: the point at which the client owns the code.",
+    missing: true,
+  },
+  {
+    label: "NDAs",
+    value: "Missing: whose NDA gets signed.",
+    missing: true,
+  },
+];
+---
+
+<section class="section facts" aria-labelledby="facts-title">
+  <div class="shell facts-grid">
+    <h2 class="facts-title" id="facts-title">Four things you can hold us to.</h2>
+
+    <dl class="facts-list">
+      {
+        facts.map((fact) => (
+          <div class="fact">
+            <dt class="fact-label">{fact.label}</dt>
+            <dd class="fact-value">
+              {fact.missing ? (
+                <span class="placeholder">{fact.value}</span>
+              ) : (
+                fact.value
+              )}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .facts-grid {
+    display: grid;
+    row-gap: 32px;
+  }
+
+  .facts-title {
+    font-size: var(--text-h2);
+    max-width: 16ch;
+  }
+
+  .facts-list {
+    margin: 0;
+  }
+
+  /* A ledger, not four boxes. The rules are the only structure. */
+  .fact {
+    display: grid;
+    row-gap: 6px;
+    padding-block: 20px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .fact:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .fact-label {
+    color: var(--muted);
+    font-size: var(--text-body);
+    font-weight: 500;
+  }
+
+  .fact-value {
+    margin: 0;
+    max-width: 42ch;
+    font-size: var(--text-h3);
+    line-height: 1.35;
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 768px) {
+    .facts-grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: 32px;
+    }
+
+    /* Heading in a narrow left column, facts in a wider right one, with a
+       whole empty column between them. */
+    .facts-title {
+      grid-column: 1 / 5;
+    }
+
+    .facts-list {
+      grid-column: 6 / 13;
+    }
+
+    .fact {
+      grid-template-columns: minmax(0, 0.5fr) minmax(0, 1.5fr);
+      column-gap: 32px;
+      row-gap: 0;
+      padding-block: 24px;
+    }
+
+    .fact-label {
+      padding-top: 0.25rem;
+    }
+  }
+</style>

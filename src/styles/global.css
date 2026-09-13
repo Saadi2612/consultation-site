@@ -159,6 +159,25 @@ a {
   padding-inline: var(--gutter);
 }
 
+/* Every section after the hero carries its own trailing space, so the gap
+   between two sections is one --section-gap and never two. */
+.section {
+  padding-block-end: var(--section-gap);
+}
+
+/* A fact SPEC.md asks for that Mohib and Saad have not supplied yet. Loud on
+   purpose: it must not survive to launch. */
+.placeholder {
+  display: inline-block;
+  background: var(--spot);
+  color: var(--white);
+  padding: 0.3125rem 0.5625rem;
+  font-size: var(--text-small);
+  font-stretch: 100%;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
 /* The one clickable shape on the page. Radius 10px marks it as interactive;
    structural blocks stay at 0. */
 .action {
