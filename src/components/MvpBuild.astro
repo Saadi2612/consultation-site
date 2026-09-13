@@ -1,0 +1,160 @@
+---
+/**
+ * The right-hand column is the point of this section, so it carries the ink
+ * while the left column sits back in --muted.
+ */
+const scope = [
+  {
+    ships: "One way to sign in.",
+    cut: "Social logins and SSO. Each one is an integration to keep working, and none of them tells you whether people want the product.",
+  },
+  {
+    ships: "The single flow the product is paid for.",
+    cut: "The second and third flows. They are cheaper to build once you have watched people use the first one.",
+  },
+  {
+    ships: "Card payments, if money changes hands in v0.",
+    cut: "Multiple currencies, self-service refunds, invoicing. Do these by hand until the volume hurts.",
+  },
+  {
+    ships: "The emails the product cannot work without.",
+    cut: "Digests, notification preferences, in-app messaging. Nobody leaves in month one over a missing digest.",
+  },
+  {
+    ships: "A web app that works in a phone browser.",
+    cut: "Native iOS and Android. Two more pipelines and two more review queues, for an audience you have not measured.",
+  },
+  {
+    ships: "Enough logging to debug a live problem.",
+    cut: "An analytics dashboard. Query the database directly until the same question comes up for the fourth time.",
+  },
+];
+
+const heads = ["Ships in v0", "Left out of v0, and why"];
+// Shorter on the stacked layout, where each label repeats once per row.
+const stacked = ["Ships", "Cut, and why"];
+---
+
+<section class="section" id="mvp" aria-labelledby="mvp-title">
+  <div class="shell split">
+    <h2 class="section-title" id="mvp-title">
+      Half of scoping a v0 is deciding what not to build.
+    </h2>
+
+    <table class="scope">
+      <thead>
+        <tr>
+          {heads.map((head) => <th scope="col">{head}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          scope.map((row) => (
+            <tr>
+              <td class="scope-ships">
+                <span class="cell-label">{stacked[0]}</span>
+                {row.ships}
+              </td>
+              <td class="scope-cut">
+                <span class="cell-label">{stacked[1]}</span>
+                {row.cut}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<style>
+  /* Pulled out by its own cell padding so the first column keeps the grid's
+     left edge, the same trick the hero band uses. */
+  .scope {
+    width: calc(100% + 28px);
+    margin-inline: -14px;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .scope th {
+    padding: 0 14px 12px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: var(--text-small);
+    font-stretch: 100%;
+    font-weight: 500;
+    vertical-align: bottom;
+  }
+
+  .scope td {
+    padding: 18px 14px;
+    border-bottom: 1px solid var(--rule);
+    font-size: var(--text-body);
+    line-height: 1.5;
+    vertical-align: top;
+    text-wrap: pretty;
+  }
+
+  .scope tbody tr {
+    transition: background-color var(--dur-micro) var(--ease-standard);
+  }
+
+  .scope tbody tr:hover {
+    background: var(--white);
+  }
+
+  .scope-ships {
+    color: var(--muted);
+  }
+
+  /* Real text, not generated content, so it reads the same to everyone. The
+     column headers cover it on wide screens. */
+  .cell-label {
+    display: none;
+    color: var(--muted);
+    font-size: var(--text-small);
+  }
+
+  @media (min-width: 768px) {
+    .scope th:first-child,
+    .scope-ships {
+      width: 38%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    /* Two columns of prose do not fit 360px, so each row becomes a pair:
+       what ships, then the cut underneath it, each with its own label. */
+    .scope,
+    .scope tbody,
+    .scope tr,
+    .scope td {
+      display: block;
+      width: auto;
+    }
+
+    .scope thead {
+      display: none;
+    }
+
+    .scope tr {
+      padding-block: 20px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .scope td {
+      padding-block: 0;
+      border-bottom: 0;
+    }
+
+    .scope-cut {
+      margin-top: 14px;
+    }
+
+    .cell-label {
+      display: block;
+      margin-bottom: 2px;
+    }
+  }
+</style>

@@ -1,0 +1,201 @@
+---
+/**
+ * The four measures from SPEC.md, with the figures from the hardening
+ * engagement written up further down the page. Illustrative, and labelled as
+ * such directly under the heading rather than in small print.
+ */
+const measures = [
+  {
+    name: "p95 API response",
+    before: "2.4 seconds at peak",
+    after: "Under 300ms",
+  },
+  {
+    name: "Error rate",
+    before: "Around 3%",
+    after: "Under 0.5%",
+  },
+  {
+    name: "Tests",
+    before: "No test suite",
+    after: "140 integration tests on the booking path",
+  },
+  {
+    name: "Deploys",
+    before: "Monthly, by hand over SSH",
+    after: "Daily, automated",
+  },
+];
+
+const heads = ["On arrival", "After four weeks"];
+---
+
+<section class="section" id="hardening" aria-labelledby="hardening-title">
+  <div class="shell split">
+    <h2 class="section-title" id="hardening-title">
+      Four numbers have to move before we call it stable.
+    </h2>
+
+    <div class="readout">
+      <p class="readout-note">
+        These figures are illustrative. They come from one engagement, not from
+        an average, and yours start somewhere else.
+      </p>
+
+      <table class="measures">
+        <thead>
+          <tr>
+            <th scope="col"><span class="visually-hidden">Measure</span></th>
+            {heads.map((head) => <th scope="col">{head}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            measures.map((measure) => (
+              <tr>
+                <th class="measure-name" scope="row">
+                  {measure.name}
+                </th>
+                <td class="measure-before">
+                  <span class="cell-label">{heads[0]}</span>
+                  {measure.before}
+                </td>
+                <td class="measure-after">
+                  <span class="cell-label">{heads[1]}</span>
+                  {measure.after}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .readout {
+    display: grid;
+    row-gap: 36px;
+  }
+
+  .readout-note {
+    max-width: 52ch;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .measures {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .measures thead th {
+    padding: 0 0 12px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: var(--text-small);
+    font-stretch: 100%;
+    font-weight: 500;
+    vertical-align: bottom;
+  }
+
+  .measures tbody th,
+  .measures tbody td {
+    padding-block: 20px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: baseline;
+  }
+
+  .measure-name {
+    font-size: var(--text-body);
+    font-stretch: 100%;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  /* Before sits back, after carries the ink and the size. */
+  .measure-before {
+    color: var(--muted);
+    font-size: var(--text-body);
+    line-height: 1.4;
+  }
+
+  .measure-after {
+    font-size: var(--text-h3);
+    font-stretch: 105%;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    text-wrap: pretty;
+  }
+
+  .cell-label {
+    display: none;
+    color: var(--muted);
+    font-size: var(--text-small);
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    .measures thead th:first-child,
+    .measure-name {
+      width: 26%;
+    }
+
+    .measures thead th:nth-child(2),
+    .measure-before {
+      width: 30%;
+      padding-right: 24px;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .measures,
+    .measures tbody,
+    .measures tr,
+    .measures tbody th,
+    .measures td {
+      display: block;
+      width: auto;
+    }
+
+    .measures thead {
+      display: none;
+    }
+
+    .measures tr {
+      padding-block: 20px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .measures tbody th,
+    .measures td {
+      padding-block: 0;
+      border-bottom: 0;
+    }
+
+    .measure-before,
+    .measure-after {
+      margin-top: 10px;
+    }
+
+    .cell-label {
+      display: block;
+      margin-bottom: 2px;
+    }
+  }
+</style>

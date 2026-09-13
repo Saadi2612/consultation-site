@@ -165,6 +165,34 @@ a {
   padding-block-end: var(--section-gap);
 }
 
+/* The page's one section shape: heading in a narrow left column, content in a
+   wider right one, with a whole empty column between them. Exactly two
+   children — wrap the content side if it has more than one part. */
+.split {
+  display: grid;
+  row-gap: 32px;
+}
+
+.section-title {
+  font-size: var(--text-h2);
+  max-width: 18ch;
+}
+
+@media (min-width: 768px) {
+  .split {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 32px;
+  }
+
+  .split > :first-child {
+    grid-column: 1 / 5;
+  }
+
+  .split > :last-child {
+    grid-column: 6 / 13;
+  }
+}
+
 /* A fact SPEC.md asks for that Mohib and Saad have not supplied yet. Loud on
    purpose: it must not survive to launch. */
 .placeholder {

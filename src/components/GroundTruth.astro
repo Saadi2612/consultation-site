@@ -23,8 +23,8 @@ const facts = [
 ---
 
 <section class="section facts" aria-labelledby="facts-title">
-  <div class="shell facts-grid">
-    <h2 class="facts-title" id="facts-title">Four things you can hold us to.</h2>
+  <div class="shell split">
+    <h2 class="section-title" id="facts-title">Four things you can hold us to.</h2>
 
     <dl class="facts-list">
       {
@@ -40,16 +40,6 @@ const facts = [
 </section>
 
 <style>
-  .facts-grid {
-    display: grid;
-    row-gap: 32px;
-  }
-
-  .facts-title {
-    font-size: var(--text-h2);
-    max-width: 16ch;
-  }
-
   .facts-list {
     margin: 0;
   }
@@ -81,21 +71,6 @@ const facts = [
   }
 
   @media (min-width: 768px) {
-    .facts-grid {
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      column-gap: 32px;
-    }
-
-    /* Heading in a narrow left column, facts in a wider right one, with a
-       whole empty column between them. */
-    .facts-title {
-      grid-column: 1 / 5;
-    }
-
-    .facts-list {
-      grid-column: 6 / 13;
-    }
-
     .fact {
       grid-template-columns: minmax(0, 0.5fr) minmax(0, 1.5fr);
       column-gap: 32px;

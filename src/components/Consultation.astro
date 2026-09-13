@@ -1,0 +1,107 @@
+---
+const weeks = [
+  {
+    name: "Week one",
+    body: "We go through what you are trying to build, who it is for, what already exists, and what you are constrained by. Most of this is us asking questions and you correcting our answers.",
+  },
+  {
+    name: "Week two",
+    body: "We turn that into decisions. What is in the first version, what is not, what each piece costs in time, and where we think the risk sits.",
+  },
+];
+---
+
+<section class="section" id="consultation" aria-labelledby="consultation-title">
+  <div class="shell split">
+    <h2 class="section-title" id="consultation-title">
+      Two weeks of questions, then a written scope.
+    </h2>
+
+    <div class="strip">
+      <div class="weeks">
+        {
+          weeks.map((week) => (
+            <div class="week">
+              <h3 class="week-name">{week.name}</h3>
+              <p class="week-body">{week.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="artefact">
+        <h3 class="artefact-name">What you are handed at the end</h3>
+        <p class="artefact-body">
+          A written scope: the feature list, what is deliberately excluded, a
+          build order, a time estimate against each piece, and the questions
+          still open. It is yours. Hand it to us, to another studio, or to a
+          developer you already have.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .strip {
+    display: grid;
+    row-gap: 40px;
+  }
+
+  /* Two weeks running left to right, split by a single rule. */
+  .weeks {
+    display: grid;
+    row-gap: 32px;
+  }
+
+  .week-name {
+    font-size: var(--text-h3);
+    font-stretch: 110%;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .week-body {
+    max-width: 44ch;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  /* The payoff, on the one surface that lifts off the paper. Pulled out by its
+     own padding so its text keeps the same left edge as the weeks above it. */
+  .artefact {
+    background: var(--white);
+    margin-inline: calc(var(--gutter) * -1);
+    padding: var(--gutter);
+  }
+
+  .artefact-name {
+    font-size: var(--text-h3);
+    font-stretch: 110%;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .artefact-body {
+    max-width: 56ch;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 768px) {
+    .weeks {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 36px;
+    }
+
+    .week + .week {
+      padding-left: 36px;
+      border-left: 1px solid var(--rule);
+    }
+
+    .artefact {
+      margin-inline: -32px 0;
+      padding: 32px;
+    }
+  }
+</style>
