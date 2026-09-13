@@ -1,0 +1,181 @@
+---
+/**
+ * Two worked examples, in the same before-and-after and scope-table shapes
+ * as section 4 — method, not testimonial. No client name, company,
+ * country or quotation attached to either. Illustrative is stated once,
+ * directly under the heading, at body size and colour, per SPEC.md.
+ */
+const measures = [
+  { name: "p95 API response", before: "2.4 seconds at peak", after: "Under 300ms" },
+  { name: "Error rate", before: "Around 3%", after: "Under 0.5%" },
+  { name: "Tests", before: "No test suite", after: "140 integration tests on the booking path" },
+  { name: "Deploys", before: "Monthly, by hand over SSH", after: "Daily, automated" },
+];
+const measureHeads = ["On arrival", "After four weeks"];
+
+const scope = [
+  {
+    ships: "Listings.",
+    cut: "Native mobile apps. The site worked in a phone browser, and suppliers were listing from a laptop anyway.",
+  },
+  {
+    ships: "Search.",
+    cut: "In-app messaging. Renters and suppliers already had a phone number for each other.",
+  },
+  {
+    ships: "An availability calendar.",
+    cut: "Reviews. Twelve suppliers is a small enough pool that reputation still travelled by word of mouth.",
+  },
+  {
+    ships: "Payouts through Stripe Connect.",
+    cut: "An analytics dashboard. Fewer than a hundred bookings a week is countable from the database directly.",
+  },
+  {
+    ships: "Transactional email for bookings and payouts.",
+    cut: "Multi-currency. Every supplier and every renter was billing in the same currency at launch.",
+  },
+];
+const scopeHeads = ["Ships in v0", "Left out of v0, and why"];
+const scopeStacked = ["Ships", "Cut, and why"];
+---
+
+<section class="section" id="worked-examples" aria-labelledby="examples-title">
+  <div class="shell split">
+    <h2 class="section-title" id="examples-title">What an engagement looks like.</h2>
+
+    <div class="examples">
+      <p class="examples-note">
+        Both examples below are illustrative. They describe the shape of the
+        work, not a specific client, and no name, company or quotation is
+        attached to either.
+      </p>
+
+      <article class="example">
+        <p class="example-label">Example one, hardening</p>
+        <h3 class="example-title">It kept timing out at peak, so it stopped growing.</h3>
+        <p class="example-brief">
+          A B2B scheduling tool on Django and Postgres, built quickly by a
+          previous contractor, was serving around 8,000 monthly users.
+          Booking requests were timing out, there was no test suite, and
+          deploys went out by hand over SSH.
+        </p>
+        <p class="example-brief">
+          Four weeks: an index audit and removal of N+1 queries, connection
+          pooling through PgBouncer, report generation moved onto a Celery
+          queue, 140 integration tests covering the booking path, CI with
+          automated deploys, and Sentry with structured logging.
+        </p>
+
+        <table class="measures">
+          <thead>
+            <tr>
+              <th scope="col"><span class="visually-hidden">Measure</span></th>
+              {measureHeads.map((head) => <th scope="col">{head}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              measures.map((measure) => (
+                <tr>
+                  <th class="measure-name" scope="row">{measure.name}</th>
+                  <td class="measure-before">
+                    <span class="cell-label">{measureHeads[0]}</span>
+                    {measure.before}
+                  </td>
+                  <td class="measure-after">
+                    <span class="cell-label">{measureHeads[1]}</span>
+                    {measure.after}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </article>
+
+      <article class="example">
+        <p class="example-label">Example two, MVP</p>
+        <h3 class="example-title">Sixty listings live, seven weeks after a Figma file.</h3>
+        <p class="example-brief">
+          An equipment rental marketplace. The founder arrived with a Figma
+          file and a spreadsheet of demand from twelve suppliers. v0 shipped
+          on FastAPI, React and Postgres.
+        </p>
+
+        <table class="scope">
+          <thead>
+            <tr>
+              {scopeHeads.map((head) => <th scope="col">{head}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              scope.map((row) => (
+                <tr>
+                  <td class="scope-ships">
+                    <span class="cell-label">{scopeStacked[0]}</span>
+                    {row.ships}
+                  </td>
+                  <td class="scope-cut">
+                    <span class="cell-label">{scopeStacked[1]}</span>
+                    {row.cut}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .examples-note {
+    max-width: 56ch;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .example {
+    margin-top: 48px;
+  }
+
+  /* Each example already closes with its own table rule, so the gap alone
+     separates the two — a second rule right under the first would read as
+     a stray empty row. */
+  .example + .example {
+    margin-top: 72px;
+  }
+
+  .example-label {
+    color: var(--muted);
+    font-size: var(--text-small);
+    margin-bottom: 10px;
+  }
+
+  .example-title {
+    font-size: var(--text-h3);
+    font-stretch: 110%;
+    font-weight: 600;
+    max-width: 32ch;
+    margin-bottom: 16px;
+  }
+
+  .example-brief {
+    max-width: 58ch;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .example-brief + .example-brief {
+    margin-top: 12px;
+  }
+
+  .example-brief:last-of-type {
+    margin-bottom: 28px;
+  }
+
+  /* .measures, .scope and .cell-label live in global.css — the same shapes
+     section 4 uses for the generic hardening readout and MVP scope table. */
+</style>

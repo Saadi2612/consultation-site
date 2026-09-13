@@ -206,6 +206,211 @@ a {
   line-height: 1.45;
 }
 
+/* Real text, not generated content, so a stacked row on mobile reads the
+   same to everyone. The column headers cover it on wide screens. */
+.cell-label {
+  display: none;
+  color: var(--muted);
+  font-size: var(--text-small);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+  .cell-label {
+    display: block;
+    margin-bottom: 2px;
+  }
+}
+
+/* The MVP scope-table shape: what ships against what is cut, and why.
+   Shared by section 4's MVP build and section 6's worked example. */
+.scope {
+  width: calc(100% + 28px);
+  margin-inline: -14px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.scope th {
+  padding: 0 14px 12px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: var(--text-small);
+  font-stretch: 100%;
+  font-weight: 500;
+  vertical-align: bottom;
+}
+
+.scope td {
+  padding: 18px 14px;
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--text-body);
+  line-height: 1.5;
+  vertical-align: top;
+  text-wrap: pretty;
+}
+
+.scope tbody tr {
+  transition: background-color var(--dur-micro) var(--ease-standard);
+}
+
+.scope tbody tr:hover {
+  background: var(--white);
+}
+
+.scope-ships {
+  color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .scope th:first-child,
+  .scope-ships {
+    width: 38%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* Two columns of prose do not fit 360px, so each row becomes a pair. */
+  .scope,
+  .scope tbody,
+  .scope tr,
+  .scope td {
+    display: block;
+    width: auto;
+  }
+
+  .scope thead {
+    display: none;
+  }
+
+  .scope tr {
+    padding-block: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .scope td {
+    padding-block: 0;
+    border-bottom: 0;
+  }
+
+  .scope-cut {
+    margin-top: 14px;
+  }
+}
+
+/* The hardening before-and-after shape. Shared by section 4's hardening
+   readout and section 6's worked example. */
+.readout {
+  display: grid;
+  row-gap: 36px;
+}
+
+.readout-note {
+  max-width: 52ch;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.measures {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.measures thead th {
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: var(--text-small);
+  font-stretch: 100%;
+  font-weight: 500;
+  vertical-align: bottom;
+}
+
+.measures tbody th,
+.measures tbody td {
+  padding-block: 20px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+
+.measure-name {
+  font-size: var(--text-body);
+  font-stretch: 100%;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* Before sits back, after carries the ink and the size. */
+.measure-before {
+  color: var(--muted);
+  font-size: var(--text-body);
+  line-height: 1.4;
+}
+
+.measure-after {
+  font-size: var(--text-h3);
+  font-stretch: 105%;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .measures thead th:first-child,
+  .measure-name {
+    width: 26%;
+  }
+
+  .measures thead th:nth-child(2),
+  .measure-before {
+    width: 30%;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .measures,
+  .measures tbody,
+  .measures tr,
+  .measures tbody th,
+  .measures td {
+    display: block;
+    width: auto;
+  }
+
+  .measures thead {
+    display: none;
+  }
+
+  .measures tr {
+    padding-block: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .measures tbody th,
+  .measures td {
+    padding-block: 0;
+    border-bottom: 0;
+  }
+
+  .measure-before,
+  .measure-after {
+    margin-top: 10px;
+  }
+}
+
 /* The one clickable shape on the page. Radius 10px marks it as interactive;
    structural blocks stay at 0. */
 .action {
