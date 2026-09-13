@@ -1,29 +1,23 @@
 ---
-/**
- * Four operating facts. Only the overlap window is settled in SPEC.md; the
- * other three are marked as missing rather than guessed at.
- */
+/** Four operating facts, all of them confirmed by Mohib and Saad. */
 const facts = [
   {
     label: "Overlap",
     value:
       "Four hours of your working day, every working day. Eight if you are in the UK or the EU.",
-    missing: false,
   },
   {
     label: "Replies",
-    value: "Missing: reply time inside overlap hours, and outside them.",
-    missing: true,
+    value: "Within 24 hours, whenever you send it.",
   },
   {
     label: "Code ownership",
-    value: "Missing: the point at which the client owns the code.",
-    missing: true,
+    value:
+      "Each milestone is yours the moment you pay for it, not at the end of the build.",
   },
   {
     label: "NDAs",
-    value: "Missing: whose NDA gets signed.",
-    missing: true,
+    value: "We send you our own mutual NDA. You do not have to produce one.",
   },
 ];
 ---
@@ -37,13 +31,7 @@ const facts = [
         facts.map((fact) => (
           <div class="fact">
             <dt class="fact-label">{fact.label}</dt>
-            <dd class="fact-value">
-              {fact.missing ? (
-                <span class="placeholder">{fact.value}</span>
-              ) : (
-                fact.value
-              )}
-            </dd>
+            <dd class="fact-value">{fact.value}</dd>
           </div>
         ))
       }
