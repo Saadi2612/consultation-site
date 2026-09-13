@@ -1,0 +1,129 @@
+---
+/**
+ * A real sequence, so the numbering is earned. Every step names what
+ * Proofload does and what the client has to do that week — the second half
+ * is what makes this credible rather than a generic process graphic.
+ */
+const steps = [
+  {
+    week: "Week 1",
+    us: "We send the mutual NDA and a fixed-scope contract, confirm what's being built against the written scope, and set up a shared channel.",
+    you: "You sign both, grant access to whatever we need — repository, staging environment, admin credentials — and name one person who can decide without checking with a committee.",
+  },
+  {
+    week: "Week 2",
+    us: "We ship the first real piece: one flow you can click through, not a mockup of one.",
+    you: "You try it inside the overlap window and say what's wrong before we build the next piece on top of it.",
+  },
+  {
+    week: "Every week after",
+    us: "We ship another piece and write a short update: what shipped, what's next, what we need from you.",
+    you: "You review inside the overlap window. A decision that waits more than a couple of days pushes the schedule back by that many days.",
+  },
+  {
+    week: "Final week",
+    us: "We deploy it, hand over every credential, and write down what exists and why.",
+    you: "You pay the final milestone. The code was already yours as each milestone landed — this one just finishes the build.",
+  },
+];
+---
+
+<section class="section" id="how-it-runs" aria-labelledby="steps-title">
+  <div class="shell split">
+    <h2 class="section-title" id="steps-title">Four weeks, or eight. The shape doesn't change.</h2>
+
+    <ol class="steps">
+      {
+        steps.map((step, i) => (
+          <li class="step">
+            <div class="step-marker">
+              <span class="step-number">{i + 1}</span>
+              <span class="step-week">{step.week}</span>
+            </div>
+            <div class="step-body">
+              <p class="step-line">
+                <span class="step-who">We</span>
+                {step.us}
+              </p>
+              <p class="step-line">
+                <span class="step-who">You</span>
+                {step.you}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .step {
+    display: grid;
+    row-gap: 16px;
+    padding-block: 28px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .step:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .step-marker {
+    display: flex;
+    align-items: baseline;
+    column-gap: 12px;
+  }
+
+  .step-number {
+    font-size: var(--text-h2);
+    font-stretch: 120%;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .step-week {
+    color: var(--muted);
+    font-size: var(--text-small);
+  }
+
+  .step-body {
+    display: grid;
+    row-gap: 10px;
+  }
+
+  .step-line {
+    max-width: 56ch;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .step-who {
+    display: inline-block;
+    min-width: 3.25rem;
+    margin-right: 2px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  @media (min-width: 768px) {
+    .step {
+      grid-template-columns: minmax(0, 0.5fr) minmax(0, 1.5fr);
+      column-gap: 32px;
+      row-gap: 0;
+    }
+
+    .step-marker {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 6px;
+    }
+  }
+</style>
