@@ -51,12 +51,14 @@ const stages = [
             <p class="seg-state" id={`state-${stage.id}`}>
               {stage.state}
             </p>
-            <div class="seg-reveal">
-              <p class="seg-headline">{stage.headline}</p>
-              <p class="seg-deliverable">{stage.deliverable}</p>
-              <a class="action" href="#contact">
-                {stage.cta}
-              </a>
+            <div class="seg-reveal-track">
+              <div class="seg-reveal">
+                <p class="seg-headline">{stage.headline}</p>
+                <p class="seg-deliverable">{stage.deliverable}</p>
+                <a class="action" href="#contact">
+                  {stage.cta}
+                </a>
+              </div>
             </div>
           </div>
         ))
@@ -174,7 +176,10 @@ const stages = [
     font-size: var(--text-h3);
     line-height: 1.3;
     text-wrap: pretty;
-    transition: opacity var(--dur-state) var(--ease-standard);
+    /* Collapsing text fades out in the first half of the box's narrowing,
+       so it's gone before the box finishes moving, never disappearing with
+       it abruptly. --dur-micro (120ms) is exactly half of --dur-state. */
+    transition: opacity var(--dur-micro) var(--ease-standard);
   }
 
   /* Once a position is chosen, the other two hold their markers and drop
@@ -183,37 +188,45 @@ const stages = [
     opacity: 0;
   }
 
-  /* Out of flow entirely until its position is chosen, so an unselected
-     position never reserves a tall empty block. */
-  .seg-reveal {
+  /* The track that grows/shrinks to fit the reveal's content, using the fr
+     trick instead of animating height directly. Zero size and clipped when
+     the position isn't selected, so an unselected position never reserves
+     a tall empty block under its short sentence. */
+  .seg-reveal-track {
     grid-row: 4;
-    display: none;
+    display: grid;
+    grid-template-rows: 0fr;
+    min-height: 0;
+    overflow: hidden;
+    transition: grid-template-rows var(--dur-state) var(--ease-standard);
+  }
+
+  .seg[data-on] .seg-reveal-track {
+    grid-template-rows: 1fr;
+  }
+
+  /* Always in the DOM, never mounted/unmounted. Sits at rest 6px below its
+     final position and invisible; when selected it moves up and fades in on
+     the same 240ms clock as the track above, delayed 60ms so the box has
+     already started widening before the content starts appearing. */
+  .seg-reveal {
+    min-height: 0;
+    display: grid;
     gap: 12px;
     justify-items: start;
     max-width: 34ch;
     margin-top: 24px;
     opacity: 0;
-    clip-path: inset(0 0 0 0);
+    transform: translateY(6px);
+    pointer-events: none;
     transition:
-      opacity var(--dur-state) var(--ease-standard),
-      clip-path var(--dur-state) var(--ease-standard),
-      display var(--dur-state) allow-discrete;
+      opacity var(--dur-state) var(--ease-standard) 60ms,
+      transform var(--dur-state) var(--ease-standard) 60ms;
   }
 
   .seg[data-on] .seg-reveal {
-    display: grid;
     opacity: 1;
-  }
-
-  /* Reads in from the left, the same direction the track just grew. */
-  @starting-style {
-    .seg[data-on] .seg-reveal {
-      opacity: 0;
-      clip-path: inset(0 0 0 14%);
-    }
-  }
-
-  .seg-reveal .action {
+    transform: translateY(0);
     pointer-events: auto;
   }
 
@@ -301,11 +314,14 @@ const stages = [
       max-width: 22ch;
     }
 
-    .seg[data-on] .seg-reveal {
+    .seg[data-on] .seg-reveal-track {
       grid-column: 2;
       grid-row: 1 / -1;
       align-content: center;
       min-width: 0;
+    }
+
+    .seg[data-on] .seg-reveal {
       margin-top: 0;
     }
   }

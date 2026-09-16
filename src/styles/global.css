@@ -91,9 +91,15 @@
   /* Motion */
   --dur-micro: 120ms;
   --dur-state: 240ms;
-  --dur-enter: 320ms;
+  --dur-enter: 480ms;
+  --dur-stage: 600ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* No header component built yet. Sticky-heading offsets add this in so
+     the top offset only needs updating in one place once one exists. */
+  --header-h: 0px;
 
   /* Layout */
   --measure: 68ch;

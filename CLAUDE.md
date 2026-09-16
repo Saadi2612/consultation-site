@@ -53,41 +53,61 @@ Radius has exactly two tiers and encodes interactivity: `0` on structural blocks
 
 ## Motion
 
-Smoothness comes from a few well-tuned transitions, not from many animations. Everything that moves must respond to something the visitor did.
+Motion is now a primary design tool, not a garnish. The site's premium feel comes from two things working together: a sticky-scroll reading pattern for content sections, and a distinct, considered entrance animation per section. Distinct means a visitor who scrolls through the whole page should be able to feel that section 4 moves differently from section 6 — repeating the same fade-up on every section is the cheap version of this idea, and is exactly as banned as doing nothing.
 
 ```
---dur-micro: 120ms   /* hover, focus, colour */
---dur-state: 240ms   /* selection, expand, collapse */
---dur-enter: 320ms   /* a panel appearing */
+--dur-micro:  120ms   /* hover, focus, colour */
+--dur-state:  240ms   /* the hero rail, accordion, sticky bar */
+--dur-enter:  480ms   /* a section element entering on scroll */
+--dur-stage:  600ms   /* the sticky-scroll handoff between stages within a section */
 --ease-out:      cubic-bezier(0.16, 1, 0.30, 1)
 --ease-standard: cubic-bezier(0.20, 0, 0, 1)
+--ease-premium:  cubic-bezier(0.22, 1, 0.36, 1)   /* slightly more settle, use for --dur-enter and --dur-stage */
 ```
 
-Animate only `transform`, `opacity`, `clip-path`, `color`, `border-color`, and `grid-template-columns`/`grid-template-rows` on the hero rail specifically. Never animate `width`, `height`, `top`, `left`, `margin`, `padding`, `box-shadow`, `filter` or `backdrop-filter`. Set `will-change` when a transition starts and remove it on `transitionend`.
+Animate only `transform`, `opacity`, `clip-path`, `color`, `border-color`, and `grid-template-rows`/`grid-template-columns` where a track genuinely resizes (the hero rail). Never animate `width`, `height`, `top`, `left`, `margin`, `padding`, `box-shadow`, or `filter`. Set `will-change` only while a transition is active and remove it on `transitionend` or when the element leaves the viewport.
 
-**The complete list of things that move. Nothing else animates.**
+### Sticky heading, scrolling content
 
-1. Hero rail selection — the signature moment, 240ms `--ease-standard`
-2. Hover and focus — colour and underline only, 120ms, no lift or scale or shadow
-3. Header bottom rule fading in past the hero, 160ms
-4. Sticky bar sliding in past the hero, 240ms, once
-5. FAQ accordion, 200ms
-6. Scope table row hover, colour only
-7. Form submit crossfading to confirmation, 280ms
-8. Native smooth scroll on anchors
-9. Press feedback on `.action` — `transform: scale(0.97)` on `:active` only, 100ms `--ease-standard`. Not a hover effect: it fires on pointer-down, confirms the click landed, and releases the instant the pointer lifts.
+This is the section layout for 3 through 11. The section heading — and only the heading, plus at most one short supporting line — pins to the left column and stays fixed on screen for the full height of that section's content. The right column scrolls underneath it, revealing its content piece by piece as the visitor scrolls.
 
-Under `prefers-reduced-motion: reduce`, all durations drop to 0.01ms, state changes apply instantly, `scroll-behavior` becomes `auto`, and the page stays fully usable.
+Implementation: the heading is `position: sticky; top: <header height + 32px>` inside a section whose own height is driven by its content column, so the sticky heading releases naturally when the section ends — do not fake this with `position: fixed` and manual scroll math. On mobile below 900px, drop the sticky behaviour entirely and stack heading above content normally; sticky-while-scrolling on a phone viewport that's already narrow reads as broken, not premium.
 
-### Craft notes
+### One distinct entrance animation per section
 
-These are techniques, not new things that move — they govern *how* the nine items above are built.
+Each section's right-column content animates in via `IntersectionObserver` (threshold ~0.2, `rootMargin: "0px 0px -10% 0px"`), once, never re-triggering on scroll-up. Assign a different treatment per section so the page has rhythm rather than a single repeated effect:
 
-- **Curve per trigger, not per taste.** An element entering or leaving uses `--ease-out` (starts fast, reads as responsive). Something moving or morphing on screen — the rail's grid tracks — uses `--ease-standard`. Never `ease-in` on anything the visitor is watching; it delays the movement at the exact moment they're looking for it.
-- **Entrances start visible, not from nothing.** A panel appearing (`.seg-reveal`, the FAQ answer, the confirmation state) animates `opacity` and `clip-path` from a state that already shows a sliver of itself, never from `scale(0)` or fully collapsed with no size. Prefer `@starting-style` for CSS-only entrances over a JS `mounted` flag; fall back to a `data-mounted` attribute only where browser support forces it.
-- **An interactive element may preview its own active state.** The hero rail markers tint toward `--spot` on hover/focus before the visitor commits, using `color` only, on the same duration the real state change uses. Gate the hover half behind `@media (hover: hover) and (pointer: fine)` so touch taps don't get stuck in a false hover state — focus-visible stays ungated.
-- **Transitions, not keyframes, for anything triggered repeatedly.** The FAQ accordion and sticky bar can be opened, closed, scrolled past and back within a second of real use. A CSS transition retargets smoothly mid-flight; a `@keyframes` animation restarts from zero and stutters. Reserve keyframes for something that only ever plays once, uninterrupted.
-- **`will-change` is scoped to the element and property actually transitioning**, set when the transition starts and cleared on `transitionend`/`transitioncancel` — never left on an element at rest.
+- **Ground-truth strip (3):** each fact rises in place — `opacity 0→1`, `translateY(16px)→0`, `--dur-enter` `--ease-premium`, each row offset from the previous by 80ms.
+- **Consultation (4a):** the two-week strip draws on a horizontal axis — each week's block enters with `translateX(-24px)→0` plus opacity, left block first, right block 120ms behind it, since the content itself is sequential.
+- **MVP scope table (4b):** rows resolve top to bottom, `opacity 0→1` only, no translate, staggered 60ms per row — a table reordering itself in space would look glitchy, a table appearing in reading order looks composed.
+- **Hardening readout (4c):** the four metrics count and settle — the "before" figure appears first, holds for 200ms, then the "after" figure and its improvement crossfade in beside it. This is the one place a numeric transition earns its keep, because the before/after gap is the actual content of the section.
+- **How an engagement runs (5):** each week card enters from the right, `translateX(24px)→0` with opacity, 100ms stagger, mirroring forward progress through the weeks.
+- **Worked examples (6):** reuse the treatments from section 4 for internal consistency, since these sections share a visual grammar already.
+- **Fit filter (7):** the two columns enter independently — "work we take" rises from below, "work we turn down" fades in with no motion at all, so the asymmetry in the copy (one list is a positive pitch, the other a filter) is echoed in how each column arrives.
+- **Cross-border (8) and FAQ (11):** plain opacity fade only, `--dur-enter`, no transform. These are dense reading sections; do not add motion competing with reading.
+- **Founders (10):** each founder's block enters with a very slight scale, `scale(0.98)→1` plus opacity, `--dur-enter` `--ease-premium` — this is the one place a scale transform is allowed, reserved for the section introducing the two people.
+
+Nothing here uses spring overshoot, bounce, or blur-in. Every entrance is monotonic: it moves toward its resting state and stops.
+
+### Hero rail — expansion must not reflow abruptly
+
+The failure mode to avoid: a segment's box changes size the instant it's selected and its inner text pops into existence, which reads exactly as "snappy and cheap" rather than premium. Fix:
+
+- The grid-track transition (`1fr 1fr 1fr` → `0.9fr 2.2fr 0.9fr`) and the inner content reveal must run on the same `--dur-state` (240ms) and the same easing, so the box and its contents finish growing at the same moment. Do not let the track resize and then have content fade in afterward with a visible gap.
+- Inner content of the selected segment (deliverable, timeframe, button) is present in the DOM at all times at `opacity: 0; transform: translateY(6px)`, and transitions to `opacity: 1; translateY(0)` on the same 240ms clock, delayed by 60ms so the box has started widening before its content starts appearing — not before, not simultaneously.
+- Text inside the collapsing segments does not disappear abruptly; it fades over the first 120ms of the 240ms transition, finishing before the box has finished narrowing.
+
+### Sticky bar and header rule
+
+Header bottom rule fades in past the hero, 160ms. The sticky summary bar (selected state + primary button) slides in once past the hero, 240ms, and does not re-animate on subsequent scrolling.
+
+### Reduced motion
+
+Under `prefers-reduced-motion: reduce`: sticky headings still pin (that's layout, not motion), but every IntersectionObserver entrance applies its end state immediately with no transition, all durations drop to 0.01ms, and `scroll-behavior` becomes `auto`. The page must remain fully usable and fully readable with motion off entirely.
+
+### Budget, revised
+
+The sticky-scroll pattern and IntersectionObserver module add real code. Total JS budget is now 70kb gzipped, still with no UI framework — this is one vanilla TypeScript motion module handling the hero rail, the sticky sections, the accordion, and the entrance observer. If you find yourself needing more than that, the animations are too elaborate, not the budget too small.
 
 ## Never build
 
@@ -103,7 +123,10 @@ These are the patterns that make a site read as machine-generated. They are not 
 - Generic icons sitting in tinted rounded squares
 - A grid of technology logos
 - Stock photography
-- Scroll-triggered fade-and-slide-up on section entry, staggered card entrances, parallax, marquees, typewriter text, counting-number reveals, spring overshoot
+- The *same* entrance animation repeated on every section — motion is a rhythm device now, and repeating one effect throughout is the cheap version of using it at all
+- Parallax (background moving at a different rate than foreground), marquees, typewriter text, blur-in, spring overshoot or bounce on anything, `position: fixed` hacks for sticky headings
+- A sticky heading that stays pinned on mobile below 900px
+- Content that pops into existence the instant a container finishes resizing, rather than resolving on the same clock as the resize (see hero rail rules)
 - Two headings that say the same thing in one viewport
 
 ## Copy
@@ -135,7 +158,9 @@ After each section:
 
 1. `npm run build` — it must pass with no errors
 2. Screenshot with Playwright at 1440x900 and 390x844, then actually look at the images before continuing
-3. Check the section against the "Never build" list above, item by item
-4. `git commit` with the section name
+3. Screen-record or step through the scroll behaviour specifically — the sticky heading must release cleanly at the section boundary, and the entrance animation must match the treatment assigned to that section in the Motion section above, not a copy of the previous section's treatment
+4. Toggle `prefers-reduced-motion` and confirm the section is still fully readable with all motion removed
+5. Check the section against the "Never build" list above, item by item
+6. `git commit` with the section name
 
 Stop and ask before: adding any dependency, deviating from a token, or making a layout choice `SPEC.md` does not cover.
