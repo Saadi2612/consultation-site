@@ -75,8 +75,19 @@ Animate only `transform`, `opacity`, `clip-path`, `color`, `border-color`, and `
 6. Scope table row hover, colour only
 7. Form submit crossfading to confirmation, 280ms
 8. Native smooth scroll on anchors
+9. Press feedback on `.action` — `transform: scale(0.97)` on `:active` only, 100ms `--ease-standard`. Not a hover effect: it fires on pointer-down, confirms the click landed, and releases the instant the pointer lifts.
 
 Under `prefers-reduced-motion: reduce`, all durations drop to 0.01ms, state changes apply instantly, `scroll-behavior` becomes `auto`, and the page stays fully usable.
+
+### Craft notes
+
+These are techniques, not new things that move — they govern *how* the nine items above are built.
+
+- **Curve per trigger, not per taste.** An element entering or leaving uses `--ease-out` (starts fast, reads as responsive). Something moving or morphing on screen — the rail's grid tracks — uses `--ease-standard`. Never `ease-in` on anything the visitor is watching; it delays the movement at the exact moment they're looking for it.
+- **Entrances start visible, not from nothing.** A panel appearing (`.seg-reveal`, the FAQ answer, the confirmation state) animates `opacity` and `clip-path` from a state that already shows a sliver of itself, never from `scale(0)` or fully collapsed with no size. Prefer `@starting-style` for CSS-only entrances over a JS `mounted` flag; fall back to a `data-mounted` attribute only where browser support forces it.
+- **An interactive element may preview its own active state.** The hero rail markers tint toward `--spot` on hover/focus before the visitor commits, using `color` only, on the same duration the real state change uses. Gate the hover half behind `@media (hover: hover) and (pointer: fine)` so touch taps don't get stuck in a false hover state — focus-visible stays ungated.
+- **Transitions, not keyframes, for anything triggered repeatedly.** The FAQ accordion and sticky bar can be opened, closed, scrolled past and back within a second of real use. A CSS transition retargets smoothly mid-flight; a `@keyframes` animation restarts from zero and stutters. Reserve keyframes for something that only ever plays once, uninterrupted.
+- **`will-change` is scoped to the element and property actually transitioning**, set when the transition starts and cleared on `transitionend`/`transitioncancel` — never left on an element at rest.
 
 ## Never build
 
