@@ -199,6 +199,40 @@ a {
   }
 }
 
+/* Sticky heading, scrolling content — sections 3 through 11. The heading
+   pins for the height of the content column and releases naturally when
+   the section (and its grid row) ends. Below 900px this stays off entirely:
+   a heading pinned over a phone-width column reads as broken, not premium. */
+@media (min-width: 900px) {
+  .sticky-split > :first-child {
+    align-self: start;
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Entrance treatments. Each is gated behind [data-entrance], set by the
+   IntersectionObserver in entrance.ts once the section scrolls into view,
+   and [data-entrance].is-visible, the end state. Nothing here fires twice.
+--------------------------------------------------------------------------- */
+
+/* Ground-truth strip (3): each fact rises in place, staggered by 80ms via
+   the --i custom property each row carries inline. */
+[data-entrance] .enter-rise {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-enter) var(--ease-premium),
+    transform var(--dur-enter) var(--ease-premium);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
+[data-entrance].is-visible .enter-rise {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* A fact SPEC.md asks for that Mohib and Saad have not supplied yet. Loud on
    purpose: it must not survive to launch. */
 .placeholder {

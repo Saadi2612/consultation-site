@@ -23,13 +23,13 @@ const facts = [
 ---
 
 <section class="section facts" aria-labelledby="facts-title">
-  <div class="shell split">
+  <div class="shell split sticky-split">
     <h2 class="section-title" id="facts-title">Four things you can hold us to.</h2>
 
-    <dl class="facts-list">
+    <dl class="facts-list" data-entrance>
       {
-        facts.map((fact) => (
-          <div class="fact">
+        facts.map((fact, i) => (
+          <div class="fact enter-rise" style={`--i: ${i}`}>
             <dt class="fact-label">{fact.label}</dt>
             <dd class="fact-value">{fact.value}</dd>
           </div>
