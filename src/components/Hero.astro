@@ -153,6 +153,19 @@ const stages = [
     color: var(--spot);
   }
 
+  /* A hint that a position is clickable before it's chosen: the marker
+     previews the spot it turns on selection. Colour only, same rail
+     transition — hover and the real thing share one motion contract. */
+  .seg:not([data-on]) .seg-hit:focus-visible ~ .seg-marker {
+    color: var(--spot);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .seg:not([data-on]) .seg-hit:hover ~ .seg-marker {
+      color: var(--spot);
+    }
+  }
+
   .seg-state {
     grid-row: 3;
     align-self: end;
@@ -180,8 +193,10 @@ const stages = [
     max-width: 34ch;
     margin-top: 24px;
     opacity: 0;
+    clip-path: inset(0 0 0 0);
     transition:
       opacity var(--dur-state) var(--ease-standard),
+      clip-path var(--dur-state) var(--ease-standard),
       display var(--dur-state) allow-discrete;
   }
 
@@ -190,9 +205,11 @@ const stages = [
     opacity: 1;
   }
 
+  /* Reads in from the left, the same direction the track just grew. */
   @starting-style {
     .seg[data-on] .seg-reveal {
       opacity: 0;
+      clip-path: inset(0 0 0 14%);
     }
   }
 
