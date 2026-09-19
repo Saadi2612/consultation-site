@@ -1,0 +1,212 @@
+---
+import { site } from "../../lib/site";
+
+const links = [
+  { href: "#facts", label: "What you get" },
+  { href: "#scoping", label: "Scoping" },
+  { href: "#numbers", label: "Numbers" },
+  { href: "#engagement", label: "Engagement" },
+];
+---
+
+<header class="v3-nav" data-v3-nav>
+  <div class="v3-nav-inner">
+    <a class="v3-nav-logo" href="#top">Proofload</a>
+
+    <nav class="v3-nav-links" aria-label="Primary">
+      {links.map((link) => <a class="v3-nav-link" href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <div class="v3-nav-actions">
+      <a class="v3-nav-badge" href="#fit">Read the fit filter</a>
+      <a
+        class="v3-btn v3-btn-primary"
+        href={site.booking}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Book a call
+      </a>
+    </div>
+
+    <details class="v3-nav-mobile">
+      <summary aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </summary>
+      <div class="v3-nav-sheet">
+        {links.map((link) => <a class="v3-nav-link" href={link.href}>{link.label}</a>)}
+        <a class="v3-nav-link" href="#fit">Fit filter</a>
+        <a
+          class="v3-btn v3-btn-primary v3-nav-sheet-cta"
+          href={site.booking}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Book a call
+        </a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  /* §4 Top Navigation Bar: #171721, 16px 32px, 72px tall, nav shadow. */
+  .v3-nav {
+    position: sticky;
+    top: 0;
+    z-index: var(--v3-z-sticky);
+    background: var(--v3-surface-dark);
+    color: var(--v3-text-inverse);
+    box-shadow: none;
+    transition: box-shadow var(--v3-dur-state) var(--v3-ease);
+  }
+
+  .v3-nav.is-past {
+    box-shadow: var(--v3-shadow-nav);
+  }
+
+  .v3-nav-inner {
+    max-width: var(--v3-max-bleed);
+    margin-inline: auto;
+    height: 72px;
+    padding: var(--v3-space-4) var(--v3-gutter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--v3-space-6);
+  }
+
+  .v3-nav-logo {
+    font-family: var(--v3-font-display);
+    font-size: var(--v3-body-lg);
+    line-height: var(--v3-body-lg-lh);
+    font-weight: var(--v3-w-display);
+    color: var(--v3-text-inverse);
+    text-decoration: none;
+  }
+
+  .v3-nav-links {
+    display: none;
+    align-items: center;
+    gap: var(--v3-space-6);
+  }
+
+  /* §4 Nav Link: 16px/400, hover turns #9CB4E8 with a 2px underline. The
+     underline is a fixed-height border that only changes colour, so hovering
+     across the row never shifts the text baseline. */
+  .v3-nav-link {
+    color: var(--v3-text-inverse);
+    font-size: var(--v3-body);
+    font-weight: var(--v3-w-regular);
+    line-height: var(--v3-body-lh);
+    text-decoration: none;
+    border-radius: var(--v3-radius-min);
+    border-bottom: 2px solid transparent;
+    transition: color var(--v3-dur-micro) var(--v3-ease),
+      border-color var(--v3-dur-micro) var(--v3-ease);
+  }
+
+  .v3-nav-link:hover {
+    color: var(--v3-primary-overlay);
+    border-bottom-color: var(--v3-primary-overlay);
+  }
+
+  .v3-nav-actions {
+    display: none;
+    align-items: center;
+    gap: var(--v3-space-3);
+  }
+
+  /* §4 Nav Link (Badge/Secondary) */
+  .v3-nav-badge {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 16px;
+    border-radius: var(--v3-radius-pill);
+    background: var(--v3-overlay-20);
+    color: var(--v3-text-inverse);
+    font-size: var(--v3-ui-small);
+    font-weight: var(--v3-w-body);
+    line-height: var(--v3-ui-small);
+    text-decoration: none;
+    transition: background-color var(--v3-dur-micro) var(--v3-ease);
+  }
+
+  .v3-nav-badge:hover {
+    background: var(--v3-overlay-30);
+  }
+
+  /* §8: navigation condenses into a menu at 768px. A native disclosure keeps
+     this keyboard-operable without adding a second script to the page. */
+  .v3-nav-mobile {
+    position: relative;
+  }
+
+  .v3-nav-mobile > summary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--v3-radius-pill);
+    list-style: none;
+    cursor: pointer;
+    color: var(--v3-text-inverse);
+    transition: background-color var(--v3-dur-micro) var(--v3-ease);
+  }
+
+  .v3-nav-mobile > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .v3-nav-mobile > summary:hover {
+    background: var(--v3-overlay-10);
+  }
+
+  .v3-nav-mobile > summary svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .v3-nav-sheet {
+    position: absolute;
+    right: 0;
+    top: calc(100% + var(--v3-space-2));
+    z-index: var(--v3-z-dropdown);
+    min-width: 232px;
+    display: grid;
+    gap: var(--v3-space-4);
+    padding: var(--v3-space-4);
+    background: var(--v3-surface-darker);
+    border-radius: var(--v3-radius-sharp);
+    box-shadow: var(--v3-shadow-elevated);
+  }
+
+  .v3-nav-sheet .v3-nav-link {
+    padding-block: var(--v3-space-2);
+  }
+
+  .v3-nav-sheet-cta {
+    margin-top: var(--v3-space-1);
+  }
+
+  @media (min-width: 768px) {
+    .v3-nav-mobile {
+      display: none;
+    }
+
+    .v3-nav-links,
+    .v3-nav-actions {
+      display: flex;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .v3-nav-badge {
+      display: none;
+    }
+  }
+</style>

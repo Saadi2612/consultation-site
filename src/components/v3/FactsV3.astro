@@ -1,0 +1,73 @@
+---
+const facts = [
+  {
+    title: "Overlap",
+    body: "Four hours of your working day, every working day. Eight if you're in the UK or the EU.",
+  },
+  {
+    title: "Replies",
+    body: "Within 24 hours, whenever you send it.",
+  },
+  {
+    title: "Code ownership",
+    body: "Each milestone is yours the moment you pay for it, not at the end of the build.",
+  },
+  {
+    title: "NDAs",
+    body: "We send you our own mutual NDA. You don't have to produce one.",
+  },
+];
+---
+
+<section class="v3-section v3-section-light" id="facts" aria-labelledby="v3-facts-title">
+  <div class="v3-container v3-split">
+    <div class="v3-split-head">
+      <h2 class="v3-display-2" id="v3-facts-title">Four things you can hold us to.</h2>
+      <p class="v3-body v3-on-light-secondary v3-facts-lede">
+        Not values. Four commitments with a number attached, which is what
+        makes them checkable.
+      </p>
+    </div>
+
+    <div class="v3-facts-grid">
+      {
+        facts.map((fact, i) => (
+          <article
+            class="v3-card v3-card-interactive v3-fact"
+            data-v3-reveal
+            data-v3-delay={i * 60}
+          >
+            <h3 class="v3-fact-title">{fact.title}</h3>
+            <p class="v3-body v3-on-light-secondary">{fact.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .v3-facts-lede {
+    margin-top: var(--v3-space-4);
+    max-width: 38ch;
+  }
+
+  .v3-facts-grid {
+    display: grid;
+    gap: var(--v3-space-6);
+  }
+
+  @media (min-width: 768px) {
+    .v3-facts-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .v3-fact-title {
+    font-family: var(--v3-font-display);
+    font-size: var(--v3-body-lg);
+    line-height: var(--v3-body-lg-lh);
+    font-weight: var(--v3-w-display);
+    margin-bottom: var(--v3-space-3);
+  }
+</style>

@@ -1,0 +1,608 @@
+/* v3 — the Mercury design system (designmd.me/discover/mercury), applied to
+   the Proofload page structure from design.md. Isolated to the /v3 route with
+   its own tokens; global.css (v1) and v2.css are untouched on purpose.
+
+   Every value below is taken from the Mercury document: the colour roles in
+   §2, the eight-tier type scale in §3, the component specs in §4, the 4px
+   spacing scale and radius scale in §5, and the shadow and z-index tiers in
+   §6. Where the document names a size in px, it stays px — §9 asks for the
+   hierarchy to be applied strictly rather than re-derived as fluid type, so
+   the scale steps down at the §8 breakpoints instead of interpolating. */
+
+/* Mercury names Arcadia Display and Arcadia. Neither is licensed here, so the
+   stack keeps both names first and falls back to the self-hosted Archivo
+   variable face, which carries real 420 and 480 weights — the two weights the
+   whole hierarchy is built on. A static fallback would round them to 400/500
+   and flatten the distinction. */
+@font-face {
+  font-family: "Archivo v3";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/archivo-latin-var.woff2") format("woff2");
+}
+
+/* size-adjust fallback so the swap does not shift text. */
+@font-face {
+  font-family: "Archivo v3 fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 102%;
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* §2 Primary */
+  --v3-primary: #5266eb;
+  --v3-primary-overlay: #9cb4e8;
+
+  /* §2 Accent */
+  --v3-accent-soft: #afb2ce;
+  --v3-accent-light: #ededf3;
+
+  /* §2 Interactive */
+  --v3-ghost: #171721;
+  --v3-tertiary: #272735;
+
+  /* §2 Neutral scale */
+  --v3-text-primary: #000000;
+  --v3-text-inverse: #ededf3;
+  --v3-text-tertiary: #c3c3cc;
+  --v3-white: #ffffff;
+
+  /* §2 Surface & borders */
+  --v3-surface-dark: #171721;
+  --v3-surface-darker: #272735;
+  --v3-border-subtle: #ebebeb;
+  --v3-border-muted: #f5f5f5;
+  --v3-border-input: rgba(156, 180, 232, 0.3);
+
+  /* Derived overlays, all from --v3-primary-overlay at the opacities §4 names */
+  --v3-overlay-10: rgba(156, 180, 232, 0.1);
+  --v3-overlay-20: rgba(156, 180, 232, 0.2);
+  --v3-overlay-30: rgba(156, 180, 232, 0.3);
+
+  /* §3 type scale — role: size / line-height / weight */
+  --v3-display-1: 49px;
+  --v3-display-1-lh: 54px;
+  --v3-display-2: 42px;
+  --v3-display-2-lh: 48px;
+  --v3-h3: 16px;
+  --v3-h3-lh: 24px;
+  --v3-body-lg: 21px;
+  --v3-body-lg-lh: 25px;
+  --v3-body: 16px;
+  --v3-body-lh: 24px;
+  --v3-button: 16px;
+  --v3-small: 12px;
+  --v3-small-lh: 17px;
+  --v3-ui-small: 14px;
+
+  --v3-w-display: 480;
+  --v3-w-body: 420;
+  --v3-w-regular: 400;
+  --v3-w-small: 480;
+
+  /* §5 spacing, base unit 4px */
+  --v3-space-1: 4px;
+  --v3-space-2: 8px;
+  --v3-space-3: 12px;
+  --v3-space-4: 16px;
+  --v3-space-6: 24px;
+  --v3-space-8: 32px;
+  --v3-space-10: 40px;
+  --v3-space-18: 72px;
+
+  /* §5 radius scale — 0, 4, 32, 40 and nothing else */
+  --v3-radius-sharp: 0px;
+  --v3-radius-min: 4px;
+  --v3-radius-input: 32px;
+  --v3-radius-pill: 40px;
+
+  /* §5 grid */
+  --v3-max-bleed: 1440px;
+  --v3-max-content: 1024px;
+  --v3-gutter: 32px;
+
+  /* §6 elevation */
+  --v3-shadow-nav: rgba(86, 86, 118, 0.1) 0px 0px 6px 0px;
+  --v3-shadow-hover: rgba(28, 28, 35, 0.02) 0px 10px 16px 0px,
+    rgba(28, 28, 35, 0.04) 0px 6px 10px 0px,
+    rgba(28, 28, 35, 0.09) 0px 0px 3px 0px;
+  --v3-shadow-elevated: rgba(0, 0, 0, 0.05) 0px 0px 3px 0px,
+    rgba(0, 0, 0, 0.05) 0px 8px 12px 0px,
+    rgba(0, 0, 0, 0.05) 0px 12px 20px 0px;
+
+  /* §6 opacity */
+  --v3-opacity-disabled: 0.24;
+  --v3-opacity-hover: 0.7;
+
+  /* §6 z-index — never jump a tier */
+  --v3-z-base: 1;
+  --v3-z-grouped: 2;
+  --v3-z-sticky: 3;
+  --v3-z-floating: 5;
+  --v3-z-dropdown: 10;
+
+  --v3-font-display: "arcadia-display", "Archivo v3", "Archivo v3 fallback",
+    system-ui, -apple-system, sans-serif;
+  --v3-font-body: "arcadia", "Archivo v3", "Archivo v3 fallback", system-ui,
+    -apple-system, sans-serif;
+
+  --v3-dur-micro: 160ms;
+  --v3-dur-state: 240ms;
+  --v3-dur-enter: 480ms;
+  --v3-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* §8 responsive: gutters step 32 / 24 / 16 / 12, type steps down, spacing halves */
+@media (max-width: 1023px) {
+  :root {
+    --v3-gutter: 24px;
+    --v3-display-1: 32px;
+    --v3-display-1-lh: 38px;
+    --v3-display-2: 32px;
+    --v3-display-2-lh: 38px;
+    --v3-body-lg: 18px;
+    --v3-body-lg-lh: 26px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --v3-gutter: 16px;
+    --v3-display-1: 24px;
+    --v3-display-1-lh: 30px;
+    --v3-display-2: 24px;
+    --v3-display-2-lh: 30px;
+    --v3-body-lg: 16px;
+    --v3-body-lg-lh: 24px;
+  }
+}
+
+@media (max-width: 400px) {
+  :root {
+    --v3-gutter: 12px;
+  }
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+
+.v3 {
+  margin: 0;
+  background: var(--v3-white);
+  color: var(--v3-text-primary);
+  font-family: var(--v3-font-body);
+  font-size: var(--v3-body);
+  font-weight: var(--v3-w-body);
+  line-height: var(--v3-body-lh);
+  -webkit-font-smoothing: antialiased;
+}
+
+.v3 *,
+.v3 *::before,
+.v3 *::after {
+  box-sizing: border-box;
+}
+
+.v3 h1,
+.v3 h2,
+.v3 h3,
+.v3 h4,
+.v3 p,
+.v3 ul,
+.v3 ol,
+.v3 figure,
+.v3 table {
+  margin: 0;
+}
+
+.v3 img,
+.v3 svg {
+  display: block;
+  max-width: 100%;
+}
+
+.v3 :focus-visible {
+  outline: 2px solid var(--v3-primary);
+  outline-offset: 2px;
+  border-radius: var(--v3-radius-min);
+}
+
+.v3-dark :focus-visible {
+  outline-color: var(--v3-primary-overlay);
+}
+
+.v3-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.v3-skip {
+  position: absolute;
+  left: var(--v3-space-4);
+  top: -64px;
+  z-index: var(--v3-z-dropdown);
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 20px;
+  border-radius: var(--v3-radius-pill);
+  background: var(--v3-primary);
+  color: var(--v3-white);
+  font-size: var(--v3-button);
+  text-decoration: none;
+  transition: top var(--v3-dur-micro) var(--v3-ease);
+}
+
+.v3-skip:focus {
+  top: var(--v3-space-4);
+}
+
+/* ── Layout ───────────────────────────────────────────────────────────── */
+
+.v3-bleed {
+  max-width: var(--v3-max-bleed);
+  margin-inline: auto;
+  padding-inline: var(--v3-gutter);
+}
+
+.v3-container {
+  max-width: var(--v3-max-content);
+  margin-inline: auto;
+  padding-inline: var(--v3-gutter);
+}
+
+/* §7: don't exceed 72px padding on a standard section; hero is the exception. */
+.v3-section {
+  padding-block: var(--v3-space-18);
+}
+
+.v3-section-light {
+  background: var(--v3-white);
+}
+
+.v3-section-tint {
+  background: var(--v3-accent-light);
+}
+
+/* §4 Dark Container */
+.v3-dark {
+  background: var(--v3-surface-dark);
+  color: var(--v3-text-inverse);
+}
+
+@media (max-width: 1023px) {
+  .v3-section {
+    padding-block: var(--v3-space-10);
+  }
+}
+
+@media (max-width: 767px) {
+  .v3-section {
+    padding-block: var(--v3-space-8);
+  }
+}
+
+/* Heading + content split. Two columns on desktop, one below 768px (§8). */
+.v3-split {
+  display: grid;
+  gap: var(--v3-space-10);
+}
+
+@media (min-width: 768px) {
+  .v3-split {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--v3-space-10);
+  }
+}
+
+/* Sticky under the 72px bar (§4) plus one 32px step. The sticky rectangle is
+   the grid area, so the heading pins while its own column scrolls past and
+   releases at the section boundary on its own — no fixed positioning, no
+   scroll maths. In sections where both columns are nearly the same height the
+   travel is short, which is correct rather than broken. */
+.v3-split-head {
+  position: sticky;
+  top: calc(72px + var(--v3-space-8));
+  align-self: start;
+}
+
+@media (max-width: 899px) {
+  .v3-split-head {
+    position: static;
+    top: auto;
+  }
+}
+
+/* ── Type roles (§3) ──────────────────────────────────────────────────── */
+
+.v3-display-1 {
+  font-family: var(--v3-font-display);
+  font-size: var(--v3-display-1);
+  line-height: var(--v3-display-1-lh);
+  font-weight: var(--v3-w-display);
+  text-wrap: balance;
+}
+
+.v3-display-2 {
+  font-family: var(--v3-font-display);
+  font-size: var(--v3-display-2);
+  line-height: var(--v3-display-2-lh);
+  font-weight: var(--v3-w-display);
+  text-wrap: balance;
+}
+
+.v3-h3 {
+  font-family: var(--v3-font-body);
+  font-size: var(--v3-h3);
+  line-height: var(--v3-h3-lh);
+  font-weight: var(--v3-w-regular);
+}
+
+/* §7: Arcadia Display is reserved for Display 1–2 and Body Large. */
+.v3-body-lg {
+  font-family: var(--v3-font-display);
+  font-size: var(--v3-body-lg);
+  line-height: var(--v3-body-lg-lh);
+  font-weight: var(--v3-w-display);
+}
+
+.v3-body {
+  font-size: var(--v3-body);
+  line-height: var(--v3-body-lh);
+  font-weight: var(--v3-w-body);
+}
+
+.v3-small {
+  font-size: var(--v3-small);
+  line-height: var(--v3-small-lh);
+  font-weight: var(--v3-w-small);
+}
+
+.v3-ui-small {
+  font-size: var(--v3-ui-small);
+  line-height: var(--v3-ui-small);
+  font-weight: var(--v3-w-body);
+}
+
+.v3-measure {
+  max-width: 62ch;
+}
+
+.v3-muted {
+  color: var(--v3-text-tertiary);
+}
+
+.v3-on-light-secondary {
+  /* #C3C3CC fails AA as body copy on white, so supporting text on light
+     surfaces uses the same accent family darkened to a passing value. */
+  color: #55555f;
+}
+
+/* ── Buttons (§4) — three variants only ──────────────────────────────── */
+
+.v3-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--v3-space-2);
+  font-family: var(--v3-font-body);
+  font-weight: var(--v3-w-body);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--v3-dur-micro) var(--v3-ease),
+    opacity var(--v3-dur-micro) var(--v3-ease),
+    transform var(--v3-dur-micro) var(--v3-ease),
+    color var(--v3-dur-micro) var(--v3-ease);
+}
+
+/* Mercury specifies #EDEDF3 on #5266EB here, which measures 4.04:1 — under
+   AA for 16px text, and §9.8 asks for contrast to be validated. Neutral White
+   is already in the palette and takes the same pair to 4.71:1, so the button
+   keeps its specified background and changes only its text token. */
+.v3-btn-primary {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: var(--v3-radius-pill);
+  background: var(--v3-primary);
+  color: var(--v3-white);
+  font-size: var(--v3-button);
+  line-height: var(--v3-button);
+}
+
+.v3-btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.v3-btn-primary:active {
+  opacity: 0.8;
+  transform: translateY(0);
+}
+
+.v3-btn-secondary {
+  height: 32px;
+  padding: 0 16px;
+  border-radius: var(--v3-radius-pill);
+  background: var(--v3-overlay-20);
+  color: var(--v3-text-inverse);
+  font-size: var(--v3-ui-small);
+  line-height: var(--v3-ui-small);
+}
+
+.v3-btn-secondary:hover {
+  background: var(--v3-overlay-30);
+}
+
+.v3-btn-secondary:active {
+  background: rgba(156, 180, 232, 0.15);
+}
+
+/* On a light surface the 20%-overlay fill has too little contrast to read as a
+   control, so the same variant keeps its geometry and takes dark text. */
+.v3-section-light .v3-btn-secondary,
+.v3-section-tint .v3-btn-secondary {
+  background: var(--v3-overlay-20);
+  color: var(--v3-text-primary);
+}
+
+.v3-btn-ghost {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: var(--v3-radius-pill);
+  background: transparent;
+  color: var(--v3-text-inverse);
+  font-size: var(--v3-button);
+  line-height: var(--v3-button);
+}
+
+.v3-btn-ghost:hover {
+  background: var(--v3-overlay-10);
+  transform: scale(1.02);
+}
+
+.v3-btn-ghost:active {
+  color: var(--v3-primary-overlay);
+}
+
+/* §8 touch targets: 44px minimum on mobile */
+@media (max-width: 767px) {
+  .v3-btn-primary,
+  .v3-btn-ghost,
+  .v3-btn-secondary {
+    height: 44px;
+    padding: 0 20px;
+  }
+}
+
+/* ── Cards (§4) ──────────────────────────────────────────────────────── */
+
+.v3-card {
+  background: var(--v3-white);
+  padding: var(--v3-space-8);
+  border-radius: var(--v3-radius-sharp);
+  border: 1px solid var(--v3-border-subtle);
+  transition: box-shadow var(--v3-dur-state) var(--v3-ease);
+}
+
+.v3-card-interactive:hover {
+  box-shadow: var(--v3-shadow-hover);
+}
+
+.v3-card-elevated {
+  box-shadow: var(--v3-shadow-elevated);
+}
+
+@media (max-width: 767px) {
+  .v3-card {
+    padding: var(--v3-space-4);
+  }
+}
+
+/* ── Links (§4) ──────────────────────────────────────────────────────── */
+
+.v3-link-light {
+  color: var(--v3-text-inverse);
+  font-size: var(--v3-body);
+  font-weight: var(--v3-w-regular);
+  line-height: var(--v3-body-lh);
+  text-decoration: underline;
+  text-decoration-color: rgba(156, 180, 232, 0.5);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--v3-dur-micro) var(--v3-ease);
+}
+
+.v3-link-light:hover {
+  text-decoration-color: var(--v3-primary-overlay);
+}
+
+.v3-link-dark {
+  color: var(--v3-text-primary);
+  font-size: var(--v3-ui-small);
+  font-weight: var(--v3-w-body);
+  line-height: var(--v3-ui-small);
+  text-decoration: underline;
+  text-decoration-color: rgba(82, 102, 235, 0.3);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--v3-dur-micro) var(--v3-ease),
+    color var(--v3-dur-micro) var(--v3-ease);
+}
+
+.v3-link-dark:hover {
+  color: var(--v3-primary);
+  text-decoration-color: var(--v3-primary);
+}
+
+/* ── Rules and small parts ───────────────────────────────────────────── */
+
+.v3-rule {
+  border: 0;
+  border-top: 1px solid var(--v3-border-subtle);
+}
+
+.v3-rule-dark {
+  border: 0;
+  border-top: 1px solid var(--v3-overlay-20);
+}
+
+.v3-tick {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  color: var(--v3-primary);
+}
+
+.v3-dark .v3-tick {
+  color: var(--v3-primary-overlay);
+}
+
+/* ── Motion ──────────────────────────────────────────────────────────── */
+
+[data-v3-reveal],
+[data-v3-fade] {
+  opacity: 0;
+  transition: opacity var(--v3-dur-enter) var(--v3-ease),
+    transform var(--v3-dur-enter) var(--v3-ease);
+}
+
+[data-v3-reveal] {
+  transform: translateY(16px);
+}
+
+[data-v3-reveal].is-in,
+[data-v3-fade].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3 *,
+  .v3 *::before,
+  .v3 *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  [data-v3-reveal],
+  [data-v3-fade] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .v3 {
+    scroll-behavior: auto;
+  }
+}

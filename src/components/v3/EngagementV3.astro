@@ -1,0 +1,200 @@
+---
+import { site } from "../../lib/site";
+
+const steps = [
+  {
+    week: "Week 1",
+    time: "3–5 days",
+    us: "We send the mutual NDA and a fixed-scope contract, and set up a shared channel.",
+    you: "You sign both, grant access to whatever we need, and name one person who can decide without a committee.",
+  },
+  {
+    week: "Week 2",
+    time: "1 week",
+    us: "We ship the first real piece: one flow you can click through, not a mockup of one.",
+    you: "You try it inside the overlap window and say what's wrong before we build on top of it.",
+  },
+  {
+    week: "Every week after",
+    time: "Ongoing",
+    us: "We ship another piece and write a short update: what shipped, what's next, what we need from you.",
+    you: "You review inside the overlap window. A decision that waits a couple of days pushes the schedule back the same amount.",
+  },
+  {
+    week: "Final week",
+    time: "3–5 days",
+    us: "We deploy it, hand over every credential, and write down what exists and why.",
+    you: "You pay the final milestone. The code was already yours as each one landed.",
+  },
+];
+---
+
+<section class="v3-section v3-section-light" id="engagement" aria-labelledby="v3-engagement-title">
+  <div class="v3-container v3-split">
+    <div class="v3-split-head">
+      <h2 class="v3-display-2" id="v3-engagement-title">
+        What an engagement looks like.
+      </h2>
+      <p class="v3-body v3-on-light-secondary v3-engagement-lede">
+        A weekly update, a real say in what gets built next, and a schedule
+        that moves when your decisions do.
+      </p>
+      <a
+        class="v3-btn v3-btn-primary v3-engagement-cta"
+        href={site.booking}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Start your project
+      </a>
+    </div>
+
+    <ol class="v3-accordion">
+      {
+        steps.map((step, i) => (
+          <li
+            class="v3-accordion-item"
+            data-v3-accordion-item
+            data-open={i === 0 ? "true" : "false"}
+            data-v3-reveal
+            data-v3-delay={i * 80}
+          >
+            <button
+              class="v3-accordion-trigger"
+              type="button"
+              data-v3-accordion-trigger
+              aria-expanded={i === 0}
+              aria-controls={`v3-panel-${i}`}
+            >
+              <span class="v3-accordion-head">
+                <span class="v3-accordion-week">{step.week}</span>
+                <span class="v3-small v3-accordion-time">{step.time}</span>
+              </span>
+              <svg class="v3-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+
+            <div class="v3-accordion-panel" id={`v3-panel-${i}`} data-v3-accordion-panel>
+              <div class="v3-accordion-panel-inner">
+                <div class="v3-accordion-panel-content">
+                  <p class="v3-body">
+                    <span class="v3-accordion-who">We:</span> {step.us}
+                  </p>
+                  <p class="v3-body">
+                    <span class="v3-accordion-who">You:</span> {step.you}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .v3-engagement-lede {
+    margin-top: var(--v3-space-4);
+    max-width: 38ch;
+  }
+
+  .v3-engagement-cta {
+    margin-top: var(--v3-space-6);
+  }
+
+  .v3-accordion {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .v3-accordion-item {
+    border-top: 1px solid var(--v3-border-subtle);
+  }
+
+  .v3-accordion-item:last-child {
+    border-bottom: 1px solid var(--v3-border-subtle);
+  }
+
+  .v3-accordion-trigger {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--v3-space-4);
+    padding-block: var(--v3-space-6);
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .v3-accordion-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--v3-space-3);
+    min-width: 0;
+  }
+
+  .v3-accordion-week {
+    font-family: var(--v3-font-display);
+    font-size: var(--v3-body-lg);
+    line-height: var(--v3-body-lg-lh);
+    font-weight: var(--v3-w-display);
+  }
+
+  .v3-accordion-time {
+    color: #55555f;
+    white-space: nowrap;
+  }
+
+  .v3-chevron {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    color: #55555f;
+    transition: transform var(--v3-dur-state) var(--v3-ease);
+  }
+
+  .v3-accordion-item[data-open="true"] .v3-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* grid-template-rows animates cleanly from 0fr to 1fr, so the panel opens
+     without measuring heights or animating height itself. */
+  .v3-accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--v3-dur-state) var(--v3-ease);
+  }
+
+  /* Two nested elements, both load-bearing. The outer one is the grid item:
+     min-height: 0 lets the 0fr row actually reach zero, and overflow clips to
+     it. Its padding would survive that clip — overflow trims to the padding
+     box, not the content box — so the closed panel's spacing lives on the
+     inner element instead, where it is clipped with everything else. */
+  .v3-accordion-panel-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .v3-accordion-panel-content {
+    display: grid;
+    gap: var(--v3-space-3);
+    max-width: 58ch;
+    padding-bottom: var(--v3-space-4);
+  }
+
+  .v3-accordion-who {
+    color: var(--v3-text-primary);
+  }
+
+  .v3-accordion-panel p {
+    color: #55555f;
+  }
+</style>

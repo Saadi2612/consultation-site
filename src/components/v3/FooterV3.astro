@@ -1,0 +1,72 @@
+---
+import { site, mailto } from "../../lib/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="v3-footer v3-dark">
+  <div class="v3-container v3-footer-inner">
+    <div>
+      <p class="v3-footer-name">Proofload</p>
+      <p class="v3-small v3-footer-line">
+        Two founders. Real ownership. {site.city}.
+      </p>
+    </div>
+
+    <nav class="v3-footer-links" aria-label="Footer">
+      <a class="v3-link-light" href={mailto}>{site.email}</a>
+      <a class="v3-link-light" href={site.booking} target="_blank" rel="noreferrer">
+        Book a call
+      </a>
+      <a class="v3-link-light" href="/">Main site</a>
+    </nav>
+  </div>
+
+  <div class="v3-container">
+    <hr class="v3-rule-dark v3-footer-rule" />
+    <p class="v3-small v3-footer-fine">
+      © {year} Proofload. This page is a design exploration, not the
+      production site.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .v3-footer {
+    padding-block: var(--v3-space-10);
+    border-radius: var(--v3-radius-sharp);
+  }
+
+  .v3-footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--v3-space-8);
+  }
+
+  .v3-footer-name {
+    font-family: var(--v3-font-display);
+    font-size: var(--v3-body-lg);
+    line-height: var(--v3-body-lg-lh);
+    font-weight: var(--v3-w-display);
+  }
+
+  .v3-footer-line {
+    margin-top: var(--v3-space-2);
+    color: var(--v3-accent-soft);
+  }
+
+  .v3-footer-links {
+    display: grid;
+    gap: var(--v3-space-2);
+  }
+
+  .v3-footer-rule {
+    margin-block: var(--v3-space-8) var(--v3-space-4);
+  }
+
+  .v3-footer-fine {
+    color: var(--v3-accent-soft);
+  }
+</style>

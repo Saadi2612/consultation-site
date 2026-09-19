@@ -1,0 +1,105 @@
+---
+import { site } from "../../lib/site";
+
+const weeks = [
+  {
+    name: "Week one",
+    body: "We go through what you're trying to build, who it's for, what already exists, and what you're constrained by. Most of this is us asking questions and you correcting our answers.",
+  },
+  {
+    name: "Week two",
+    body: "We turn that into decisions: what's in the first version, what isn't, what each piece costs in time, and where we think the risk sits.",
+  },
+];
+---
+
+<section class="v3-section v3-section-tint" id="scoping" aria-labelledby="v3-scoping-title">
+  <div class="v3-container v3-split">
+    <div class="v3-split-head">
+      <h2 class="v3-display-2" id="v3-scoping-title">
+        Two weeks of questions, then a written scope.
+      </h2>
+      <p class="v3-body v3-on-light-secondary v3-scoping-lede">
+        A consultation is two weeks and ends in a document. You can take that
+        document anywhere.
+      </p>
+    </div>
+
+    <div class="v3-scoping">
+      <div class="v3-weeks">
+        {
+          weeks.map((week, i) => (
+            <article class="v3-card v3-week" data-v3-reveal data-v3-delay={i * 120}>
+              <p class="v3-small v3-week-n">Step {i + 1} of 2</p>
+              <h3 class="v3-week-name">{week.name}</h3>
+              <p class="v3-body v3-on-light-secondary">{week.body}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <article class="v3-card v3-output" data-v3-reveal data-v3-delay={240}>
+        <h3 class="v3-week-name">What you get</h3>
+        <p class="v3-body v3-output-body">
+          The feature list, what's deliberately excluded, a build order, a
+          time estimate against each piece, and the questions still open.
+          It's yours to hand to us, another studio, or a developer you
+          already have.
+        </p>
+        <a
+          class="v3-link-dark v3-output-link"
+          href={site.booking}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Book a scoping call
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .v3-scoping-lede {
+    margin-top: var(--v3-space-4);
+    max-width: 38ch;
+  }
+
+  .v3-scoping {
+    display: grid;
+    gap: var(--v3-space-6);
+  }
+
+  .v3-weeks {
+    display: grid;
+    gap: var(--v3-space-6);
+  }
+
+  @media (min-width: 768px) {
+    .v3-weeks {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .v3-week-n {
+    color: #55555f;
+    margin-bottom: var(--v3-space-3);
+  }
+
+  .v3-week-name {
+    font-family: var(--v3-font-display);
+    font-size: var(--v3-body-lg);
+    line-height: var(--v3-body-lg-lh);
+    font-weight: var(--v3-w-display);
+    margin-bottom: var(--v3-space-3);
+  }
+
+  .v3-output-body {
+    max-width: 58ch;
+  }
+
+  .v3-output-link {
+    display: inline-block;
+    margin-top: var(--v3-space-6);
+  }
+</style>

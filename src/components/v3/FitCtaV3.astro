@@ -1,0 +1,107 @@
+---
+import { site, mailto } from "../../lib/site";
+
+const turnDown = [
+  "A codebase outside Django, FastAPI, Express, NestJS, React or Postgres",
+  "Zero overlap with Pakistan working hours",
+  "Payment tied to funding that hasn't closed, or equity instead of a fee",
+];
+---
+
+<section class="v3-section v3-dark v3-fit" id="fit" aria-labelledby="v3-fit-title">
+  <div class="v3-container v3-fit-inner">
+    <div>
+      <h2 class="v3-display-2" id="v3-fit-title" data-v3-fade>
+        Some of this isn't a fit, and we'd rather say so up front.
+      </h2>
+
+      <p class="v3-body-lg v3-fit-lede" data-v3-fade data-v3-delay={80}>
+        If your stack, timezone or budget don't line up, we'll tell you
+        instead of taking the work anyway.
+      </p>
+    </div>
+
+    <div class="v3-fit-body" data-v3-fade data-v3-delay={160}>
+      <p class="v3-small v3-fit-label">Work we turn down</p>
+
+      <ul class="v3-fit-list">
+        {turnDown.map((item) => <li class="v3-body">{item}</li>)}
+      </ul>
+
+      <div class="v3-fit-actions">
+        <a
+          class="v3-btn v3-btn-primary"
+          href={site.booking}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Book a call
+        </a>
+        <a class="v3-btn v3-btn-secondary" href={mailto}>Email us instead</a>
+      </div>
+
+      <p class="v3-small v3-fit-note">
+        Replies within 24 hours. {site.city}, working your hours.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §4 Dark Container: #171721, 72px 32px, 0 radius, no shadow. */
+  .v3-fit {
+    border-radius: var(--v3-radius-sharp);
+  }
+
+  .v3-fit-inner {
+    display: grid;
+    gap: var(--v3-space-10);
+  }
+
+  @media (min-width: 768px) {
+    .v3-fit-inner {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: start;
+    }
+  }
+
+  .v3-fit-lede {
+    margin-top: var(--v3-space-6);
+    max-width: 34ch;
+    color: var(--v3-text-inverse);
+  }
+
+  .v3-fit-label {
+    color: var(--v3-accent-soft);
+    margin-bottom: var(--v3-space-2);
+  }
+
+  .v3-fit-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .v3-fit-list li {
+    padding-block: var(--v3-space-4);
+    border-top: 1px solid var(--v3-overlay-20);
+    color: var(--v3-text-inverse);
+  }
+
+  .v3-fit-list li:last-child {
+    border-bottom: 1px solid var(--v3-overlay-20);
+  }
+
+  .v3-fit-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--v3-space-3);
+    margin-top: var(--v3-space-8);
+  }
+
+  .v3-fit-note {
+    margin-top: var(--v3-space-4);
+    color: var(--v3-accent-soft);
+  }
+</style>

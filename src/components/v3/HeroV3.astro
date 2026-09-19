@@ -1,0 +1,327 @@
+---
+import { site } from "../../lib/site";
+
+const trust = [
+  {
+    head: "Replies within 24 hours",
+    body: "Whenever you send it, not on a support queue",
+  },
+  {
+    head: "Milestone ownership",
+    body: "Code is yours the moment you pay for it",
+  },
+  {
+    head: "NDA before the idea",
+    body: "We send ours, so you don't have to produce one",
+  },
+];
+
+const rows = [
+  { task: "Written scope", status: "Done", tone: "done", owner: "Saad", due: "Week 1" },
+  { task: "MVP build (v0)", status: "In progress", tone: "live", owner: "Mohib", due: "Week 3" },
+  { task: "Hardening sprint (v1)", status: "Queued", tone: "queued", owner: "Saad", due: "Week 5" },
+  { task: "Handover and credentials", status: "Queued", tone: "queued", owner: "Mohib", due: "Week 7" },
+];
+---
+
+<span data-v3-nav-sentinel aria-hidden="true"></span>
+
+<section class="v3-hero v3-dark" id="top" aria-labelledby="v3-hero-title">
+  <div class="v3-hero-inner">
+    <div class="v3-hero-copy">
+      <p class="v3-small v3-hero-eyebrow" data-v3-hero-item>
+        Two founders, no bench, {site.city}
+      </p>
+
+      <h1 class="v3-display-1 v3-hero-title" id="v3-hero-title" data-v3-hero-item>
+        Where is your product right now?
+      </h1>
+
+      <p class="v3-body-lg v3-hero-sub" data-v3-hero-item>
+        Know the problem but not the spec, spec ready but nothing built, or
+        live and breaking under load. We scope it, build it, or make it
+        stable, on your working hours from Lahore.
+      </p>
+
+      <div class="v3-hero-cta" data-v3-hero-item>
+        <a
+          class="v3-btn v3-btn-primary"
+          href={site.booking}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Tell us where you are
+        </a>
+        <a class="v3-btn v3-btn-ghost" href="#facts">See how we work</a>
+      </div>
+
+      <ul class="v3-hero-trust" data-v3-hero-item>
+        {
+          trust.map((item) => (
+            <li>
+              <svg class="v3-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 8.5 6.2 12 13 4.5" />
+              </svg>
+              <span>
+                <span class="v3-trust-head">{item.head}</span>
+                <span class="v3-small v3-trust-body">{item.body}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="v3-hero-visual" data-v3-hero-item>
+      <div class="v3-card v3-card-elevated v3-panel">
+        <div class="v3-panel-head">
+          <p class="v3-panel-title">Engagement status</p>
+          <span class="v3-panel-tag v3-small">Illustrative</span>
+        </div>
+
+        <div class="v3-panel-stats">
+          <div class="v3-panel-stat">
+            <p class="v3-small v3-panel-stat-label">Weeks elapsed</p>
+            <p class="v3-panel-stat-value">3 of 7</p>
+          </div>
+          <div class="v3-panel-stat">
+            <p class="v3-small v3-panel-stat-label">Milestones paid</p>
+            <p class="v3-panel-stat-value">1 of 4</p>
+          </div>
+        </div>
+
+        <table class="v3-panel-table">
+          <thead>
+            <tr>
+              <th scope="col">Task</th>
+              <th scope="col">Status</th>
+              <th scope="col">Owner</th>
+              <th scope="col">Due</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              rows.map((row) => (
+                <tr>
+                  <th scope="row">{row.task}</th>
+                  <td>
+                    <span class={`v3-pill v3-pill-${row.tone}`}>{row.status}</span>
+                  </td>
+                  <td>{row.owner}</td>
+                  <td>{row.due}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <p class="v3-small v3-hero-caption">
+        A sample week-three view. It is a drawing of how we report, not a
+        screenshot of a client's account.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §4 Hero Card: transparent, 0 radius, no shadow, min-height 447px. §7
+     allows 72px padding here and nowhere else. */
+  .v3-hero {
+    min-height: 447px;
+    padding-block: var(--v3-space-18);
+    border-radius: var(--v3-radius-sharp);
+  }
+
+  .v3-hero-inner {
+    max-width: var(--v3-max-bleed);
+    margin-inline: auto;
+    padding-inline: var(--v3-gutter);
+    display: grid;
+    gap: var(--v3-space-10);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .v3-hero-inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--v3-space-18);
+    }
+  }
+
+  .v3-hero-eyebrow {
+    color: var(--v3-accent-soft);
+    margin-bottom: var(--v3-space-4);
+  }
+
+  .v3-hero-title {
+    max-width: 14ch;
+  }
+
+  .v3-hero-sub {
+    max-width: 46ch;
+    margin-top: var(--v3-space-6);
+    color: var(--v3-text-inverse);
+  }
+
+  .v3-hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--v3-space-3);
+    margin-top: var(--v3-space-8);
+  }
+
+  .v3-hero-trust {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--v3-space-10);
+    display: grid;
+    gap: var(--v3-space-4);
+    border-top: 1px solid var(--v3-overlay-20);
+    padding-top: var(--v3-space-6);
+  }
+
+  .v3-hero-trust li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--v3-space-3);
+  }
+
+  .v3-trust-head {
+    display: block;
+    font-size: var(--v3-ui-small);
+    line-height: 20px;
+    font-weight: var(--v3-w-body);
+    color: var(--v3-text-inverse);
+  }
+
+  .v3-trust-body {
+    display: block;
+    color: var(--v3-accent-soft);
+  }
+
+  /* The panel is a Content Card (§4): white, 32px, 0 radius, 1px #EBEBEB,
+     carrying the elevated shadow because it floats on the dark hero. */
+  .v3-panel {
+    color: var(--v3-text-primary);
+  }
+
+  .v3-panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--v3-space-3);
+    padding-bottom: var(--v3-space-4);
+    border-bottom: 1px solid var(--v3-border-subtle);
+  }
+
+  .v3-panel-title {
+    font-size: var(--v3-h3);
+    line-height: var(--v3-h3-lh);
+    font-weight: var(--v3-w-body);
+  }
+
+  .v3-panel-tag {
+    color: #55555f;
+  }
+
+  .v3-panel-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--v3-space-4);
+    padding-block: var(--v3-space-6);
+  }
+
+  .v3-panel-stat-label {
+    color: #55555f;
+    margin-bottom: var(--v3-space-1);
+  }
+
+  .v3-panel-stat-value {
+    font-family: var(--v3-font-display);
+    font-size: var(--v3-body-lg);
+    line-height: var(--v3-body-lg-lh);
+    font-weight: var(--v3-w-display);
+  }
+
+  .v3-panel-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .v3-panel-table th,
+  .v3-panel-table td {
+    text-align: left;
+    padding: var(--v3-space-3) var(--v3-space-2);
+    font-size: var(--v3-ui-small);
+    font-weight: var(--v3-w-body);
+    line-height: 20px;
+  }
+
+  .v3-panel-table th:first-child,
+  .v3-panel-table td:first-child {
+    padding-left: 0;
+  }
+
+  .v3-panel-table th:last-child,
+  .v3-panel-table td:last-child {
+    padding-right: 0;
+    text-align: right;
+  }
+
+  .v3-panel-table thead th {
+    font-size: var(--v3-small);
+    line-height: var(--v3-small-lh);
+    font-weight: var(--v3-w-small);
+    color: #55555f;
+  }
+
+  .v3-panel-table tbody tr {
+    border-top: 1px solid var(--v3-border-muted);
+  }
+
+  .v3-pill {
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 var(--v3-space-3);
+    border-radius: var(--v3-radius-pill);
+    font-size: var(--v3-small);
+    line-height: var(--v3-small-lh);
+    font-weight: var(--v3-w-small);
+    white-space: nowrap;
+  }
+
+  .v3-pill-done {
+    background: var(--v3-accent-light);
+    color: var(--v3-text-primary);
+  }
+
+  .v3-pill-live {
+    background: var(--v3-overlay-20);
+    color: #2d3c8f;
+  }
+
+  .v3-pill-queued {
+    background: var(--v3-border-muted);
+    color: #55555f;
+  }
+
+  .v3-hero-caption {
+    margin-top: var(--v3-space-4);
+    color: var(--v3-accent-soft);
+    max-width: 52ch;
+  }
+
+  @media (max-width: 767px) {
+    .v3-hero {
+      padding-block: var(--v3-space-10);
+    }
+
+    .v3-panel-table th:nth-child(3),
+    .v3-panel-table td:nth-child(3) {
+      display: none;
+    }
+  }
+</style>
