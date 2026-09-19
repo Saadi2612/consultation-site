@@ -1,27 +1,41 @@
 ---
-import Base from "../layouts/Base.astro";
-import Hero from "../components/Hero.astro";
-import GroundTruth from "../components/GroundTruth.astro";
-import Consultation from "../components/Consultation.astro";
-import MvpBuild from "../components/MvpBuild.astro";
-import Hardening from "../components/Hardening.astro";
-import EngagementSteps from "../components/EngagementSteps.astro";
-import WorkedExamples from "../components/WorkedExamples.astro";
-import FitFilter from "../components/FitFilter.astro";
+import BaseV4 from "../layouts/BaseV4.astro";
+import NavbarV4 from "../components/v4/NavbarV4.astro";
+import HeroV4 from "../components/v4/HeroV4.astro";
+import HoldV4 from "../components/v4/HoldV4.astro";
+import ScopeV4 from "../components/v4/ScopeV4.astro";
+import DecisionV4 from "../components/v4/DecisionV4.astro";
+import NumbersV4 from "../components/v4/NumbersV4.astro";
+import ExamplesV4 from "../components/v4/ExamplesV4.astro";
+import EngagementV4 from "../components/v4/EngagementV4.astro";
+import FitV4 from "../components/v4/FitV4.astro";
+import PricingV4 from "../components/v4/PricingV4.astro";
+import BordersV4 from "../components/v4/BordersV4.astro";
+import FoundersV4 from "../components/v4/FoundersV4.astro";
+import FaqV4 from "../components/v4/FaqV4.astro";
+import ContactV4 from "../components/v4/ContactV4.astro";
+import FooterV4 from "../components/v4/FooterV4.astro";
 ---
 
-<Base
+<BaseV4
   title="Proofload — a two-person software studio in Lahore"
   description="Mohib and Saad scope, build and stabilise software for founders in the US, UK, EU and Australia. Consultations from $35/hour, MVP builds from $3,499, hardening from $1,999."
 >
-  <main>
-    <Hero />
-    <GroundTruth />
-    <Consultation />
-    <MvpBuild />
-    <Hardening />
-    <EngagementSteps />
-    <WorkedExamples />
-    <FitFilter />
+  <NavbarV4 />
+  <main id="v4-main">
+    <HeroV4 />
+    <HoldV4 />
+    <ScopeV4 />
+    <DecisionV4 />
+    <NumbersV4 />
+    <ExamplesV4 />
+    <EngagementV4 />
+    <FitV4 />
+    <PricingV4 />
+    <BordersV4 />
+    <FoundersV4 />
+    <FaqV4 />
+    <ContactV4 />
   </main>
-</Base>
+  <FooterV4 />
+</BaseV4>

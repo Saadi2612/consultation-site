@@ -1,0 +1,69 @@
+---
+const ships = [
+  "One way to sign in, not social logins and SSO",
+  "The single flow the product is paid for",
+  "Card payments, if money changes hands in v0",
+  "A web app that works in a phone browser",
+];
+---
+
+<section class="v2-section" aria-labelledby="v2-decision-title">
+  <div class="v2-container v2-split">
+    <div class="v2-split-sticky">
+      <h2 class="v2-h2" id="v2-decision-title">Half of scoping a v0 is deciding what not to build.</h2>
+    </div>
+
+    <div class="v2-decision">
+      <p class="v2-lede v2-decision-lede">
+        Everything left off this list waits for real usage to justify it —
+        native apps, multi-currency, an analytics dashboard, the second and
+        third flows. Cheaper to build once you've watched people use the
+        first one.
+      </p>
+
+      <ul class="v2-checklist">
+        {
+          ships.map((item, i) => (
+            <li data-v2-reveal-fade data-v2-delay={i * 60}>
+              <span class="v2-check" aria-hidden="true">✓</span>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .v2-decision-lede {
+    max-width: 60ch;
+    margin-top: 0;
+    margin-bottom: 28px;
+  }
+
+  .v2-checklist {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v2-checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding-block: 18px;
+    border-top: 1px solid var(--v2-border);
+    line-height: 1.55;
+  }
+
+  .v2-checklist li:last-child {
+    border-bottom: 1px solid var(--v2-border);
+  }
+
+  .v2-checklist .v2-check {
+    margin-top: 2px;
+  }
+</style>

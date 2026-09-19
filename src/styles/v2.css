@@ -1,0 +1,262 @@
+/* v2 — separate design system, isolated to the /v2 route. Inspired by
+   design.md. Independent tokens from the main site's global.css, on
+   purpose: the two pages are not meant to share a brand system. */
+
+:root {
+  --v2-bg: #f7f8f5;
+  --v2-ink: #17211f;
+  --v2-secondary: #5e6764; /* darkened from design.md's #66706d: 4.5:1 read as 4.5:1 exactly on the CTA panel, no margin. This clears every bg at 5:1+. */
+  --v2-muted: #6b726f; /* design.md's #89918e sits at ~3:1 on white, below AA for text. This clears 4.5:1 everywhere it's used for real copy (labels, table values, captions). */
+  --v2-border: #dde1de;
+  --v2-card: #fbfcfa;
+  --v2-dark: #182320;
+  --v2-dark-hover: #26332f;
+  --v2-accent: #dce9e5;
+  --v2-white: #ffffff;
+  --v2-cta-panel: #eef1ef;
+
+  --v2-shadow-lg: 0 18px 50px rgba(20, 30, 27, 0.07);
+  --v2-shadow-card: 0 8px 30px rgba(20, 30, 27, 0.035);
+  --v2-shadow-card-hover: 0 14px 40px rgba(20, 30, 27, 0.06);
+
+  --v2-radius-sm: 12px;
+  --v2-radius-card: 16px;
+  --v2-radius-panel: 24px;
+  --v2-radius-pill: 999px;
+
+  --v2-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --v2-dur-micro: 180ms;
+  --v2-dur-enter: 700ms;
+
+  --v2-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+    "Segoe UI", Inter, sans-serif;
+
+  --v2-text-hero: clamp(2.75rem, 5.2vw, 5.125rem);
+  --v2-text-h2: clamp(2rem, 3.4vw, 3.25rem);
+  --v2-text-h3: 1.25rem;
+  --v2-text-body: 1rem;
+  --v2-text-small: 0.875rem;
+  --v2-text-eyebrow: 0.6875rem;
+
+  --v2-container: 1320px;
+  --v2-gutter: 48px;
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --v2-container: 1400px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --v2-gutter: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --v2-gutter: 20px;
+  }
+}
+
+.v2 {
+  background: var(--v2-bg);
+  color: var(--v2-ink);
+  font-family: var(--v2-font);
+  font-size: var(--v2-text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.v2 * {
+  box-sizing: border-box;
+}
+
+.v2 img,
+.v2 svg {
+  display: block;
+  max-width: 100%;
+}
+
+.v2-container {
+  max-width: var(--v2-container);
+  margin-inline: auto;
+  padding-inline: var(--v2-gutter);
+}
+
+.v2-section {
+  padding-block: clamp(80px, 11vw, 150px);
+}
+
+.v2-section + .v2-section {
+  border-top: 1px solid var(--v2-border);
+}
+
+.v2-eyebrow {
+  display: inline-block;
+  font-size: var(--v2-text-eyebrow);
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--v2-secondary);
+  margin-bottom: 16px;
+}
+
+.v2-split {
+  display: grid;
+  gap: 48px;
+}
+
+@media (min-width: 900px) {
+  .v2-split {
+    grid-template-columns: minmax(240px, 0.75fr) minmax(0, 1.5fr);
+    gap: 72px;
+  }
+}
+
+.v2-split-sticky {
+  align-self: start;
+}
+
+@media (min-width: 900px) {
+  .v2-split-sticky {
+    position: sticky;
+    top: 112px;
+  }
+}
+
+.v2-h2 {
+  font-size: var(--v2-text-h2);
+  font-weight: 680;
+  line-height: 1.03;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.v2-lede {
+  max-width: 46ch;
+  color: var(--v2-secondary);
+  margin-top: 16px;
+  line-height: 1.6;
+}
+
+.v2 p {
+  text-wrap: pretty;
+}
+
+.v2-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: var(--v2-radius-sm);
+  font-size: var(--v2-text-small);
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: transform var(--v2-dur-micro) var(--v2-ease),
+    background-color var(--v2-dur-micro) var(--v2-ease),
+    border-color var(--v2-dur-micro) var(--v2-ease);
+}
+
+.v2-btn:hover {
+  transform: translateY(-1px);
+}
+
+.v2-btn .v2-arrow {
+  transition: transform var(--v2-dur-micro) var(--v2-ease);
+}
+
+.v2-btn:hover .v2-arrow {
+  transform: translateX(3px);
+}
+
+.v2-btn-primary {
+  background: var(--v2-dark);
+  color: var(--v2-white);
+}
+
+.v2-btn-primary:hover {
+  background: var(--v2-dark-hover);
+}
+
+.v2-btn-secondary {
+  background: transparent;
+  color: var(--v2-ink);
+  border-color: var(--v2-border);
+}
+
+.v2-btn-secondary:hover {
+  border-color: var(--v2-secondary);
+}
+
+.v2-card {
+  background: var(--v2-card);
+  border: 1px solid var(--v2-border);
+  border-radius: var(--v2-radius-card);
+  box-shadow: var(--v2-shadow-card);
+  transition: transform var(--v2-dur-micro) var(--v2-ease),
+    box-shadow var(--v2-dur-micro) var(--v2-ease),
+    border-color var(--v2-dur-micro) var(--v2-ease);
+}
+
+.v2-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--v2-shadow-card-hover);
+  border-color: var(--v2-secondary);
+}
+
+.v2-focus:focus-visible {
+  outline: 2px solid var(--v2-dark);
+  outline-offset: 2px;
+}
+
+/* --- scroll-reveal entrance --------------------------------------------- */
+
+.v2 [data-v2-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity var(--v2-dur-enter) var(--v2-ease),
+    transform var(--v2-dur-enter) var(--v2-ease);
+}
+
+.v2 [data-v2-reveal].is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.v2 [data-v2-reveal-fade] {
+  opacity: 0;
+  transition: opacity var(--v2-dur-enter) var(--v2-ease);
+}
+
+.v2 [data-v2-reveal-fade].is-in {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2 * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .v2 [data-v2-reveal],
+  .v2 [data-v2-reveal-fade] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.v2-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

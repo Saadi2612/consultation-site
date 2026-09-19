@@ -1,0 +1,136 @@
+---
+import { site } from "../../lib/site";
+
+const weeks = [
+  {
+    n: "01",
+    name: "Week one",
+    body: "We go through what you're trying to build, who it's for, what already exists, and what you're constrained by. Most of this is us asking questions and you correcting our answers.",
+  },
+  {
+    n: "02",
+    name: "Week two",
+    body: "We turn that into decisions: what's in the first version, what isn't, what each piece costs in time, and where we think the risk sits.",
+  },
+];
+---
+
+<section class="v2-section" aria-labelledby="v2-scoping-title">
+  <div class="v2-container v2-split">
+    <div class="v2-split-sticky">
+      <h2 class="v2-h2" id="v2-scoping-title">Two weeks of questions, then a written scope.</h2>
+      <p class="v2-lede">We learn what you need, ask the right questions, and turn it into a clear plan.</p>
+    </div>
+
+    <div class="v2-scoping">
+      <div class="v2-weeks">
+        {
+          weeks.map((week, i) => (
+            <div class="v2-week" data-v2-reveal data-v2-delay={i * 120}>
+              <span class="v2-week-n">{week.n}</span>
+              <h3 class="v2-week-name">{week.name}</h3>
+              <p class="v2-week-body">{week.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="v2-card v2-output" data-v2-reveal data-v2-delay={240}>
+        <p class="v2-output-eyebrow">What you get</p>
+        <p class="v2-output-body">
+          A written scope: the feature list, what's deliberately excluded, a
+          build order, a time estimate against each piece, and the questions
+          still open. It's yours to hand to us, another studio, or a
+          developer you already have.
+        </p>
+        <a class="v2-output-link v2-focus" href={site.booking} target="_blank" rel="noreferrer">
+          Book a scoping call <span class="v2-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .v2-scoping {
+    display: grid;
+    gap: 24px;
+  }
+
+  .v2-weeks {
+    display: grid;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .v2-weeks {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .v2-week {
+    padding: 28px;
+    border: 1px solid var(--v2-border);
+    border-radius: var(--v2-radius-card);
+    background: var(--v2-card);
+  }
+
+  .v2-week-n {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 650;
+    color: var(--v2-muted);
+    margin-bottom: 12px;
+  }
+
+  .v2-week-name {
+    font-size: 1.0625rem;
+    font-weight: 650;
+    margin-bottom: 10px;
+  }
+
+  .v2-week-body {
+    color: var(--v2-secondary);
+    font-size: var(--v2-text-small);
+    line-height: 1.6;
+  }
+
+  .v2-output {
+    padding: 32px;
+  }
+
+  .v2-output-eyebrow {
+    font-size: var(--v2-text-eyebrow);
+    font-weight: 650;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--v2-secondary);
+    margin-bottom: 12px;
+  }
+
+  .v2-output-body {
+    max-width: 56ch;
+    line-height: 1.6;
+  }
+
+  .v2-output-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    font-size: var(--v2-text-small);
+    font-weight: 600;
+    color: var(--v2-ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--v2-border);
+    padding-bottom: 2px;
+  }
+
+  .v2-output-link .v2-arrow {
+    transition: transform var(--v2-dur-micro) var(--v2-ease);
+  }
+
+  .v2-output-link:hover .v2-arrow {
+    transform: translateX(3px);
+  }
+</style>

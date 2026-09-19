@@ -1,0 +1,190 @@
+---
+import { site } from "../../lib/site";
+
+const steps = [
+  {
+    week: "Week 1",
+    time: "3–5 days",
+    us: "We send the mutual NDA and a fixed-scope contract, and set up a shared channel.",
+    you: "You sign both, grant access to whatever we need, and name one person who can decide without a committee.",
+  },
+  {
+    week: "Week 2",
+    time: "1 week",
+    us: "We ship the first real piece: one flow you can click through, not a mockup of one.",
+    you: "You try it inside the overlap window and say what's wrong before we build on top of it.",
+  },
+  {
+    week: "Every week after",
+    time: "Ongoing",
+    us: "We ship another piece and write a short update: what shipped, what's next, what we need from you.",
+    you: "You review inside the overlap window. A decision that waits a couple of days pushes the schedule back the same amount.",
+  },
+  {
+    week: "Final week",
+    time: "3–5 days",
+    us: "We deploy it, hand over every credential, and write down what exists and why.",
+    you: "You pay the final milestone — the code was already yours as each one landed.",
+  },
+];
+---
+
+<section class="v2-section" aria-labelledby="v2-engagement-title">
+  <div class="v2-container v2-split">
+    <div class="v2-split-sticky">
+      <h2 class="v2-h2" id="v2-engagement-title">What an engagement looks like.</h2>
+      <p class="v2-lede">
+        Simple and transparent, with a weekly update and a real say in what
+        gets built next.
+      </p>
+      <a class="v2-btn v2-btn-primary v2-focus v2-engagement-cta" href={site.booking} target="_blank" rel="noreferrer">
+        Start your project <span class="v2-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <ol class="v2-accordion">
+      {
+        steps.map((step, i) => (
+          <li class="v2-accordion-item" data-v2-accordion-item data-open={i === 0 ? "true" : "false"} data-v2-reveal data-v2-delay={i * 80}>
+            <button class="v2-accordion-trigger" type="button" data-v2-accordion-trigger aria-expanded={i === 0}>
+              <span class="v2-accordion-n">{i + 1}</span>
+              <span class="v2-accordion-head">
+                <span class="v2-accordion-week">{step.week}</span>
+                <span class="v2-accordion-summary">{step.us}</span>
+              </span>
+              <span class="v2-accordion-time">{step.time}</span>
+              <svg class="v2-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="v2-accordion-panel">
+              <p><span class="v2-accordion-who">You:</span> {step.you}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .v2-engagement-cta {
+    margin-top: 28px;
+  }
+
+  .v2-accordion {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v2-accordion-item {
+    border-top: 1px solid var(--v2-border);
+    transition: background-color var(--v2-dur-micro) var(--v2-ease);
+  }
+
+  .v2-accordion-item:last-child {
+    border-bottom: 1px solid var(--v2-border);
+  }
+
+  .v2-accordion-item:hover {
+    background: var(--v2-card);
+  }
+
+  .v2-accordion-trigger {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding-block: 22px;
+    background: none;
+    border: none;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .v2-accordion-trigger:focus-visible {
+    outline: 2px solid var(--v2-dark);
+    outline-offset: -2px;
+  }
+
+  .v2-accordion-n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--v2-border);
+    font-size: var(--v2-text-small);
+    font-weight: 650;
+    flex: none;
+  }
+
+  .v2-accordion-head {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .v2-accordion-week {
+    font-size: var(--v2-text-small);
+    font-weight: 650;
+  }
+
+  .v2-accordion-summary {
+    font-size: 0.8125rem;
+    color: var(--v2-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .v2-accordion-time {
+    font-size: 0.8125rem;
+    color: var(--v2-muted);
+    white-space: nowrap;
+  }
+
+  .v2-chevron {
+    width: 18px;
+    height: 18px;
+    color: var(--v2-muted);
+    transition: transform var(--v2-dur-micro) var(--v2-ease);
+  }
+
+  .v2-accordion-item[data-open="true"] .v2-chevron {
+    transform: rotate(180deg);
+  }
+
+  .v2-accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--v2-dur-micro) var(--v2-ease);
+  }
+
+  .v2-accordion-panel > p {
+    padding-bottom: 22px;
+    max-width: 56ch;
+    line-height: 1.6;
+    font-size: var(--v2-text-small);
+  }
+
+  .v2-accordion-who {
+    font-weight: 650;
+    margin-right: 4px;
+  }
+
+  @media (max-width: 640px) {
+    .v2-accordion-trigger {
+      grid-template-columns: auto 1fr auto;
+    }
+
+    .v2-accordion-time {
+      display: none;
+    }
+  }
+</style>

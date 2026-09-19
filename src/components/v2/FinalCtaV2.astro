@@ -1,0 +1,102 @@
+---
+import { site, mailto } from "../../lib/site";
+
+const turnDown = [
+  "A codebase outside Django, FastAPI, Express, NestJS, React or Postgres",
+  "Zero overlap with Pakistan working hours",
+  "Payment tied to funding that hasn't closed, or equity instead of a fee",
+];
+---
+
+<section class="v2-section" id="fit" aria-labelledby="v2-cta-title">
+  <div class="v2-container">
+    <div class="v2-cta-panel">
+      <div class="v2-cta-copy">
+        <h2 class="v2-h2 v2-cta-title" id="v2-cta-title">
+          Some of this isn't a fit, and we'd rather say so up front.
+        </h2>
+      </div>
+
+      <div class="v2-cta-body">
+        <p class="v2-cta-lede">
+          We're not the right fit for everyone. If your stack, timezone or
+          budget don't line up, we'll tell you honestly rather than take the
+          work anyway.
+        </p>
+
+        <ul class="v2-cta-list">
+          {turnDown.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <div class="v2-cta-actions">
+          <a class="v2-btn v2-btn-primary v2-focus" href={mailto}>
+            Get in touch <span class="v2-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="v2-btn v2-btn-secondary v2-focus" href={site.booking} target="_blank" rel="noreferrer">
+            Book a call
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .v2-cta-panel {
+    display: grid;
+    gap: 40px;
+    background: var(--v2-cta-panel);
+    border-radius: var(--v2-radius-panel);
+    padding: clamp(36px, 5vw, 64px);
+  }
+
+  @media (min-width: 900px) {
+    .v2-cta-panel {
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 64px;
+    }
+  }
+
+  .v2-cta-title {
+    margin-top: 8px;
+  }
+
+  .v2-cta-lede {
+    max-width: 52ch;
+    color: var(--v2-secondary);
+    line-height: 1.6;
+  }
+
+  .v2-cta-list {
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+  }
+
+  .v2-cta-list li {
+    position: relative;
+    padding-left: 18px;
+    font-size: var(--v2-text-small);
+    color: var(--v2-secondary);
+    line-height: 1.5;
+  }
+
+  .v2-cta-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 1px;
+    background: var(--v2-muted);
+  }
+
+  .v2-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+</style>

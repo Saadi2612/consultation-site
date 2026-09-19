@@ -1,0 +1,112 @@
+---
+const measures = [
+  { name: "p95 API response", before: "2.4 seconds at peak", after: "Under 300ms" },
+  { name: "Error rate", before: "Around 3%", after: "Under 0.5%" },
+  { name: "Tests", before: "No test suite", after: "140 integration tests" },
+  { name: "Deploys", before: "Monthly, by hand", after: "Daily, automated" },
+];
+---
+
+<section class="v2-section" id="standards" aria-labelledby="v2-metrics-title">
+  <div class="v2-container v2-split">
+    <div class="v2-split-sticky">
+      <h2 class="v2-h2" id="v2-metrics-title">Four numbers have to move before we call it stable.</h2>
+      <p class="v2-lede">From a four-week hardening sprint. It's not magic, it's a process — these figures are illustrative, from one engagement, not an average.</p>
+    </div>
+
+    <div class="v2-card v2-metrics-card" data-v2-reveal>
+      <table class="v2-metrics">
+        <thead>
+          <tr>
+            <th scope="col"><span class="v2-visually-hidden">Measure</span></th>
+            <th scope="col">On arrival</th>
+            <th scope="col">After four weeks</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            measures.map((m, i) => (
+              <tr>
+                <th scope="row">
+                  <span class="v2-row-n">{String(i + 1).padStart(2, "0")}</span>
+                  {m.name}
+                </th>
+                <td class="v2-before">{m.before}</td>
+                <td class="v2-after">{m.after}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .v2-metrics-card {
+    padding: 8px 32px;
+  }
+
+  .v2-metrics {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .v2-metrics th,
+  .v2-metrics td {
+    text-align: left;
+    padding: 20px 12px;
+    font-size: var(--v2-text-small);
+    font-weight: 400;
+  }
+
+  .v2-metrics thead th {
+    color: var(--v2-muted);
+    font-size: 0.75rem;
+    padding-top: 20px;
+    padding-bottom: 12px;
+  }
+
+  .v2-metrics tbody tr {
+    border-top: 1px solid var(--v2-border);
+  }
+
+  .v2-metrics tbody th {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+  }
+
+  .v2-row-n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--v2-accent);
+    font-size: 0.6875rem;
+    font-weight: 650;
+    flex: none;
+  }
+
+  .v2-before {
+    color: var(--v2-muted);
+  }
+
+  .v2-after {
+    color: var(--v2-ink);
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .v2-metrics-card {
+      overflow-x: auto;
+    }
+
+    .v2-metrics {
+      min-width: 480px;
+    }
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+const facts = [
+  {
+    title: "Overlap",
+    body: "Four hours of your working day, every working day. Eight if you're in the UK or the EU.",
+    icon: "clock",
+  },
+  {
+    title: "Replies",
+    body: "Within 24 hours, whenever you send it.",
+    icon: "chat",
+  },
+  {
+    title: "Code ownership",
+    body: "Each milestone is yours the moment you pay for it, not at the end of the build.",
+    icon: "key",
+  },
+  {
+    title: "NDAs",
+    body: "We send you our own mutual NDA. You don't have to produce one.",
+    icon: "shield",
+  },
+];
+
+const icons: Record<string, string> = {
+  clock:
+    '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  chat: '<path d="M4 5h16v11H8l-4 4V5Z"/>',
+  key: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  shield: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/>',
+};
+---
+
+<section class="v2-section" id="process" aria-labelledby="v2-facts-title">
+  <div class="v2-container v2-split">
+    <div class="v2-split-sticky">
+      <h2 class="v2-h2" id="v2-facts-title">Four things you can hold us to.</h2>
+    </div>
+
+    <div class="v2-facts-grid">
+      {
+        facts.map((fact, i) => (
+          <div
+            class="v2-card v2-fact"
+            data-v2-reveal
+            data-v2-delay={i * 60}
+          >
+            <svg class="v2-fact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={icons[fact.icon]} />
+            <h3 class="v2-fact-title">{fact.title}</h3>
+            <p class="v2-fact-body">{fact.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .v2-facts-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .v2-facts-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .v2-fact {
+    padding: 30px;
+  }
+
+  .v2-fact-icon {
+    width: 26px;
+    height: 26px;
+    color: var(--v2-ink);
+    margin-bottom: 20px;
+  }
+
+  .v2-fact-title {
+    font-size: 1.0625rem;
+    font-weight: 650;
+    margin-bottom: 8px;
+  }
+
+  .v2-fact-body {
+    color: var(--v2-secondary);
+    font-size: var(--v2-text-small);
+    line-height: 1.6;
+  }
+</style>

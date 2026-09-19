@@ -1,0 +1,53 @@
+---
+import { site, mailto } from "../../lib/site";
+---
+
+<footer class="v2-footer">
+  <div class="v2-container v2-footer-inner">
+    <p class="v2-footer-line">Two founders. Real ownership.</p>
+
+    <div class="v2-footer-meta">
+      <a class="v2-focus" href={mailto}>{site.email}</a>
+      <span>{site.city}</span>
+      <a class="v2-focus" href="/">Main site</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .v2-footer {
+    border-top: 1px solid var(--v2-border);
+    padding-block: 40px;
+  }
+
+  .v2-footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .v2-footer-line {
+    font-size: var(--v2-text-small);
+    color: var(--v2-secondary);
+  }
+
+  .v2-footer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    font-size: 0.8125rem;
+    color: var(--v2-muted);
+  }
+
+  .v2-footer-meta a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .v2-footer-meta a:hover {
+    color: var(--v2-ink);
+  }
+</style>

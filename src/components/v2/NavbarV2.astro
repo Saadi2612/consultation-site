@@ -1,0 +1,78 @@
+---
+import { site } from "../../lib/site";
+---
+
+<header class="v2-nav">
+  <div class="v2-container v2-nav-inner">
+    <a class="v2-nav-logo v2-focus" href="#top">Proofload</a>
+
+    <nav class="v2-nav-links" aria-label="Primary">
+      <a class="v2-nav-link v2-focus" href="#process">Process</a>
+      <a class="v2-nav-link v2-focus" href="#standards">Standards</a>
+      <a class="v2-nav-link v2-focus" href="#fit">Fit</a>
+    </nav>
+
+    <a class="v2-btn v2-btn-primary v2-nav-cta v2-focus" href={site.booking} target="_blank" rel="noreferrer">
+      Tell us where you are <span class="v2-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</header>
+
+<style>
+  .v2-nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--v2-bg);
+  }
+
+  .v2-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+  }
+
+  .v2-nav-logo {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--v2-ink);
+    text-decoration: none;
+  }
+
+  .v2-nav-links {
+    display: none;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .v2-nav-link {
+    padding-block: 12px;
+    font-size: var(--v2-text-small);
+    color: var(--v2-secondary);
+    text-decoration: none;
+    transition: color var(--v2-dur-micro) var(--v2-ease);
+  }
+
+  .v2-nav-link:hover {
+    color: var(--v2-ink);
+  }
+
+  .v2-nav-link:focus-visible {
+    outline: 2px solid var(--v2-dark);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .v2-nav-cta {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .v2-nav-links,
+    .v2-nav-cta {
+      display: inline-flex;
+    }
+  }
+</style>
