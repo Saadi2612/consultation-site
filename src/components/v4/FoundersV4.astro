@@ -1,0 +1,49 @@
+---
+/* SPEC §10 — the division of labour is the point, because the quiet worry is
+   the bus factor. The photographs have not been supplied, so the slot is a
+   visible placeholder rather than stock photography or an avatar circle. */
+const founders = [
+  {
+    name: "Mohib",
+    owns: "Owns the backend, the database and everything that runs in production",
+    quote:
+      "I write the API, the data model and the migrations, and I am the one paged when production misbehaves. If your p95 is two seconds, I am the person who finds out why and tells you what it costs to fix.",
+  },
+  {
+    name: "Saad",
+    owns: "Owns the frontend, the scope and the conversation with you",
+    quote:
+      "I build the interface and I run the engagement — the scope, the Friday note, the demo and the invoice. When you ask whether something is in scope, mine is the answer, and I would rather give you a no in week two than a surprise in week six.",
+  },
+];
+---
+
+<section class="v4-section v4-section--tint" aria-labelledby="v4-founders-title">
+  <div class="v4-container">
+    <div class="v4-pricing__head">
+      <p class="v4-eyebrow" data-v4-reveal>The two of us</p>
+      <h2 class="v4-h2" id="v4-founders-title" data-v4-reveal data-v4-delay="60">
+        Two people, and you always know which one owns your problem.
+      </h2>
+    </div>
+
+    <div class="v4-founders" data-v4-group data-v4-step="120">
+      {
+        founders.map((founder) => (
+          <article class="v4-card v4-founder" data-v4-group-item>
+            <div class="v4-founder__photo">
+              <span>Photograph of {founder.name} — not supplied yet</span>
+            </div>
+            <h3 class="v4-h3">{founder.name}</h3>
+            <p class="v4-h5 v4-founder__owns">{founder.owns}</p>
+            <p class="v4-founder__quote">{founder.quote}</p>
+            <p class="v4-small v4-founder__links">
+              GitHub and LinkedIn addresses for {founder.name} have not been
+              supplied, so there is nothing to link to yet.
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

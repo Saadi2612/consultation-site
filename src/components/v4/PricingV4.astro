@@ -1,0 +1,95 @@
+---
+/* SPEC §9 — every starting figure sits next to the scope it buys, at the same
+   visual weight, and the consultation shows its typical total. */
+const tiers = [
+  {
+    name: "Consultation",
+    figure: "$35",
+    unit: "/hour",
+    total: "Typical two-week scope: 20–30 hours, $700–$1,050",
+    buys:
+      "Two weeks of questions and a written scope: feature list, exclusions with reasons, stack, sequence, timeline and price assumptions. Yours whether or not we build it.",
+    cta: "Book the call",
+    href: "#v4-contact",
+  },
+  {
+    name: "MVP build",
+    figure: "$3,499",
+    unit: " to start",
+    total: "6–8 weeks for a full v0 — see the placeholder below",
+    buys:
+      "One workflow, accounts, payments if you charge, transactional email, an admin view, deploys and error reporting. Shipped to a URL your users can sign into.",
+    cta: "Start a build",
+    href: "#v4-contact",
+    featured: true,
+  },
+  {
+    name: "Hardening",
+    figure: "$1,999",
+    unit: " to start",
+    total: "Four weeks on a live product",
+    buys:
+      "Four agreed numbers moved, reported weekly: latency, error rate, test coverage and deploy frequency. Plus the runbook that keeps them moved.",
+    cta: "Get it stable",
+    href: "#v4-contact",
+  },
+];
+
+const pushers = [
+  "How many user-facing screens there are",
+  "How many third-party integrations have to work on day one",
+  "Whether an existing codebase has to be read and understood first",
+  "Compliance requirements — SOC 2, HIPAA, GDPR data residency",
+  "How much design already exists, and whether it survives contact with the build",
+];
+---
+
+<section class="v4-section v4-section--tint" id="v4-pricing" aria-labelledby="v4-pricing-title">
+  <div class="v4-container">
+    <div class="v4-pricing__head">
+      <p class="v4-eyebrow" data-v4-reveal>Pricing</p>
+      <h2 class="v4-h2" id="v4-pricing-title" data-v4-reveal data-v4-delay="60">
+        Three starting prices, and what each one buys.
+      </h2>
+    </div>
+
+    <div class="v4-prices" data-v4-group data-v4-step="90">
+      {
+        tiers.map((tier) => (
+          <article
+            class:list={["v4-card", "v4-price", tier.featured && "v4-price--featured"]}
+            data-v4-group-item
+          >
+            <h3 class="v4-h5">{tier.name}</h3>
+            <p class="v4-price__figure v4-num">
+              {tier.figure}
+              <span class="v4-price__unit">{tier.unit}</span>
+            </p>
+            <span class="v4-price__rule" aria-hidden="true" />
+            <p class="v4-small v4-price__total v4-num">{tier.total}</p>
+            <p class="v4-body v4-price__buys">{tier.buys}</p>
+            <a class="v4-btn v4-btn--secondary v4-btn--sm v4-price__cta" href={tier.href}>
+              {tier.cta}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="v4-pricing__foot">
+      <div data-v4-reveal>
+        <h3 class="v4-h4">What pushes a quote above the starting figure</h3>
+        <ul class="v4-pushers">
+          {pushers.map((item) => <li class="v4-pushers__item">{item}</li>)}
+        </ul>
+      </div>
+
+      <p class="v4-placeholder" data-v4-reveal data-v4-delay="80">
+        <strong>Missing figure.</strong> $3,499 is the smallest sensible v0. The
+        price of a build that genuinely takes the 6–8 weeks quoted above has not
+        been set yet, and we are not going to let this page imply the starting
+        figure covers it.
+      </p>
+    </div>
+  </div>
+</section>

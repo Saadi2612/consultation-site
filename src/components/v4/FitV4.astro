@@ -1,0 +1,69 @@
+---
+/* SPEC §7 — the second column has to be genuinely disqualifying. */
+const take = [
+  "A founder or an operator who can decide without a committee",
+  "A product with one workflow that earns the money, not nine that might",
+  "Web products on Django, FastAPI, Express, NestJS, React and Postgres, deployed on AWS",
+  "An existing codebase someone else wrote, as long as we can read it before quoting",
+  "A budget that starts at $1,999 and a date you can name",
+];
+
+const turnDown = [
+  ["Work under $1,500", "Below that the scoping costs more than the build returns, for you and for us."],
+  ["Mobile-first native apps", "We do not write Swift or Kotlin. A team that does will beat us on both time and price."],
+  ["Blockchain, trading bots and anything where losing a request loses money", "The failure modes need specialists, and we are not them."],
+  ["Staff augmentation inside your sprint board", "We take outcomes with a date on them, not seats in a standup."],
+  ["A rewrite with no way to run the old system", "If nobody can explain what the current system does, week one becomes archaeology and the estimate is fiction."],
+];
+---
+
+<section class="v4-section" aria-labelledby="v4-fit-title">
+  <div class="v4-container v4-split">
+    <div class="v4-split__head">
+      <p class="v4-eyebrow" data-v4-reveal>Fit</p>
+      <h2 class="v4-h2" id="v4-fit-title" data-v4-reveal data-v4-delay="60">
+        Some of this isn't a fit, and we'd rather say so up front.
+      </h2>
+      <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
+        We build web products on Django, FastAPI, Express, NestJS, React and
+        Postgres, deployed on AWS. That is the whole stack. Anything outside it
+        goes to someone who lives in it.
+      </p>
+    </div>
+
+    <div class="v4-fit">
+      <div class="v4-fit__col v4-fit__col--take" data-v4-group data-v4-step="80">
+        <h3 class="v4-h4 v4-table__head">
+          Work we take
+          <span class="v4-badge v4-badge--success">Yes</span>
+        </h3>
+        <ul>
+          {
+            take.map((item) => (
+              <li class="v4-fit__row" data-v4-group-item>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="v4-fit__col v4-fit__col--turn" data-v4-group data-v4-step="80">
+        <h3 class="v4-h4 v4-table__head">
+          Work we turn down
+          <span class="v4-badge v4-badge--warn">No</span>
+        </h3>
+        <ul>
+          {
+            turnDown.map(([item, why]) => (
+              <li class="v4-fit__row" data-v4-group-item>
+                <span class="v4-h5">{item}</span>
+                <span class="v4-table__why">{why}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

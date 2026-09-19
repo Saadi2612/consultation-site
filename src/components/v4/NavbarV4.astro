@@ -1,0 +1,32 @@
+---
+import { site } from "../../lib/site";
+
+const links = [
+  { href: "#v4-services", label: "What we do" },
+  { href: "#v4-pricing", label: "Pricing" },
+  { href: "#v4-faq", label: "Questions" },
+];
+---
+
+<header class="v4-header" data-v4-header>
+  <div class="v4-container v4-header__inner">
+    <a class="v4-wordmark" href="#v4-main">
+      <span class="v4-wordmark__mark" aria-hidden="true"></span>
+      {site.name}
+    </a>
+
+    <nav class="v4-nav" aria-label="Sections">
+      {
+        links.map((link) => (
+          <a class="v4-nav__item" href={link.href}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <a class="v4-btn v4-btn--primary v4-btn--sm v4-header__cta" href="#v4-rail">
+      Tell us where you are
+    </a>
+  </div>
+</header>

@@ -1,0 +1,75 @@
+---
+import { site } from "../../lib/site";
+
+/* SPEC §4a — the consultation, as the two weeks it actually is. */
+const weeks = [
+  {
+    n: "01",
+    label: "Week one",
+    body:
+      "We read whatever exists — code, Figma, a spreadsheet, a support inbox — and ask the questions that change the estimate. Who the first users are, what they do instead today, which integrations are non-negotiable, and what has to be true for you to call it finished.",
+    yours: "Two hours of calls and access to whatever already exists.",
+  },
+  {
+    n: "02",
+    label: "Week two",
+    body:
+      "We turn the answers into a written scope: the feature list for v0, the list of things left out and why, the stack, the sequence, the week-by-week plan and a price with the assumptions it rests on.",
+    yours: "One review pass, and a decision on the cuts we propose.",
+  },
+];
+---
+
+<section class="v4-section v4-section--tint" id="v4-services" aria-labelledby="v4-scope-title">
+  <div class="v4-container v4-split">
+    <div class="v4-split__head">
+      <p class="v4-eyebrow" data-v4-reveal>Consultation · $35/hour</p>
+      <h2 class="v4-h2" id="v4-scope-title" data-v4-reveal data-v4-delay="60">
+        Two weeks of questions, then a written scope.
+      </h2>
+      <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
+        Usually 20–30 hours of work, so $700 to $1,050 in total. You keep the
+        scope whether or not we build it.
+      </p>
+    </div>
+
+    <div class="v4-scope">
+      <ol class="v4-track" data-v4-track>
+        <span class="v4-track__rail" aria-hidden="true">
+          <span class="v4-track__line"></span>
+        </span>
+
+        {
+          weeks.map((week) => (
+            <li class="v4-track__step">
+              <span class="v4-track__dot v4-num" data-v4-track-dot aria-hidden="true">
+                {week.n}
+              </span>
+              <div class="v4-track__content">
+                <h3 class="v4-h4">{week.label}</h3>
+                <p class="v4-body" style="margin-top: var(--v4-2)">{week.body}</p>
+                <p class="v4-track__yours">
+                  <span class="v4-badge v4-badge--info">Your part</span>
+                  {week.yours}
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="v4-card v4-card--elevated v4-scope__out" data-v4-reveal data-v4-delay="120">
+        <h3 class="v4-h4">What you get on day ten</h3>
+        <p class="v4-body" style="margin-top: var(--v4-3)">
+          A scope document you can hand to any competent team and get a
+          comparable quote back: feature list, exclusions with reasons, stack,
+          sequence, timeline and price assumptions. It is the thing you are
+          paying for, not a sales artefact.
+        </p>
+        <a class="v4-link v4-scope__link" href={site.booking}>
+          Book the call that starts week one
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

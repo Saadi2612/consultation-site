@@ -1,0 +1,163 @@
+---
+import { site } from "../../lib/site";
+
+/* The three positions are one instrument, not three cards. Every row stays
+   legible with nothing selected — the selection only adds depth. */
+const stages = [
+  {
+    id: "vq",
+    marker: "v?",
+    state: "You know the problem. You don't have a spec.",
+    service: "Consultation",
+    span: "Two weeks",
+    deliverable: "You leave with a written scope you can hand to anyone.",
+    price: "$35/hour · 20–30 hours · $700–$1,050",
+    cta: "Book the scoping call",
+    href: site.booking,
+  },
+  {
+    id: "v0",
+    marker: "v0",
+    state: "Spec is ready. Nothing is built.",
+    service: "MVP build",
+    span: "6–8 weeks",
+    deliverable: "Something real users can sign into and use.",
+    price: "From $3,499",
+    cta: "Start an MVP build",
+    href: "#v4-contact",
+  },
+  {
+    id: "v1",
+    marker: "v1",
+    state: "It's live, and it breaks under load.",
+    service: "Hardening",
+    span: "Four weeks",
+    deliverable: "Stability, performance and a test suite that holds.",
+    price: "From $1,999",
+    cta: "Get it stable",
+    href: "#v4-contact",
+  },
+];
+
+const holds = [
+  ["Your hours", "1pm–9pm PKT covers a London day"],
+  ["Your answers", "Inside one working day, every working day"],
+  ["Your code", "Transfers at each milestone, not at the end"],
+];
+---
+
+<section class="v4-hero" aria-labelledby="v4-hero-title">
+  <div class="v4-container v4-hero__grid">
+    <div class="v4-hero__left">
+      <p class="v4-eyebrow" data-v4-hero-item>Two engineers, Lahore, on your clock</p>
+
+      <h1 class="v4-display v4-hero__title" id="v4-hero-title">
+        <span class="v4-wipe" data-v4-wipe><span class="v4-wipe__text">Where is your</span></span>
+        <span class="v4-wipe" data-v4-wipe><span class="v4-wipe__text">product right</span></span>
+        <span class="v4-wipe" data-v4-wipe><span class="v4-wipe__text">now?</span></span>
+      </h1>
+
+      <p class="v4-lead v4-hero__lead" data-v4-hero-item>
+        Pick the point you are standing on. Each one has a fixed starting price,
+        a written deliverable and a date we are finished by. Nothing on this page
+        needs a call to understand.
+      </p>
+
+      <div class="v4-hero__ctas" data-v4-hero-item>
+        <a class="v4-btn v4-btn--primary v4-magnet" data-v4-magnet href="#v4-rail">
+          Tell us where you are
+        </a>
+        <a class="v4-btn v4-btn--secondary" href={site.booking}>
+          Book a 30-minute call with Saad
+        </a>
+      </div>
+
+      <ul class="v4-holds" data-v4-hero-item>
+        {
+          holds.map(([term, detail]) => (
+            <li class="v4-holds__item">
+              <span class="v4-holds__tick" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="12" height="12" fill="none">
+                  <path
+                    d="M3 8.5 6.2 11.7 13 5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <span>
+                <span class="v4-holds__term">{term}</span>
+                <span class="v4-holds__detail">{detail}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="v4-hero__right" data-v4-tilt-scene>
+      <div class="v4-rail-card v4-card v4-card--elevated" id="v4-rail" data-v4-tilt>
+        <div class="v4-rail-card__head">
+          <h2 class="v4-h5">Pick the one that describes today</h2>
+        </div>
+
+        <div
+          class="v4-rail"
+          role="radiogroup"
+          aria-label="Where your product is right now"
+          data-v4-rail
+        >
+          {
+            stages.map((stage, i) => (
+              <div class="v4-stage" data-v4-stage={stage.id}>
+                <button
+                  class="v4-stage__button"
+                  type="button"
+                  role="radio"
+                  aria-checked={i === 0 ? "true" : "false"}
+                  tabindex={i === 0 ? "0" : "-1"}
+                  data-v4-stage-button={stage.id}
+                >
+                  <span class="v4-stage__spine" aria-hidden="true" />
+                  <span class="v4-stage__marker" aria-hidden="true">
+                    {stage.marker}
+                  </span>
+                  <span class="v4-stage__copy">
+                    <span class="v4-stage__state">{stage.state}</span>
+                    <span class="v4-stage__service">
+                      {stage.service} · {stage.span}
+                    </span>
+                  </span>
+                </button>
+
+                <div class="v4-stage__detail" data-v4-stage-detail>
+                  <div class="v4-stage__detail-inner">
+                    <p class="v4-stage__deliverable">{stage.deliverable}</p>
+                    <p class="v4-stage__price v4-num">{stage.price}</p>
+                    <a class="v4-btn v4-btn--dark v4-btn--sm" href={stage.href}>
+                      {stage.cta}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="v4-float v4-float--a" data-v4-float="1">
+        <p class="v4-small v4-float__label">Overlap today</p>
+        <p class="v4-h5 v4-num">1pm – 9pm PKT</p>
+        <p class="v4-small">A full 9-to-5 in London</p>
+      </div>
+
+      <div class="v4-float v4-float--b" data-v4-float="2">
+        <p class="v4-small v4-float__label">Team</p>
+        <p class="v4-h5">Mohib and Saad</p>
+        <p class="v4-small">6+ years each. No one else on the call.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,80 @@
+---
+/* SPEC §4c — the hardening readout. Marked illustrative in the body, at body
+   size and colour, because these are not measurements from a named client. */
+const rows = [
+  {
+    n: "01",
+    metric: "p95 API response",
+    before: "2400ms",
+    after: "280ms",
+    note: "Index audit, N+1 removal, connection pooling",
+  },
+  {
+    n: "02",
+    metric: "Error rate",
+    before: "3%",
+    after: "0.4%",
+    note: "Structured logging, then fixing what it showed",
+  },
+  {
+    n: "03",
+    metric: "Integration tests",
+    before: "0",
+    after: "140",
+    note: "Covering the path that takes the money",
+  },
+  {
+    n: "04",
+    metric: "Deploys",
+    before: "1/month",
+    after: "9/week",
+    note: "CI, migrations and a rollback that has been used",
+  },
+];
+---
+
+<section class="v4-section v4-section--tint" aria-labelledby="v4-numbers-title">
+  <div class="v4-container v4-split">
+    <div class="v4-split__head">
+      <p class="v4-eyebrow" data-v4-reveal>Hardening · from $1,999</p>
+      <h2 class="v4-h2" id="v4-numbers-title" data-v4-reveal data-v4-delay="60">
+        Four numbers have to move before we call it stable.
+      </h2>
+      <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
+        Four weeks. The figures below are illustrative — the shape of a typical
+        four-week hardening engagement, not measurements taken from a named
+        client. We agree your four numbers in week one and report them weekly.
+      </p>
+    </div>
+
+    <div class="v4-readout v4-card" data-v4-reveal>
+      <div class="v4-readout__head v4-small">
+        <span>Measure</span>
+        <span>On arrival</span>
+        <span>On handover</span>
+      </div>
+
+      {
+        rows.map((row) => (
+          <div class="v4-readout__row">
+            <div class="v4-readout__metric">
+              <span class="v4-readout__n v4-num" aria-hidden="true">{row.n}</span>
+              <span>
+                <span class="v4-h5">{row.metric}</span>
+                <span class="v4-small v4-readout__note">{row.note}</span>
+              </span>
+            </div>
+
+            <div class="v4-readout__before v4-num">
+              <span data-v4-odometer={row.before}>{row.before}</span>
+            </div>
+
+            <div class="v4-readout__after v4-num">
+              <span data-v4-odometer={row.after} data-v4-hold="340">{row.after}</span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

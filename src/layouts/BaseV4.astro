@@ -1,0 +1,41 @@
+---
+import "../styles/v4.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#15191e" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body class="v4">
+    <a class="v4-skip" href="#v4-main">Skip to content</a>
+    <div class="v4-progress" data-v4-progress aria-hidden="true"></div>
+    <slot />
+  </body>
+</html>
+
+<script>
+  import { initV4 } from "../scripts/v4-motion";
+
+  initV4();
+</script>

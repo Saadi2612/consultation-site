@@ -1,0 +1,56 @@
+---
+/* SPEC §3 — four operating facts, nothing adjectival, nothing invented. */
+const facts = [
+  {
+    title: "Your working hours, not ours",
+    body:
+      "London 1pm–9pm PKT. Berlin 12pm–8pm PKT. New York 6pm–10pm PKT. San Francisco 9pm–1am PKT. Sydney 8am–12pm PKT. These shift by an hour when your region changes clocks; ours never does.",
+    tag: "Overlap",
+  },
+  {
+    title: "An answer inside one working day",
+    body:
+      "Messages sent during your overlap window get answered in it. Anything sent outside it is answered by the end of our next working day, and we tell you which of us picked it up.",
+    tag: "Response",
+  },
+  {
+    title: "Code transfers at each milestone",
+    body:
+      "Every milestone is yours the moment it is paid for — repository, history and deploy configuration. Not held back until the final invoice clears.",
+    tag: "Ownership",
+  },
+  {
+    title: "We sign your NDA",
+    body:
+      "Send yours and we sign it before the first call. If you do not have one, we send ours. You never have to produce a document to start a conversation.",
+    tag: "Paperwork",
+  },
+];
+---
+
+<section class="v4-section v4-section--rule" aria-labelledby="v4-hold-title">
+  <div class="v4-container v4-split">
+    <div class="v4-split__head">
+      <p class="v4-eyebrow" data-v4-reveal>What you can hold us to</p>
+      <h2 class="v4-h2" id="v4-hold-title" data-v4-reveal data-v4-delay="60">
+        Four things you can hold us to.
+      </h2>
+      <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
+        Facts rather than adjectives. If any of these stops being true, the
+        sentence comes off the page.
+      </p>
+    </div>
+
+    <ul class="v4-deal" data-v4-group data-v4-step="90">
+      {
+        facts.map((fact) => (
+          <li class="v4-card v4-card--lift v4-deal__card" data-v4-group-item>
+            <p class="v4-small v4-deal__tag">{fact.tag}</p>
+            <h3 class="v4-h4 v4-deal__title">{fact.title}</h3>
+            <p class="v4-body">{fact.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

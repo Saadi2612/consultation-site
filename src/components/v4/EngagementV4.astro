@@ -1,0 +1,96 @@
+---
+import { site } from "../../lib/site";
+
+/* SPEC §5 — a real sequence, so the numbering is earned. Each week names what
+   the client owes us as well as what we owe them. */
+const weeks = [
+  {
+    n: "01",
+    title: "Week one — access and the first slice",
+    time: "5 working days",
+    ours:
+      "We set up the repository, CI, staging and error reporting, and ship the first slice of real functionality to a URL you can open.",
+    yours:
+      "Accounts and keys: repository access, the domain, the payment provider, anything behind a login. This is the week clients most often stall, and it moves the finish date one day for every day it waits.",
+  },
+  {
+    n: "02",
+    title: "Weeks two to five — build, demo on Fridays",
+    time: "Weekly cadence",
+    ours:
+      "Feature work against the agreed sequence, deployed to staging as it lands. A Friday demo on the real build, never slides, plus a written note of what moved and what did not.",
+    yours:
+      "Watch the Friday demo, or the recording, inside three working days and say what is wrong while it is cheap to change.",
+  },
+  {
+    n: "03",
+    title: "Week six — hardening and handover prep",
+    time: "5 working days",
+    ours:
+      "Tests around the paths that take money, load checks, backups, runbook, and the migration plan from staging to production.",
+    yours:
+      "Name the person who will own this after us, even if that person is you, and put them on the calls this week.",
+  },
+  {
+    n: "04",
+    title: "Launch week and the thirty days after",
+    time: "Launch + 30 days",
+    ours:
+      "We deploy, watch it, and fix what launch surfaces. Thirty days of bug fixes on delivered scope are included and are not billed as new work.",
+    yours:
+      "Tell us the launch date at least a week out, so the deploy happens on a working morning in your timezone rather than a Friday night in ours.",
+  },
+];
+---
+
+<section class="v4-section v4-section--tint" aria-labelledby="v4-engagement-title">
+  <div class="v4-container v4-split">
+    <div class="v4-split__head">
+      <p class="v4-eyebrow" data-v4-reveal>The engagement</p>
+      <h2 class="v4-h2" id="v4-engagement-title" data-v4-reveal data-v4-delay="60">
+        How an engagement actually runs.
+      </h2>
+      <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
+        Each week names what we do and what you have to do. The second half is
+        the part most studios leave out, and it is the part that decides whether
+        the date holds.
+      </p>
+      <a
+        class="v4-btn v4-btn--dark v4-magnet"
+        data-v4-magnet
+        href="#v4-contact"
+        style="margin-top: var(--v4-6)"
+      >
+        Start a project
+      </a>
+    </div>
+
+    <ol class="v4-shutter" data-v4-group data-v4-step="100">
+      {
+        weeks.map((week) => (
+          <li class="v4-shutter__item" data-v4-group-item>
+            <div class="v4-shutter__inner">
+              <span class="v4-shutter__spine" aria-hidden="true" />
+              <span class="v4-shutter__n v4-num" aria-hidden="true">{week.n}</span>
+              <div class="v4-shutter__body">
+                <div class="v4-shutter__top">
+                  <h3 class="v4-h4">{week.title}</h3>
+                  <span class="v4-small v4-shutter__time">{week.time}</span>
+                </div>
+                <p class="v4-body" style="margin-top: var(--v4-2)">{week.ours}</p>
+                <p class="v4-shutter__yours">
+                  <span class="v4-badge v4-badge--info">Your part</span>
+                  <span>{week.yours}</span>
+                </p>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <p class="v4-container v4-small v4-shutter__foot">
+    Questions about a week of this? Mail <a class="v4-link" href={`mailto:${site.email}`}>{site.email}</a>.
+  </p>
+</section>

@@ -1,0 +1,91 @@
+---
+/* SPEC §11 — eight real objections, answered directly. */
+const faqs = [
+  {
+    q: "What happens if one of you gets sick mid-build?",
+    a: "The other one keeps shipping, slower. We both have read and deploy access to every project and the Friday note tells you what moved, so nothing lives only in one head. If it is longer than a few days we tell you the same week and give you a revised date rather than quietly missing the old one. Two people is the honest answer to this question, and if you need guaranteed capacity through illness you need a larger team than ours.",
+  },
+  {
+    q: "Who owns the code, and from when?",
+    a: "You do, from the moment each milestone is paid. Repository, history, deploy configuration and credentials. We do not hold a licence-back and we do not keep a copy running anywhere after handover.",
+  },
+  {
+    q: "What if we go over scope?",
+    a: "Scope changes are quoted before they are built, as a written line item with a price and a date impact. We do not absorb them silently and then arrive late, and we do not start them on a verbal yes in a call.",
+  },
+  {
+    q: "Can you work alongside our existing developer?",
+    a: "Yes, and it works best when the split is by surface rather than by ticket — we take the API and they take the app, or the reverse. Sharing one codebase with no boundary means two people rewriting each other's work on a four-hour delay.",
+  },
+  {
+    q: "Whose NDA do we sign?",
+    a: "Yours. Send it and we sign it before the first call. If you do not have one, we send ours and you are welcome to redline it.",
+  },
+  {
+    q: "What if the MVP fails?",
+    a: "Then you have a working product, the code, the deployment and a scope document that says what was cut and why — which is what makes the next decision cheap. We cannot promise your market wants it. Nobody can, and anyone who does is selling you something else.",
+  },
+  {
+    q: "How do we pay a studio in Pakistan?",
+    a: "Wise, Payoneer or a direct SWIFT transfer to a business account, in USD, GBP, EUR or AUD. Invoices per milestone, net 7. Wise and Payoneer usually clear in one to two working days; SWIFT takes three to five.",
+  },
+  {
+    q: "What happens after launch?",
+    a: "Thirty days of bug fixes on delivered scope are included. After that it is either a hardening engagement or nothing — we do not put you on a retainer to keep a thing alive that should be able to run without us.",
+  },
+];
+---
+
+<section class="v4-section" id="v4-faq" aria-labelledby="v4-faq-title">
+  <div class="v4-container v4-split">
+    <div class="v4-split__head">
+      <p class="v4-eyebrow" data-v4-reveal>Questions</p>
+      <h2 class="v4-h2" id="v4-faq-title" data-v4-reveal data-v4-delay="60">
+        The eight things founders ask before signing.
+      </h2>
+    </div>
+
+    <div class="v4-faq" data-v4-reveal>
+      {
+        faqs.map((faq, i) => (
+          <div class="v4-faq__item" data-v4-accordion-item data-open={i === 0 ? "true" : "false"}>
+            <h3>
+              <button
+                class="v4-faq__trigger"
+                type="button"
+                aria-expanded={i === 0 ? "true" : "false"}
+                aria-controls={`v4-faq-panel-${i}`}
+                id={`v4-faq-trigger-${i}`}
+                data-v4-accordion-trigger
+              >
+                <span>{faq.q}</span>
+                <span class="v4-faq__chevron" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none">
+                    <path
+                      d="M4 6.5 8 10.5 12 6.5"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </h3>
+            <div
+              class="v4-faq__panel"
+              id={`v4-faq-panel-${i}`}
+              role="region"
+              aria-labelledby={`v4-faq-trigger-${i}`}
+              data-v4-accordion-panel
+            >
+              <div class="v4-faq__panel-inner">
+                <p class="v4-body">{faq.a}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

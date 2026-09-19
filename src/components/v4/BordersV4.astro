@@ -1,0 +1,63 @@
+---
+import { site } from "../../lib/site";
+
+/* SPEC §8 — the section that closes cross-border deals. Plain and specific. */
+const blocks = [
+  {
+    h: "Contract and NDA",
+    p: "We sign your NDA before the first call, and your contract if you have one. If you do not, we send a fixed-scope agreement naming the deliverable, the milestones, the payment schedule and the termination terms. English law or your local jurisdiction, your choice — we have no preference to defend.",
+  },
+  {
+    h: "IP assignment",
+    p: "Everything we write is assigned to you on payment of the milestone it belongs to. No licence-back, no shared ownership, no portfolio rights unless you separately agree to them in writing. Third-party dependencies stay under their own open-source licences, and we list them.",
+  },
+  {
+    h: "Payment methods and currencies",
+    p: "USD, GBP, EUR and AUD. Wise, Payoneer or a direct SWIFT transfer to a business account in Pakistan. Invoices are issued per milestone, net 7. We do not ask for the full amount up front, and we do not start the next milestone until the previous one is paid.",
+  },
+  {
+    h: "Channels and cadence",
+    p: "A shared Slack Connect channel or your Discord, plus email for anything that has to be findable in a year. One scheduled call a week inside your overlap window, and a written Friday note whether or not the call happens.",
+  },
+  {
+    h: "If you go quiet",
+    p: "We keep working through the current milestone, then stop and tell you the build is paused rather than billing into silence. Work already delivered stays yours. If you come back inside 60 days we pick up where we stopped at the same rate; after that we re-quote, because the code has aged.",
+  },
+  {
+    h: "The time difference, stated plainly",
+    p: "PKT is UTC+5 and does not observe daylight saving, so our overlap with you shifts by an hour when your region changes clocks, not when ours does. London 1pm–9pm PKT covers a full 9-to-5. Berlin 12pm–8pm. New York 6pm–10pm covers your morning. San Francisco 9pm–1am covers your morning. Sydney 8am–12pm covers your afternoon.",
+  },
+];
+---
+
+<section class="v4-section" aria-labelledby="v4-borders-title">
+  <div class="v4-container v4-split">
+    <div class="v4-split__head">
+      <p class="v4-eyebrow" data-v4-reveal>Across borders</p>
+      <h2 class="v4-h2" id="v4-borders-title" data-v4-reveal data-v4-delay="60">
+        Hiring two engineers eight time zones away.
+      </h2>
+      <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
+        Contract, ownership, money, cadence and what happens when it goes wrong.
+        Written down here so you do not have to ask for it on a call.
+      </p>
+    </div>
+
+    <div class="v4-borders">
+      {
+        blocks.map((block, i) => (
+          <div class="v4-borders__block" data-v4-reveal data-v4-delay={i * 60}>
+            <h3 class="v4-h5">{block.h}</h3>
+            <p class="v4-body" style="margin-top: var(--v4-2)">{block.p}</p>
+          </div>
+        ))
+      }
+
+      <p class="v4-small v4-borders__foot" data-v4-reveal>
+        Anything here you need in your own paperwork instead, mail
+        <a class="v4-link" href={`mailto:${site.email}`}> {site.email}</a> and we
+        will work from your documents.
+      </p>
+    </div>
+  </div>
+</section>

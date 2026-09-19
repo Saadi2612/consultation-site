@@ -1,0 +1,127 @@
+---
+/* SPEC §6 — two worked examples, labelled illustrative at body size. No
+   client name, company, country or quotation is attached to either. */
+const hardening = [
+  { metric: "p95 API response", before: "2400ms", after: "290ms" },
+  { metric: "Error rate", before: "3%", after: "0.4%" },
+  { metric: "Integration tests", before: "0", after: "140" },
+  { metric: "Deploys", before: "1/month", after: "5/week" },
+];
+
+const mvpShipped = [
+  "Listings and search",
+  "An availability calendar",
+  "Payouts through Stripe Connect",
+  "Transactional email",
+];
+
+const mvpCut = [
+  "Native mobile apps",
+  "In-app messaging",
+  "Reviews",
+  "An analytics dashboard",
+  "Multi-currency",
+];
+---
+
+<section class="v4-section" aria-labelledby="v4-examples-title">
+  <div class="v4-container v4-split">
+    <div class="v4-split__head">
+      <p class="v4-eyebrow" data-v4-reveal>Two engagements</p>
+      <h2 class="v4-h2" id="v4-examples-title" data-v4-reveal data-v4-delay="60">
+        What an engagement looks like, end to end.
+      </h2>
+      <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
+        Both of these are illustrative. They describe the shape and sequence of
+        real work at the sizes we take on, with no client, company or country
+        attached to either.
+      </p>
+    </div>
+
+    <div class="v4-examples">
+      <article class="v4-card v4-example" data-v4-reveal>
+        <header class="v4-example__head">
+          <span class="v4-badge v4-badge--warn">Illustrative · hardening</span>
+          <h3 class="v4-h3" style="margin-top: var(--v4-3)">
+            A B2B scheduling tool that stopped taking bookings at peak
+          </h3>
+        </header>
+
+        <p class="v4-body">
+          Django and Postgres, roughly 8,000 monthly users, built quickly by a
+          previous contractor. On arrival: booking requests timing out, no test
+          suite, deploys by hand over SSH.
+        </p>
+
+        <p class="v4-body" style="margin-top: var(--v4-3)">
+          Four weeks of work — an index audit and removal of N+1 queries,
+          connection pooling through PgBouncer, report generation moved onto a
+          Celery queue, 140 integration tests covering the booking path, CI with
+          automated deploys, Sentry with structured logging.
+        </p>
+
+        <div class="v4-example__readout">
+          {
+            hardening.map((row) => (
+              <div class="v4-example__row">
+                <span class="v4-small">{row.metric}</span>
+                <span class="v4-example__before v4-num">
+                  <span data-v4-odometer={row.before}>{row.before}</span>
+                </span>
+                <span class="v4-example__after v4-num">
+                  <span data-v4-odometer={row.after} data-v4-hold="340">{row.after}</span>
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </article>
+
+      <article class="v4-card v4-example" data-v4-reveal data-v4-delay="120">
+        <header class="v4-example__head">
+          <span class="v4-badge v4-badge--warn">Illustrative · MVP</span>
+          <h3 class="v4-h3" style="margin-top: var(--v4-3)">
+            An equipment rental marketplace, from a Figma file to sixty listings
+          </h3>
+        </header>
+
+        <p class="v4-body">
+          The founder arrived with a Figma file and a spreadsheet of demand from
+          twelve suppliers. v0 on FastAPI, React and Postgres, shipped in seven
+          weeks with sixty listings live.
+        </p>
+
+        <div class="v4-example__cols">
+          <div data-v4-group data-v4-step="60">
+            <p class="v4-small v4-example__col-head">Shipped in v0</p>
+            <ul>
+              {
+                mvpShipped.map((item) => (
+                  <li class="v4-table__row v4-table__row--ship" data-v4-group-item>
+                    {item}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div data-v4-group data-v4-step="80">
+            <p class="v4-small v4-example__col-head">Deliberately left out</p>
+            <ul>
+              {
+                mvpCut.map((item) => (
+                  <li class="v4-table__row v4-table__row--cut" data-v4-group-item>
+                    <span class="v4-strike">
+                      <span class="v4-strike__text">{item}</span>
+                      <span class="v4-strike__rule" aria-hidden="true" />
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,107 @@
+---
+import { site } from "../../lib/site";
+
+const states = [
+  ["vq", "v? — I know the problem, I don't have a spec"],
+  ["v0", "v0 — the spec is ready, nothing is built"],
+  ["v1", "v1 — it's live and it breaks under load"],
+];
+
+const budgets = [
+  "Under $1,500 — likely not a fit",
+  "$1,500 – $3,500",
+  "$3,500 – $8,000",
+  "$8,000 – $20,000",
+  "Over $20,000",
+];
+
+const timelines = ["Starting now", "Inside a month", "This quarter", "Still deciding"];
+---
+
+<section class="v4-section" id="v4-contact" aria-labelledby="v4-cta-title">
+  <div class="v4-container">
+    <div class="v4-cta" data-v4-burst>
+      <span class="v4-cta__field" aria-hidden="true"></span>
+
+      <div class="v4-cta__grid">
+        <div class="v4-cta__left">
+          <p class="v4-eyebrow">Tell us where you are</p>
+          <h2 class="v4-h2" id="v4-cta-title" style="margin-top: var(--v4-4)">
+            Two engineers, one reply, inside a working day.
+          </h2>
+          <p class="v4-body" style="margin-top: var(--v4-5)">
+            The form is a filter, not a funnel. If we are not the right people
+            for this we will say so in the reply and, where we can, name someone
+            who is.
+          </p>
+
+          <a class="v4-btn v4-btn--primary v4-magnet v4-cta__book" data-v4-magnet href={site.booking}>
+            Book a 30-minute call with Saad
+          </a>
+
+          <p class="v4-small v4-cta__mail">
+            Or mail <a class="v4-link" href={`mailto:${site.email}`}>{site.email}</a> directly.
+            We are in {site.city}, UTC+5.
+          </p>
+        </div>
+
+        <form class="v4-form" name="v4-enquiry" method="post" data-v4-form>
+          <div class="v4-form__row">
+            <label class="v4-field">
+              <span class="v4-field__label">Your name</span>
+              <input class="v4-input" type="text" name="name" autocomplete="name" required />
+            </label>
+
+            <label class="v4-field">
+              <span class="v4-field__label">Email</span>
+              <input class="v4-input" type="email" name="email" autocomplete="email" required />
+            </label>
+          </div>
+
+          <label class="v4-field">
+            <span class="v4-field__label">Company URL</span>
+            <input class="v4-input" type="url" name="company" placeholder="https://" />
+          </label>
+
+          <div class="v4-form__row">
+            <label class="v4-field">
+              <span class="v4-field__label">Where you are</span>
+              <select class="v4-input" name="state" data-v4-state-field>
+                {states.map(([value, label]) => <option value={value}>{label}</option>)}
+              </select>
+            </label>
+
+            <label class="v4-field">
+              <span class="v4-field__label">Budget</span>
+              <select class="v4-input" name="budget">
+                {budgets.map((band) => <option value={band}>{band}</option>)}
+              </select>
+            </label>
+          </div>
+
+          <label class="v4-field">
+            <span class="v4-field__label">Timeline</span>
+            <select class="v4-input" name="timeline">
+              {timelines.map((item) => <option value={item}>{item}</option>)}
+            </select>
+          </label>
+
+          <label class="v4-field">
+            <span class="v4-field__label">What is in front of you right now</span>
+            <textarea class="v4-input v4-input--area" name="detail" rows="4"></textarea>
+          </label>
+
+          <button class="v4-btn v4-btn--dark v4-form__submit" type="submit">
+            Send this to Mohib and Saad
+          </button>
+
+          <p class="v4-small v4-form__note">
+            On submit you get a confirmation on screen and a copy by email. One
+            of us replies by the end of our next working day — that is inside 24
+            hours from London, Berlin or New York, and inside 30 from Sydney.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

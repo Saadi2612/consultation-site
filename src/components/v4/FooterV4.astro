@@ -1,0 +1,18 @@
+---
+import { site } from "../../lib/site";
+---
+
+<footer class="v4-footer">
+  <div class="v4-container v4-footer__inner">
+    <p class="v4-footer__line">Two engineers. Products that stay up.</p>
+
+    <div class="v4-footer__meta">
+      <a class="v4-wordmark v4-wordmark--invert" href="#v4-main">
+        <span class="v4-wordmark__mark" aria-hidden="true"></span>
+        {site.name}
+      </a>
+      <a class="v4-footer__link" href={`mailto:${site.email}`}>{site.email}</a>
+      <span class="v4-footer__place">{site.city} · UTC+5</span>
+    </div>
+  </div>
+</footer>

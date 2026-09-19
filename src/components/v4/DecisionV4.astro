@@ -1,0 +1,73 @@
+---
+/* SPEC §4b — the scope table. The right column is the section. */
+const ships = [
+  "Accounts, sign-in and password reset",
+  "The one workflow the product is paid for",
+  "Payments, if you charge from day one",
+  "Transactional email that reaches inboxes",
+  "An admin view you can run support from",
+  "Deploys, backups and error reporting",
+];
+
+const cut = [
+  ["Native mobile apps", "The web app answers the same question at a tenth of the build."],
+  ["In-app messaging", "Email carries it until you have the volume to justify a thread model."],
+  ["Reviews and ratings", "Needs both sides of a market to exist before it means anything."],
+  ["An analytics dashboard", "For the first hundred users you read the database and we write the query."],
+  ["Multi-currency", "One currency until a second country actually asks."],
+  ["Roles beyond admin and user", "A permission matrix invented before anyone has asked for it is a month of rework."],
+];
+---
+
+<section class="v4-section" aria-labelledby="v4-decision-title">
+  <div class="v4-container v4-split">
+    <div class="v4-split__head">
+      <p class="v4-eyebrow" data-v4-reveal>MVP build · from $3,499</p>
+      <h2 class="v4-h2" id="v4-decision-title" data-v4-reveal data-v4-delay="60">
+        Half of scoping a v0 is deciding what not to build.
+      </h2>
+      <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
+        Six to eight weeks to something real users can sign into. The column on
+        the right is where the date comes from.
+      </p>
+    </div>
+
+    <div class="v4-table">
+      <div class="v4-table__col" data-v4-group data-v4-step="60">
+        <h3 class="v4-h4 v4-table__head">
+          Ships in v0
+          <span class="v4-badge v4-badge--success">Built</span>
+        </h3>
+        <ul>
+          {
+            ships.map((item) => (
+              <li class="v4-table__row v4-table__row--ship" data-v4-group-item>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="v4-table__col" data-v4-group data-v4-step="90">
+        <h3 class="v4-h4 v4-table__head">
+          Left out of v0
+          <span class="v4-badge v4-badge--warn">Cut on purpose</span>
+        </h3>
+        <ul>
+          {
+            cut.map(([item, why]) => (
+              <li class="v4-table__row v4-table__row--cut" data-v4-group-item>
+                <span class="v4-strike">
+                  <span class="v4-strike__text">{item}</span>
+                  <span class="v4-strike__rule" aria-hidden="true" />
+                </span>
+                <span class="v4-table__why">{why}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
