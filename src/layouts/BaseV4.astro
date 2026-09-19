@@ -19,6 +19,11 @@ const { title, description } = Astro.props;
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#15191e" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      /* Set before first paint: every entrance pre-state is scoped to this
+         class, so with scripting off the page renders fully resolved. */
+      document.documentElement.classList.add("v4-js");
+    </script>
     <link
       rel="preload"
       href="/fonts/inter-latin-var.woff2"

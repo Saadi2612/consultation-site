@@ -145,7 +145,19 @@
   --v4-gutter: 80px;
 }
 
-/* §8 responsive — type steps down, gutters step in */
+/* §8 responsive — type steps down, gutters step in.
+   The 1024–1279 step exists because the hero keeps two columns there: a 72px
+   display line is wider than the left column at those widths and would be
+   clipped by the section's own overflow. */
+@media (max-width: 1279px) {
+  :root {
+    --v4-display-1: 48px;
+    --v4-display-1-lh: 52px;
+    --v4-display-2: 40px;
+    --v4-display-2-lh: 44px;
+  }
+}
+
 @media (max-width: 1023px) {
   :root {
     --v4-display-1: 48px;
@@ -701,6 +713,13 @@ body.v4 {
   align-items: center;
 }
 
+@media (max-width: 1279px) {
+  .v4-hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--v4-8);
+  }
+}
+
 @media (max-width: 1023px) {
   .v4-hero__grid {
     grid-template-columns: minmax(0, 1fr);
@@ -1071,12 +1090,17 @@ body.v4 {
   transition-delay: 260ms;
 }
 
+/* Narrower than this the floats have no room to hang off the card without
+   landing on the hero copy, so they tuck against its corners instead. */
 @media (max-width: 1279px) {
   .v4-float--a {
-    right: -12px;
+    top: -64px;
+    right: 0;
   }
+
   .v4-float--b {
-    left: -12px;
+    bottom: -36px;
+    left: 8px;
   }
 }
 
@@ -2195,4 +2219,69 @@ body.v4 {
     color: var(--v4-orange);
     text-decoration: underline;
   }
+}
+
+/* ====================================== no scripting, no hidden content */
+
+/* Every pre-state above starts at opacity 0 or a clipped box. Those states
+   only make sense when the module is there to release them, so without it
+   the page renders exactly as it does after every entrance has finished. */
+html:not(.v4-js) :is(
+    [data-v4-hero-item],
+    [data-v4-reveal],
+    [data-v4-group-item],
+    .v4-rail-card,
+    .v4-float,
+    .v4-example,
+    .v4-readout,
+    .v4-price,
+    .v4-founder,
+    .v4-shutter__item,
+    .v4-deal__card,
+    .v4-table__row,
+    .v4-fit__row
+  ) {
+  opacity: 1;
+  transform: none;
+  clip-path: none;
+  transition: none;
+}
+
+html:not(.v4-js) .v4-wipe__text {
+  clip-path: none;
+}
+
+html:not(.v4-js) .v4-wipe::after {
+  display: none;
+}
+
+html:not(.v4-js) :is(.v4-stage__detail, .v4-faq__panel) {
+  grid-template-rows: 1fr;
+}
+
+html:not(.v4-js) :is(.v4-stage__detail-inner, .v4-faq__panel-inner) {
+  opacity: 1;
+  transform: none;
+}
+
+html:not(.v4-js) .v4-track__line {
+  transform: scaleY(1);
+}
+
+html:not(.v4-js) .v4-track__dot {
+  background: var(--v4-orange);
+  border-color: var(--v4-orange);
+  color: var(--v4-ink);
+}
+
+html:not(.v4-js) :is(.v4-strike__rule, .v4-price__rule) {
+  transform: scaleX(1);
+}
+
+html:not(.v4-js) .v4-cta__field {
+  clip-path: circle(140% at 12% 78%);
+}
+
+html:not(.v4-js) .v4-stage__spine {
+  transform: scaleY(1);
 }

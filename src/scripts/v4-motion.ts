@@ -136,12 +136,18 @@ function initHero() {
     el.style.transitionDelay = `${260 + i * 80}ms`;
   });
 
-  requestAnimationFrame(() => {
+  const arrive = () => {
     settle(wipes);
     settle(items);
     if (card) card.classList.add("is-in");
     settle(floats);
-  });
+  };
+
+  // rAF gets the entrance onto the next paint, but it never fires while the
+  // tab is in the background — so a timer backs it up and the hero is never
+  // left invisible in a tab that was opened behind another one.
+  requestAnimationFrame(arrive);
+  window.setTimeout(arrive, 120);
 }
 
 /* ------------------------------------------------------------- hero rail */
