@@ -1,16 +1,22 @@
 ---
 /* SPEC §10 — the division of labour is the point, because the quiet worry is
-   the bus factor. The photographs have not been supplied, so the slot is a
+   the bus factor. A founder whose photograph has not been supplied keeps a
    visible placeholder rather than stock photography or an avatar circle. */
+import { Picture } from "astro:assets";
+import mohibPhoto from "../../assets/founders/mohib.jpg";
+import saadPhoto from "../../assets/founders/saad-portrait-v6.jpg";
+
 const founders = [
   {
     name: "Mohib",
+    photo: mohibPhoto,
     owns: "Owns the backend, the database and everything that runs in production",
     quote:
       "I write the API, the data model and the migrations, and I am the one paged when production misbehaves. If your p95 is two seconds, I am the person who finds out why and tells you what it costs to fix.",
   },
   {
     name: "Saad",
+    photo: saadPhoto,
     owns: "Owns the frontend, the scope and the conversation with you",
     quote:
       "I build the interface and I run the engagement — the scope, the Friday note, the demo and the invoice. When you ask whether something is in scope, mine is the answer, and I would rather give you a no in week two than a surprise in week six.",
@@ -31,9 +37,22 @@ const founders = [
       {
         founders.map((founder) => (
           <article class="v4-card v4-founder" data-v4-group-item>
-            <div class="v4-founder__photo">
-              <span>Photograph of {founder.name} — not supplied yet</span>
-            </div>
+            {founder.photo ? (
+              <Picture
+                src={founder.photo}
+                formats={["avif", "webp"]}
+                widths={[400, 600, 800, 1110]}
+                sizes="(min-width: 900px) 562px, calc(100vw - 32px)"
+                alt={`Portrait of ${founder.name}`}
+                class="v4-founder__photo v4-founder__photo--img"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <div class="v4-founder__photo">
+                <span>Photograph of {founder.name} — not supplied yet</span>
+              </div>
+            )}
             <h3 class="v4-h3">{founder.name}</h3>
             <p class="v4-h5 v4-founder__owns">{founder.owns}</p>
             <p class="v4-founder__quote">{founder.quote}</p>
