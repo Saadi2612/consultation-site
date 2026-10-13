@@ -1,5 +1,10 @@
 ---
 import { site } from "../../lib/site";
+import { domeDefaults, domeDots, domeShadows } from "../../lib/dome";
+
+// The dotted horizon behind the rail, computed here at build time and
+// shipped as plain CSS: one box-shadow list per dot size.
+const dome = domeShadows(domeDots(domeDefaults));
 
 /* SPEC §2 — one instrument with three positions. Every position is fully
    legible with nothing selected; choosing one only pre-fills the form. */
@@ -48,7 +53,16 @@ const stages = [
 
     <div class="v5-rail" id="v5-rail">
       <div class="v5-art" aria-hidden="true">
-        <span class="v5-art__field"><span class="v5-art__dome"></span></span>
+        <span class="v5-art__field">
+          {
+            dome.map((b) => (
+              <i
+                class="v5-art__dots"
+                style={`--v5-dot:${b.size.toFixed(3)}cqw;box-shadow:${b.shadow}`}
+              />
+            ))
+          }
+        </span>
         <span class="v5-art__grain"></span>
       </div>
       <span class="v5-ph__frame" aria-hidden="true"><i></i><i></i><i></i><i></i></span>

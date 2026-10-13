@@ -352,14 +352,14 @@ body.v5 {
 }
 
 /* The art behind the rail, drawn entirely in CSS: soft colour fields from
-   stacked radial gradients, a dotted disc tilted in perspective so its far
-   edge reads as a curved horizon, and SVG-turbulence grain on top. Static,
-   nothing here animates. */
+   stacked radial gradients, a dotted sphere whose rim reads as a curved
+   horizon, and SVG-turbulence grain on top. Static, nothing animates. */
 .v5-art {
   position: absolute;
   inset: 0;
   z-index: -1;
   overflow: hidden;
+  container-type: size;
   background:
     /* bottom scrim keeps the small white type at AA over every field */
     linear-gradient(to top, rgba(14, 17, 26, 0.72) 0%, rgba(14, 17, 26, 0) 58%),
@@ -373,37 +373,27 @@ body.v5 {
     var(--v5-art-base);
 }
 
-/* The perspective stage. Its mask works in screen space, so the dots thin
-   out behind the type at the bottom of each position. */
+/* The dotted horizon. src/lib/dome.ts lays a latitude/longitude grid on a
+   large sphere, projects it from a camera just above the surface, and
+   hands back positions in fractions of the art's width. Each size bucket
+   is one tiny round element; its box-shadows, offset in cqw, are the dots,
+   so the sphere keeps its proportions at every width. The mask works in
+   screen space and thins the dots behind the type. */
 .v5-art__field {
   position: absolute;
   inset: 0;
-  perspective: 1200px;
-  perspective-origin: 50% 0%;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, rgba(0, 0, 0, 0.18) 74%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 40%, rgba(0, 0, 0, 0.18) 74%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 38%, rgba(0, 0, 0, 0.24) 60%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 38%, rgba(0, 0, 0, 0.24) 60%);
 }
 
-/* A disc wider than the band, hinged at its top edge and laid back 70deg,
-   so its far rim reads as a curved horizon. rotateX(70deg) squashes the
-   vertical axis, and perspective stretches it back near the viewer, so the
-   dots and their row spacing are drawn about 1.55 times taller than wide to
-   land on screen close to round. Two offset lattices at different sizes break up the
-   grid the way the reference's dots vary. */
-.v5-art__dome {
+.v5-art__dots {
   position: absolute;
-  top: 25%;
-  left: 50%;
-  width: 120%;
-  aspect-ratio: 1;
-  margin-left: -60%;
+  top: 0;
+  left: 0;
+  width: var(--v5-dot);
+  height: var(--v5-dot);
   border-radius: 50%;
-  background:
-    radial-gradient(1.8px 2.8px, rgba(255, 255, 255, 0.95) 70%, transparent 100%) 0 0 / 26px 44px,
-    radial-gradient(1.2px 1.9px, rgba(255, 255, 255, 0.8) 70%, transparent 100%) 13px 22px / 26px 44px,
-    radial-gradient(2.5px 3.9px, rgba(255, 255, 255, 0.9) 70%, transparent 100%) 7px 11px / 78px 88px;
-  transform-origin: 50% 0;
-  transform: rotateX(70deg);
+  color: var(--v5-white);
 }
 
 .v5-art__grain {
@@ -1309,15 +1299,15 @@ body.v5 {
     background: rgba(14, 17, 26, 0.42);
   }
 
+  /* scaled up so the dots keep a readable size on a narrow band */
+  /* scaled up so the dots keep a readable size on a narrow band, lifted so
+     the horizon sits behind the large v? marker, and faded out (in the
+     field's own, unscaled pixels) before the first line of copy */
   .v5-art__field {
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, transparent 34%);
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, transparent 34%);
-  }
-
-  .v5-art__dome {
-    top: 2%;
-    width: 170%;
-    margin-left: -85%;
+    transform: translateY(-16cqw) scale(2.2);
+    transform-origin: 50% 0;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0, rgba(0, 0, 0, 0.6) 54px, transparent 72px);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0, rgba(0, 0, 0, 0.6) 54px, transparent 72px);
   }
 
   .v5-stage {
