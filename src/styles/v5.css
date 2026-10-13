@@ -686,7 +686,7 @@ body.v5 {
 .v5-process__list {
   position: absolute;
   top: 28px;
-  right: 0;
+  right: 28px;
   bottom: 0;
   width: 36%;
   display: flex;
@@ -704,7 +704,7 @@ body.v5 {
   flex: 0 0 auto;
   padding: 24px 26px;
   background: var(--v5-bg);
-  border-radius: 4px 0 0 4px;
+  border-radius: 4px;
 }
 
 .v5-step__when {
