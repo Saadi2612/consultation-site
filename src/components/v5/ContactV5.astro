@@ -1,0 +1,53 @@
+---
+import PlaceholderV5 from "./PlaceholderV5.astro";
+---
+
+<section class="v5-contact" id="v5-contact">
+  <div class="v5-container v5-contact__grid">
+    <PlaceholderV5 class="v5-contact__img" tone="dark" />
+
+    <form class="v5-form" onsubmit="event.preventDefault()">
+      <p class="v5-script">Let's Talk</p>
+      <p class="v5-form__kicker">Have a project idea?</p>
+      <h2 class="v5-h2">Let’s Discuss Together</h2>
+      <p class="v5-form__intro">
+        Share a few details about your event and we will get back to you within two working
+        days to arrange a first conversation.
+      </p>
+
+      <div class="v5-form__row">
+        <label class="v5-field">
+          <span>First Name</span>
+          <input type="text" name="first" placeholder="First Name" autocomplete="given-name" />
+        </label>
+        <label class="v5-field">
+          <span>Last Name</span>
+          <input type="text" name="last" placeholder="Last Name" autocomplete="family-name" />
+        </label>
+      </div>
+      <div class="v5-form__row">
+        <label class="v5-field">
+          <span>Email</span>
+          <input type="email" name="email" placeholder="Your Email Address" autocomplete="email" />
+        </label>
+        <label class="v5-field">
+          <span>Phone Number</span>
+          <span class="v5-phone">
+            <select name="cc" aria-label="Country code">
+              <option>US</option>
+              <option>UK</option>
+              <option>AU</option>
+            </select>
+            <input type="tel" name="phone" placeholder="+1" autocomplete="tel" />
+          </span>
+        </label>
+      </div>
+      <label class="v5-field">
+        <span>Detail</span>
+        <textarea name="detail" rows="5" placeholder="Any additional information of your events..."></textarea>
+      </label>
+
+      <button class="v5-btn v5-btn--block" type="submit">Start Planning</button>
+    </form>
+  </div>
+</section>

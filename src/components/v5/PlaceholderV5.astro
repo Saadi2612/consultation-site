@@ -1,0 +1,55 @@
+---
+/* A greyed-out stand-in for a photograph. `frame` draws the thin inset
+   rule with corner points the reference lays over its hero and portraits;
+   `lines` draws the constellation of points and hairlines. */
+interface Props {
+  class?: string;
+  frame?: boolean;
+  lines?: "a" | "b" | "c";
+  tone?: "light" | "mid" | "dark";
+}
+
+const { class: className = "", frame = false, lines, tone = "mid" } = Astro.props;
+---
+
+<div class:list={["v5-ph", `v5-ph--${tone}`, className]} role="img" aria-label="Image placeholder">
+  {
+    frame && (
+      <span class="v5-ph__frame" aria-hidden="true">
+        <i /><i /><i /><i />
+      </span>
+    )
+  }
+  {
+    lines === "a" && (
+      <svg class="v5-ph__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M14 18 L42 46 L71 30 M42 46 L36 80" />
+        <rect x="13.4" y="17.4" width="1.2" height="1.2" />
+        <rect x="41.4" y="45.4" width="1.2" height="1.2" />
+        <rect x="70.4" y="29.4" width="1.2" height="1.2" />
+        <rect x="35.4" y="79.4" width="1.2" height="1.2" />
+      </svg>
+    )
+  }
+  {
+    lines === "b" && (
+      <svg class="v5-ph__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 22 L100 22 M0 78 L100 78 M18 0 L18 100 M82 0 L82 100" />
+        <rect x="17.4" y="21.4" width="1.2" height="1.2" />
+        <rect x="81.4" y="21.4" width="1.2" height="1.2" />
+        <rect x="17.4" y="77.4" width="1.2" height="1.2" />
+        <rect x="81.4" y="77.4" width="1.2" height="1.2" />
+        <rect x="49.4" y="49.4" width="1.2" height="1.2" />
+      </svg>
+    )
+  }
+  {
+    lines === "c" && (
+      <svg class="v5-ph__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 0 L36 18 L66 0 M36 18 L26 62 L66 100 M26 62 L0 72" />
+        <rect x="35.5" y="17.5" width="1" height="1" />
+        <rect x="25.5" y="61.5" width="1" height="1" />
+      </svg>
+    )
+  }
+</div>
