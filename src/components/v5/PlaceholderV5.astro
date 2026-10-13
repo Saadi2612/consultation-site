@@ -7,12 +7,14 @@ interface Props {
   frame?: boolean;
   lines?: "a" | "b" | "c";
   tone?: "light" | "mid" | "dark";
+  label?: string;
 }
 
-const { class: className = "", frame = false, lines, tone = "mid" } = Astro.props;
+const { class: className = "", frame = false, lines, tone = "mid", label } = Astro.props;
 ---
 
-<div class:list={["v5-ph", `v5-ph--${tone}`, className]} role="img" aria-label="Image placeholder">
+<div class:list={["v5-ph", `v5-ph--${tone}`, className]} role="img" aria-label={label ?? "Image placeholder"}>
+  {label && <span class="v5-ph__label" aria-hidden="true">{label}</span>}
   {
     frame && (
       <span class="v5-ph__frame" aria-hidden="true">

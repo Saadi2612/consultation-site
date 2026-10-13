@@ -1,0 +1,50 @@
+---
+/* SPEC §7 — the centred-head layout. The second column is genuinely
+   disqualifying; the stack sentence lives here. */
+const take = [
+  "A founder or an operator who can decide without a committee",
+  "A product with one workflow that earns the money, not nine that might",
+  "An existing codebase someone else wrote, as long as we can read it before quoting",
+  "A budget that starts at $1,999 and a date you can name",
+];
+const turnDown = [
+  ["Work under $1,500", "Below that the scoping costs more than the build returns, for you and for us."],
+  ["Mobile-first native apps", "We do not write Swift or Kotlin. A team that does will beat us on time and price."],
+  ["Blockchain, trading bots, anything where a lost request loses money", "The failure modes need specialists, and we are not them."],
+  ["Staff augmentation inside your sprint board", "We take outcomes with a date on them, not seats in a standup."],
+  ["A rewrite with no way to run the old system", "If nobody can explain what the current system does, the estimate is fiction."],
+];
+---
+
+<section class="v5-section" id="v5-fit" aria-labelledby="v5-fit-title">
+  <div class="v5-container">
+    <header class="v5-head v5-head--center">
+      <p class="v5-script">Fit</p>
+      <h2 class="v5-h2" id="v5-fit-title">Some of this isn't a fit, and<br />we'd rather say so up front.</h2>
+      <p class="v5-head__aside">
+        We build web products on Django, FastAPI, Express, NestJS, React and Postgres, deployed
+        on AWS. Anything outside that goes to someone who lives in it.
+      </p>
+    </header>
+
+    <div class="v5-fit">
+      <div class="v5-fit__col">
+        <h3 class="v5-scope__title">Work we take</h3>
+        <ul class="v5-scope__list">{take.map((i) => <li>{i}</li>)}</ul>
+      </div>
+      <div class="v5-fit__col v5-fit__col--no">
+        <h3 class="v5-scope__title">Work we turn down</h3>
+        <dl class="v5-scope__cut">
+          {
+            turnDown.map(([item, why]) => (
+              <div>
+                <dt>{item}</dt>
+                <dd>{why}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

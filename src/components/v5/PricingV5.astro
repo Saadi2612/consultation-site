@@ -1,0 +1,79 @@
+---
+/* SPEC §9 — each starting figure sits next to the scope it buys. */
+const tiers = [
+  {
+    name: "Consultation",
+    figure: "$35",
+    unit: "/hour",
+    total: "Typical two-week scope: 20–30 hours, $700–$1,050",
+    buys: "Two weeks of questions and a written scope: feature list, exclusions with reasons, stack, sequence, timeline and price assumptions. Yours whether or not we build it.",
+    cta: "Book the call",
+  },
+  {
+    name: "MVP build",
+    figure: "$3,499",
+    unit: " to start",
+    total: "The smallest sensible v0",
+    buys: "One workflow, accounts, payments if you charge, transactional email, an admin view, deploys and error reporting. Shipped to a URL your users can sign into.",
+    cta: "Start a build",
+  },
+  {
+    name: "Hardening",
+    figure: "$1,999",
+    unit: " to start",
+    total: "Four weeks on a live product",
+    buys: "Four agreed numbers moved and reported weekly: latency, error rate, test coverage and deploy frequency. Plus the runbook that keeps them moved.",
+    cta: "Get it stable",
+  },
+];
+const pushers = [
+  "How many user-facing screens there are",
+  "How many third-party integrations have to work on day one",
+  "Whether an existing codebase has to be read and understood first",
+  "Compliance requirements, such as SOC 2, HIPAA or GDPR data residency",
+  "How much design already exists",
+];
+---
+
+<section class="v5-section" id="v5-pricing" aria-labelledby="v5-pricing-title">
+  <div class="v5-container">
+    <header class="v5-head">
+      <div>
+        <p class="v5-script">Pricing</p>
+        <h2 class="v5-h2" id="v5-pricing-title">Three starting prices,<br />and what each one buys.</h2>
+      </div>
+      <p class="v5-head__aside">
+        Starting prices describe the smallest sensible version of each engagement. The list
+        below says what moves a quote above them.
+      </p>
+    </header>
+
+    <div class="v5-prices">
+      {
+        tiers.map((t) => (
+          <article class="v5-card v5-price">
+            <h3 class="v5-card__n">{t.name}</h3>
+            <p class="v5-price__figure">
+              {t.figure}
+              <span>{t.unit}</span>
+            </p>
+            <p class="v5-price__total">{t.total}</p>
+            <p class="v5-card__body">{t.buys}</p>
+            <a class="v5-btn v5-btn--sm v5-price__cta" href="#v5-contact">{t.cta}</a>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="v5-pricing__foot">
+      <div>
+        <h3 class="v5-scope__title">What pushes a quote above the starting figure</h3>
+        <ul class="v5-scope__list">{pushers.map((i) => <li>{i}</li>)}</ul>
+      </div>
+      <p class="v5-missing">
+        <strong>Missing figure.</strong> $3,499 is the smallest sensible v0. The price of a build
+        that genuinely takes the 6–8 weeks quoted above has not been set yet.
+      </p>
+    </div>
+  </div>
+</section>

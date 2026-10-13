@@ -1,0 +1,86 @@
+---
+/* SPEC §6 — two worked examples in the same shapes as §4, labelled
+   illustrative at body size. No client, company, country or quote. */
+const hardening = [
+  { metric: "p95 API response", before: "2.4s", after: "under 300ms" },
+  { metric: "Error rate", before: "about 3%", after: "under 0.5%" },
+  { metric: "Integration tests", before: "0", after: "140" },
+  { metric: "Deploys", before: "monthly", after: "daily" },
+];
+const shipped = [
+  "Listings and search",
+  "An availability calendar",
+  "Payouts through Stripe Connect",
+  "Transactional email",
+];
+const cut = ["Native mobile apps", "In-app messaging", "Reviews", "An analytics dashboard", "Multi-currency"];
+---
+
+<section class="v5-section" aria-labelledby="v5-ex-title">
+  <div class="v5-container">
+    <header class="v5-head">
+      <div>
+        <p class="v5-script">Worked examples</p>
+        <h2 class="v5-h2" id="v5-ex-title">What an engagement looks<br />like, end to end.</h2>
+      </div>
+      <p class="v5-head__aside">
+        Both examples are illustrative. They show the shape of real work at the sizes we take
+        on, with no client, company or country attached.
+      </p>
+    </header>
+
+    <p class="v5-illustrative">Illustrative examples, not client case studies.</p>
+
+    <div class="v5-examples">
+      <article class="v5-example">
+        <p class="v5-card__n">Hardening, four weeks</p>
+        <h3 class="v5-example__title">A B2B scheduling tool that timed out at peak</h3>
+        <p class="v5-example__body">
+          Django and Postgres, roughly 8,000 monthly users, built quickly by a previous
+          contractor. On arrival: booking requests timing out, no test suite, deploys by hand
+          over SSH.
+        </p>
+        <p class="v5-example__body">
+          Four weeks of work: an index audit and removal of N+1 queries, connection pooling
+          through PgBouncer, report generation moved onto a Celery queue, 140 integration tests
+          covering the booking path, CI with automated deploys, and Sentry with structured
+          logging.
+        </p>
+        <dl class="v5-mini">
+          {
+            hardening.map((r) => (
+              <div>
+                <dt>{r.metric}</dt>
+                <dd>
+                  <span class="v5-mini__before">{r.before}</span>
+                  <span class="v5-mini__to">to</span>
+                  <span>{r.after}</span>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </article>
+
+      <article class="v5-example">
+        <p class="v5-card__n">MVP build, seven weeks</p>
+        <h3 class="v5-example__title">An equipment rental marketplace from a Figma file</h3>
+        <p class="v5-example__body">
+          The founder arrived with a Figma file and a spreadsheet of demand from twelve
+          suppliers. v0 on FastAPI, React and Postgres, shipped in seven weeks with sixty
+          listings live.
+        </p>
+        <div class="v5-mini-scope">
+          <div>
+            <h4>Shipped in v0</h4>
+            <ul>{shipped.map((i) => <li>{i}</li>)}</ul>
+          </div>
+          <div>
+            <h4>Left out of v0</h4>
+            <ul>{cut.map((i) => <li>{i}</li>)}</ul>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
