@@ -46,6 +46,16 @@
   --v5-accent: #f6b73c;
   --v5-accent-press: #eaa824;
 
+  /* hero art fields */
+  --v5-art-base: #1b2130;
+  --v5-art-ember: #d2561d;
+  --v5-art-rust: #8a3a1c;
+  --v5-art-umber: #3b2217;
+  --v5-art-steel: #5f7ba3;
+  --v5-art-mist: #6c7d97;
+  --v5-art-cobalt: #2c5aa3;
+  --v5-art-slate: #2a2d33;
+
   --v5-ph-light: #dcdad6;
   --v5-ph-mid: #cdcac5;
   --v5-ph-dark: #bdbab4;
@@ -89,7 +99,7 @@ body.v5 {
   list-style: none;
 }
 
-.v5 a {
+:where(.v5) a {
   color: inherit;
   text-decoration: none;
 }
@@ -328,28 +338,93 @@ body.v5 {
    same thin frame: one band, three positions divided by full-height rules. */
 .v5-rail {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  min-height: clamp(420px, 38vw, 560px);
-  background: var(--v5-surface);
+  min-height: clamp(460px, 40vw, 580px);
+  background: var(--v5-art-base);
+  color: var(--v5-white);
 }
 
 .v5-rail .v5-ph__frame {
-  border-color: var(--v5-line);
+  z-index: 2;
 }
 
-.v5-rail .v5-ph__frame i {
-  background: var(--v5-ink);
+/* The art behind the rail, drawn entirely in CSS: soft colour fields from
+   stacked radial gradients, a dotted disc tilted in perspective so its far
+   edge reads as a curved horizon, and SVG-turbulence grain on top. Static,
+   nothing here animates. */
+.v5-art {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    /* bottom scrim keeps the small white type at AA over every field */
+    linear-gradient(to top, rgba(14, 17, 26, 0.72) 0%, rgba(14, 17, 26, 0) 58%),
+    radial-gradient(60% 55% at 50% -6%, var(--v5-art-ember) 0%, transparent 70%),
+    radial-gradient(40% 45% at 8% 8%, var(--v5-art-umber) 0%, transparent 75%),
+    radial-gradient(38% 60% at 100% 22%, var(--v5-art-steel) 0%, transparent 72%),
+    radial-gradient(30% 34% at 4% 40%, var(--v5-art-mist) 0%, transparent 75%),
+    radial-gradient(42% 48% at 62% 58%, var(--v5-art-rust) 0%, transparent 72%),
+    radial-gradient(40% 55% at 92% 96%, var(--v5-art-cobalt) 0%, transparent 72%),
+    radial-gradient(36% 45% at 24% 92%, var(--v5-art-slate) 0%, transparent 75%),
+    var(--v5-art-base);
+}
+
+/* The perspective stage. Its mask works in screen space, so the dots thin
+   out behind the type at the bottom of each position. */
+.v5-art__field {
+  position: absolute;
+  inset: 0;
+  perspective: 1200px;
+  perspective-origin: 50% 0%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, rgba(0, 0, 0, 0.18) 74%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 40%, rgba(0, 0, 0, 0.18) 74%);
+}
+
+/* A disc wider than the band, hinged at its top edge and laid back 70deg,
+   so its far rim reads as a curved horizon. rotateX(70deg) squashes the
+   vertical axis, and perspective stretches it back near the viewer, so the
+   dots and their row spacing are drawn about 1.55 times taller than wide to
+   land on screen close to round. Two offset lattices at different sizes break up the
+   grid the way the reference's dots vary. */
+.v5-art__dome {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 120%;
+  aspect-ratio: 1;
+  margin-left: -60%;
+  border-radius: 50%;
+  background:
+    radial-gradient(1.8px 2.8px, rgba(255, 255, 255, 0.95) 70%, transparent 100%) 0 0 / 26px 44px,
+    radial-gradient(1.2px 1.9px, rgba(255, 255, 255, 0.8) 70%, transparent 100%) 13px 22px / 26px 44px,
+    radial-gradient(2.5px 3.9px, rgba(255, 255, 255, 0.9) 70%, transparent 100%) 7px 11px / 78px 88px;
+  transform-origin: 50% 0;
+  transform: rotateX(70deg);
+}
+
+.v5-art__grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.55;
 }
 
 .v5-stage {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   padding: 44px 40px 40px;
 }
 
 .v5-stage + .v5-stage {
-  border-left: 1px solid var(--v5-line);
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
 }
 
 .v5-stage__marker {
@@ -382,14 +457,14 @@ body.v5 {
 .v5-stage__deliverable {
   margin-top: 14px;
   font-size: 0.8125rem;
-  color: var(--v5-muted);
+  color: rgba(255, 255, 255, 0.86);
   max-width: 34ch;
 }
 
 .v5-stage__price {
   margin-top: 4px;
   font-size: 0.8125rem;
-  color: var(--v5-muted);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .v5-stage__cta {
@@ -1225,13 +1300,33 @@ body.v5 {
     grid-template-columns: 1fr;
   }
 
+  /* Stacked, every part of the band carries type, so the dome moves to the
+     top as a faint texture and the whole field is dimmed for the copy. */
+  .v5-art::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 17, 26, 0.42);
+  }
+
+  .v5-art__field {
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, transparent 34%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, transparent 34%);
+  }
+
+  .v5-art__dome {
+    top: 2%;
+    width: 170%;
+    margin-left: -85%;
+  }
+
   .v5-stage {
     padding: 28px 24px;
   }
 
   .v5-stage + .v5-stage {
     border-left: 0;
-    border-top: 1px solid var(--v5-line);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
   }
 
   .v5-stage__copy {
