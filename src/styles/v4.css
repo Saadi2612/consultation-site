@@ -1947,6 +1947,15 @@ body.v4 {
   line-height: var(--v4-body-lh);
 }
 
+.v4-founder__photo--img {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  background: none;
+  object-fit: cover;
+}
+
 .v4-founder__owns {
   margin-top: var(--v4-2);
   color: var(--v4-gray-2);
