@@ -382,8 +382,8 @@ body.v5 {
 .v5-art__field {
   position: absolute;
   inset: 0;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 38%, rgba(0, 0, 0, 0.24) 60%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 38%, rgba(0, 0, 0, 0.24) 60%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 38%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.08) 84%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 38%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.08) 84%, transparent 100%);
 }
 
 .v5-art__dots {
@@ -396,10 +396,12 @@ body.v5 {
   color: var(--v5-white);
 }
 
-/* Progressive blur from the bottom up to the middle, so the copy reads
-   cleanly over the dots. Three backdrop layers, each blurring harder and
-   starting lower; their masks overlap so the steps never show. They sit
-   inside the art, under the type and over the dots, with grain on top. */
+/* Progressive blur from the middle down, so the copy reads cleanly over the
+   dots. A masked blur can only crossfade sharp and blurred, so the ramp is
+   built from six thin overlapping bands, each doubling the blur of the one
+   above; every band fades in and back out (the last two run to the bottom),
+   so no step or ghosted dot edge shows. Under the type, over the dots,
+   grain on top. */
 .v5-art__blur {
   position: absolute;
   inset: 0;
@@ -407,24 +409,45 @@ body.v5 {
 }
 
 .v5-art__blur--1 {
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 34%, transparent 52%);
-  mask-image: linear-gradient(to top, #000 0%, #000 34%, transparent 52%);
+  -webkit-backdrop-filter: blur(0.5px);
+  backdrop-filter: blur(0.5px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 45%, #000 54%, #000 63%, transparent 72%);
+  mask-image: linear-gradient(to bottom, transparent 45%, #000 54%, #000 63%, transparent 72%);
 }
 
 .v5-art__blur--2 {
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 22%, transparent 42%);
-  mask-image: linear-gradient(to top, #000 0%, #000 22%, transparent 42%);
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 54%, #000 63%, #000 72%, transparent 81%);
+  mask-image: linear-gradient(to bottom, transparent 54%, #000 63%, #000 72%, transparent 81%);
 }
 
 .v5-art__blur--3 {
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 10%, transparent 32%);
-  mask-image: linear-gradient(to top, #000 0%, #000 10%, transparent 32%);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 63%, #000 72%, #000 81%, transparent 90%);
+  mask-image: linear-gradient(to bottom, transparent 63%, #000 72%, #000 81%, transparent 90%);
+}
+
+.v5-art__blur--4 {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 72%, #000 81%, #000 90%, transparent 99%);
+  mask-image: linear-gradient(to bottom, transparent 72%, #000 81%, #000 90%, transparent 99%);
+}
+
+.v5-art__blur--5 {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 81%, #000 90%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 81%, #000 90%, #000 100%);
+}
+
+.v5-art__blur--6 {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 90%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 90%, #000 100%);
 }
 
 .v5-art__grain {
