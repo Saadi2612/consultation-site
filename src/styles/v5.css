@@ -396,6 +396,37 @@ body.v5 {
   color: var(--v5-white);
 }
 
+/* Progressive blur from the bottom up to the middle, so the copy reads
+   cleanly over the dots. Three backdrop layers, each blurring harder and
+   starting lower; their masks overlap so the steps never show. They sit
+   inside the art, under the type and over the dots, with grain on top. */
+.v5-art__blur {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.v5-art__blur--1 {
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 34%, transparent 52%);
+  mask-image: linear-gradient(to top, #000 0%, #000 34%, transparent 52%);
+}
+
+.v5-art__blur--2 {
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 22%, transparent 42%);
+  mask-image: linear-gradient(to top, #000 0%, #000 22%, transparent 42%);
+}
+
+.v5-art__blur--3 {
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 10%, transparent 32%);
+  mask-image: linear-gradient(to top, #000 0%, #000 10%, transparent 32%);
+}
+
 .v5-art__grain {
   position: absolute;
   inset: 0;
@@ -1300,6 +1331,10 @@ body.v5 {
   }
 
   /* scaled up so the dots keep a readable size on a narrow band */
+  .v5-art__blur {
+    display: none;
+  }
+
   /* scaled up so the dots keep a readable size on a narrow band, lifted so
      the horizon sits behind the large v? marker, and faded out (in the
      field's own, unscaled pixels) before the first line of copy */

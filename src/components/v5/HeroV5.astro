@@ -1,18 +1,10 @@
 ---
 import { site } from "../../lib/site";
 import { domeDefaults, domeDots, domeShadows } from "../../lib/dome";
-import { waveDefaults, waveDots } from "../../lib/wave";
-
-interface Props {
-  /** Which dot pattern sits behind the rail: the sphere, or the wave test. */
-  art?: "dome" | "wave";
-}
-
-const { art = "dome" } = Astro.props;
 
 // The dots behind the rail, computed here at build time and shipped as
 // plain CSS: one box-shadow list per dot size.
-const dome = domeShadows(art === "wave" ? waveDots(waveDefaults) : domeDots(domeDefaults));
+const dome = domeShadows(domeDots(domeDefaults));
 
 /* SPEC §2 — one instrument with three positions. Every position is fully
    legible with nothing selected; choosing one only pre-fills the form. */
@@ -71,6 +63,9 @@ const stages = [
             ))
           }
         </span>
+        <span class="v5-art__blur v5-art__blur--1"></span>
+        <span class="v5-art__blur v5-art__blur--2"></span>
+        <span class="v5-art__blur v5-art__blur--3"></span>
         <span class="v5-art__grain"></span>
       </div>
       <span class="v5-ph__frame" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
