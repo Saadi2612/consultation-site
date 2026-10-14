@@ -448,6 +448,24 @@ body.v5 {
   mask-image: linear-gradient(to bottom, transparent 90%, #000 100%);
 }
 
+/* Grainient: the WebGL canvas is added by src/scripts/grainient.ts. Until
+   it paints, or without WebGL2, the .v5-art gradients show through as the
+   fallback. The scrim sits over the canvas and keeps the small white type
+   at the bottom of each position at AA. */
+.v5-art--grainient .grainient-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.v5-art__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(14, 17, 26, 0.6) 0%, rgba(14, 17, 26, 0) 55%);
+}
+
 .v5-art__grain {
   position: absolute;
   inset: 0;

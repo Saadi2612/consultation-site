@@ -2,9 +2,16 @@
 import { site } from "../../lib/site";
 import { domeDefaults, domeDots, domeShadows } from "../../lib/dome";
 
-// The dots behind the rail, computed here at build time and shipped as
-// plain CSS: one box-shadow list per dot size.
-const dome = domeShadows(domeDots(domeDefaults));
+interface Props {
+  /** The art behind the rail: the live Grainient, or the dotted dome kept as a backup. */
+  art?: "grainient" | "dome";
+}
+
+const { art = "grainient" } = Astro.props;
+
+// The dome's dots are computed here at build time and shipped as plain CSS,
+// one box-shadow list per dot size. Only built when the dome is in use.
+const dome = art === "dome" ? domeShadows(domeDots(domeDefaults)) : [];
 
 /* SPEC §2 — one instrument with three positions. Every position is fully
    legible with nothing selected; choosing one only pre-fills the form. */
@@ -52,25 +59,33 @@ const stages = [
     </div>
 
     <div class="v5-rail" id="v5-rail">
-      <div class="v5-art" aria-hidden="true">
-        <span class="v5-art__field">
-          {
-            dome.map((b) => (
-              <i
-                class="v5-art__dots"
-                style={`--v5-dot:${b.size.toFixed(3)}cqw;box-shadow:${b.shadow}`}
-              />
-            ))
-          }
-        </span>
-        <span class="v5-art__blur v5-art__blur--1"></span>
-        <span class="v5-art__blur v5-art__blur--2"></span>
-        <span class="v5-art__blur v5-art__blur--3"></span>
-        <span class="v5-art__blur v5-art__blur--4"></span>
-        <span class="v5-art__blur v5-art__blur--5"></span>
-        <span class="v5-art__blur v5-art__blur--6"></span>
-        <span class="v5-art__grain"></span>
-      </div>
+      {
+        art === "grainient" ? (
+          <div class="v5-art v5-art--grainient" aria-hidden="true" data-v5-grainient>
+            <span class="v5-art__scrim" />
+          </div>
+        ) : (
+        <div class="v5-art" aria-hidden="true">
+          <span class="v5-art__field">
+            {
+              dome.map((b) => (
+                <i
+                  class="v5-art__dots"
+                  style={`--v5-dot:${b.size.toFixed(3)}cqw;box-shadow:${b.shadow}`}
+                />
+              ))
+            }
+          </span>
+          <span class="v5-art__blur v5-art__blur--1"></span>
+          <span class="v5-art__blur v5-art__blur--2"></span>
+          <span class="v5-art__blur v5-art__blur--3"></span>
+          <span class="v5-art__blur v5-art__blur--4"></span>
+          <span class="v5-art__blur v5-art__blur--5"></span>
+          <span class="v5-art__blur v5-art__blur--6"></span>
+          <span class="v5-art__grain"></span>
+        </div>
+        )
+      }
       <span class="v5-ph__frame" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       {
         stages.map((s) => (
@@ -91,3 +106,30 @@ const stages = [
     </div>
   </div>
 </section>
+
+<script>
+  import { mountGrainient } from "../../scripts/grainient";
+
+  // Colours come from the page's art tokens in v5.css, base first and the
+  // highlight last; angle 8 runs them bottom to top, so the type at the
+  // bottom of each position sits on the darkest part of the field.
+  const el = document.querySelector<HTMLElement>("[data-v5-grainient]");
+  if (el) {
+    const css = getComputedStyle(el);
+    const token = (name: string) => css.getPropertyValue(name).trim();
+    mountGrainient(el, {
+      colors: [
+        token("--v5-art-base"),
+        token("--v5-art-cobalt"),
+        token("--v5-art-umber"),
+        token("--v5-art-rust"),
+        token("--v5-art-ember"),
+      ],
+      angle: 8,
+      flow: 0.9,
+      silk: 0.35,
+      grainAmount: 0.08,
+      clickSwirl: false,
+    });
+  }
+</script>
