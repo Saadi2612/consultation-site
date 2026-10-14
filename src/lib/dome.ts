@@ -90,10 +90,17 @@ export function domeDots(o: DomeOptions): Dot[] {
     }
   }
 
-  // Towards the rim the grid foreshortens until dots touch. Keep a dot only
-  // if it clears every dot already kept by `gap`: main lattice first, then
-  // nearest the viewer first, so the thinning happens at the far edge.
+  // Towards the rim the grid foreshortens until dots touch. Main lattice
+  // first, then nearest the viewer first, so thinning happens at the far edge.
   candidates.sort((a, b) => Number(b.main) - Number(a.main) || b.y - a.y);
+  return thin(candidates, o.gap);
+}
+
+/**
+ * Keep a dot only if it clears every dot already kept by `gap`, in the
+ * order given. Used wherever a projected grid crowds at the far edge.
+ */
+export function thin(candidates: Dot[], gap: number): Dot[] {
   const cell = 0.02;
   const grid = new Map<string, Dot[]>();
   const dots: Dot[] = [];
@@ -104,7 +111,7 @@ export function domeDots(o: DomeOptions): Dot[] {
     for (let dx = -1; dx <= 1 && clear; dx++) {
       for (let dy = -1; dy <= 1 && clear; dy++) {
         for (const d of grid.get(`${gx + dx},${gy + dy}`) ?? []) {
-          if (Math.hypot(c.x - d.x, c.y - d.y) < c.r + d.r + o.gap) {
+          if (Math.hypot(c.x - d.x, c.y - d.y) < c.r + d.r + gap) {
             clear = false;
             break;
           }
@@ -117,7 +124,6 @@ export function domeDots(o: DomeOptions): Dot[] {
     const key = `${gx},${gy}`;
     grid.set(key, [...(grid.get(key) ?? []), dot]);
   }
-
   return dots;
 }
 

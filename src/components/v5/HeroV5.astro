@@ -1,10 +1,18 @@
 ---
 import { site } from "../../lib/site";
 import { domeDefaults, domeDots, domeShadows } from "../../lib/dome";
+import { waveDefaults, waveDots } from "../../lib/wave";
 
-// The dotted horizon behind the rail, computed here at build time and
-// shipped as plain CSS: one box-shadow list per dot size.
-const dome = domeShadows(domeDots(domeDefaults));
+interface Props {
+  /** Which dot pattern sits behind the rail: the sphere, or the wave test. */
+  art?: "dome" | "wave";
+}
+
+const { art = "dome" } = Astro.props;
+
+// The dots behind the rail, computed here at build time and shipped as
+// plain CSS: one box-shadow list per dot size.
+const dome = domeShadows(art === "wave" ? waveDots(waveDefaults) : domeDots(domeDefaults));
 
 /* SPEC §2 — one instrument with three positions. Every position is fully
    legible with nothing selected; choosing one only pre-fills the form. */
