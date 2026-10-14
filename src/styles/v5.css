@@ -6,11 +6,12 @@
    composition still reads, labelled with the photograph it stands in for. */
 
 @font-face {
-  font-family: "Newsreader v5";
+  font-family: "Instrument Sans v5";
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
   font-display: swap;
-  src: url("/fonts/newsreader-latin-300.woff2") format("woff2");
+  src: url("/fonts/instrument-sans-latin-var.woff2") format("woff2");
 }
 
 @font-face {
@@ -21,18 +22,14 @@
   src: url("/fonts/inter-latin-var.woff2") format("woff2");
 }
 
+/* size-adjust fallback so the heading font swap does not shift lines. */
 @font-face {
-  font-family: "Allura v5";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/allura-latin-400.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Newsreader v5 fallback";
-  src: local("Georgia"), local("Times New Roman");
-  size-adjust: 96%;
+  font-family: "Instrument Sans v5 fallback";
+  src: local("Helvetica Neue"), local("Arial"), local("Liberation Sans");
+  size-adjust: 95%;
+  ascent-override: 96%;
+  descent-override: 25%;
+  line-gap-override: 0%;
 }
 
 :root {
@@ -60,9 +57,8 @@
   --v5-ph-mid: #cdcac5;
   --v5-ph-dark: #bdbab4;
 
-  --v5-serif: "Newsreader v5", "Newsreader v5 fallback", Georgia, serif;
+  --v5-head: "Instrument Sans v5", "Instrument Sans v5 fallback", "Helvetica Neue", Arial, sans-serif;
   --v5-sans: "Inter v5", "Helvetica Neue", Arial, sans-serif;
-  --v5-script: "Allura v5", cursive;
 
   --v5-pad: 64px;
   --v5-gap: 12px;
@@ -124,32 +120,34 @@ body.v5 {
 /* ---------- shared type ---------- */
 
 .v5-display {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: clamp(2.5rem, 4vw, 3.5rem);
   line-height: 1.05;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
 }
 
 .v5-h2 {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: clamp(1.875rem, 2.8vw, 2.5rem);
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-.v5-script {
-  font-family: var(--v5-script);
-  font-size: 1.5rem;
-  line-height: 1;
+/* the small label above each heading: sentence case, muted, no tracking */
+.v5-label {
+  font-family: var(--v5-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.3;
   color: var(--v5-muted);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .v5-lead {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: clamp(1.125rem, 1.6vw, 1.375rem);
   line-height: 1.45;
 }
@@ -472,8 +470,8 @@ body.v5 {
 }
 
 .v5-stage__marker {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: clamp(3.5rem, 6vw, 5.5rem);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -485,8 +483,8 @@ body.v5 {
 }
 
 .v5-stage__state {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: 1.375rem;
   line-height: 1.3;
   max-width: 22ch;
@@ -555,8 +553,8 @@ body.v5 {
 }
 
 .v5-week__label {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: 1.25rem;
   margin-bottom: 10px;
 }
@@ -587,8 +585,8 @@ body.v5 {
 }
 
 .v5-quote__title {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: 1.25rem;
   margin-bottom: 8px;
 }
@@ -648,8 +646,8 @@ body.v5 {
 }
 
 .v5-card__title {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: 1.375rem;
   line-height: 1.25;
   margin-top: auto;
@@ -711,8 +709,8 @@ body.v5 {
 }
 
 .v5-scope__title {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: 1.375rem;
   margin-bottom: 20px;
 }
@@ -775,8 +773,8 @@ body.v5 {
 
 .v5-readout__before,
 .v5-readout__after {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: clamp(1.5rem, 2.4vw, 2.25rem);
   line-height: 1;
 }
@@ -836,8 +834,8 @@ body.v5 {
 }
 
 .v5-step__title {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: 1.375rem;
   margin: 4px 0 18px;
 }
@@ -870,8 +868,8 @@ body.v5 {
 }
 
 .v5-example__title {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: 1.625rem;
   line-height: 1.2;
   margin: 10px 0 18px;
@@ -958,8 +956,8 @@ body.v5 {
 
 .v5-price__figure {
   margin-top: 28px;
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: clamp(2.5rem, 4vw, 3.5rem);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -1035,8 +1033,8 @@ body.v5 {
 }
 
 .v5-team__card h3 {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: 1.5rem;
 }
 
@@ -1047,8 +1045,8 @@ body.v5 {
 }
 
 .v5-team__bio {
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: 1rem;
   line-height: 1.5;
   color: var(--v5-ink);
@@ -1087,7 +1085,7 @@ body.v5 {
   align-items: center;
   gap: 24px;
   padding: 22px 0;
-  font-family: var(--v5-serif);
+  font-family: var(--v5-head);
   font-size: 1.25rem;
   line-height: 1.3;
   cursor: pointer;
@@ -1169,7 +1167,7 @@ body.v5 {
 }
 
 .v5-form__kicker {
-  font-family: var(--v5-serif);
+  font-family: var(--v5-head);
   font-size: 1.5rem;
   line-height: 1.2;
 }
@@ -1279,8 +1277,8 @@ body.v5 {
 
 .v5-wordmark {
   margin-top: 80px;
-  font-family: var(--v5-serif);
-  font-weight: 300;
+  font-family: var(--v5-head);
+  font-weight: 400;
   font-size: clamp(4.5rem, 24vw, 21rem);
   line-height: 0.82;
   letter-spacing: -0.03em;
