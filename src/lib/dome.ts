@@ -134,9 +134,9 @@ export const domeDefaults: DomeOptions = {
   step: 1.15,
   horizonY: 0.11,
   depth: 0.62,
-  dotSize: 0.003,
-  minR: 0.0005,
-  maxR: 0.0031,
+  dotSize: 0.0024,
+  minR: 0.0004,
+  maxR: 0.0025,
   gap: 0.0052,
 };
 
