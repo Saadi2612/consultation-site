@@ -4,9 +4,11 @@ import "../styles/v5.css";
 interface Props {
   title: string;
   description: string;
+  /** Let search engines index this page. Only the page served at the root does. */
+  index?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, index = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,7 +18,7 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="noindex" />
+    {!index && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link
       rel="preload"
