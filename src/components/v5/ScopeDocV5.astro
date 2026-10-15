@@ -1,0 +1,60 @@
+---
+/* What the consultation hands over, drawn as the document itself. It is a
+   sample: the lines are the headings every scope has, not a client's
+   project, and it says so on the page. */
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+const ships = ["Accounts and sign in", "The core paid workflow", "Payments", "Admin view"];
+const cut = ["Second platform", "Custom analytics"];
+const plan = [
+  { label: "Scope", from: 0, span: 2 },
+  { label: "Build", from: 2, span: 4 },
+  { label: "Harden", from: 6, span: 1 },
+  { label: "Launch", from: 7, span: 1 },
+];
+---
+
+<figure class:list={["v5-doc", className]} aria-label="Sample product scope document">
+  <div class="v5-doc__paper" data-v5-reveal="rise" data-v5-stagger>
+    <header class="v5-doc__head">
+      <span class="v5-doc__kicker">Sample scope document</span>
+      <span class="v5-doc__title">Product scope, version 1</span>
+      <span class="v5-doc__meta">Delivered on day ten of the consultation</span>
+    </header>
+
+    <div class="v5-doc__block">
+      <span class="v5-doc__h">Ships in v0</span>
+      <ul>{ships.map((s) => <li class="v5-doc__yes">{s}</li>)}</ul>
+    </div>
+
+    <div class="v5-doc__block">
+      <span class="v5-doc__h">Left out, with reasons</span>
+      <ul>{cut.map((s) => <li class="v5-doc__no">{s}</li>)}</ul>
+    </div>
+
+    <div class="v5-doc__block">
+      <span class="v5-doc__h">Week by week plan</span>
+      <div class="v5-doc__plan">
+        {
+          plan.map((p) => (
+            <div class="v5-doc__row">
+              <span>{p.label}</span>
+              <span class="v5-doc__track">
+                <i style={`--from:${p.from};--span:${p.span}`} />
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="v5-doc__total">
+      <span>Fixed quote, with its assumptions</span>
+      <span class="v5-doc__lines" aria-hidden="true"><i></i><i></i></span>
+    </div>
+  </div>
+</figure>

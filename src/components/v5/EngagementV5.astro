@@ -1,5 +1,5 @@
 ---
-import PlaceholderV5 from "./PlaceholderV5.astro";
+import FridayNoteV5 from "./FridayNoteV5.astro";
 
 /* SPEC §5 — a real sequence, so the week numbering is earned. Each card
    names what the client owes that week as well as what we do. */
@@ -36,7 +36,7 @@ const steps = [
     <header class="v5-head">
       <div>
         <p class="v5-label">Our development process</p>
-        <h2 class="v5-h2" id="v5-eng-title">Week by week, you know what we<br />are doing and what we need from you.</h2>
+        <h2 class="v5-h2" id="v5-eng-title">Week by week, you know what we <br />are doing and what we need from you.</h2>
       </div>
       <p class="v5-head__aside">
         Working software on a staging link, a Friday demo and a written progress note, every week. Each week also names what we need from you, because that decides whether the launch date holds.
@@ -44,7 +44,7 @@ const steps = [
     </header>
 
     <div class="v5-process">
-      <PlaceholderV5 class="v5-process__img" lines="c" tone="dark" label="Photograph: a Friday demo" />
+      <FridayNoteV5 class="v5-process__img" />
       <ol class="v5-process__list" tabindex="0" aria-label="Engagement weeks" data-v5-reveal="slide" data-v5-stagger>
         {
           steps.map((s) => (

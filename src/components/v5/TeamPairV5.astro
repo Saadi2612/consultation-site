@@ -1,0 +1,43 @@
+---
+/* The two founders, side by side in the slot between the four commitments.
+   Real photographs only: this is the one place on the page a visitor sees
+   who they are hiring before they read anything about them. */
+import { Picture } from "astro:assets";
+import mohibPhoto from "../../assets/founders/mohib-photo.jpg";
+import saadPhoto from "../../assets/founders/saad-photo.jpg";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+const people = [
+  { name: "Mohib", role: "Backend, DevOps and hardening", photo: mohibPhoto },
+  { name: "Saad", role: "Frontend, mobile and delivery", photo: saadPhoto },
+];
+---
+
+<figure class:list={["v5-pair", className]}>
+  {
+    people.map((p) => (
+      <div class="v5-pair__person">
+        <Picture
+          src={p.photo}
+          formats={["avif", "webp"]}
+          widths={[360, 560, 800]}
+          sizes="(min-width: 860px) 33vw, 100vw"
+          alt={`${p.name}, full stack engineer at Proofload`}
+          class="v5-pair__img"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="v5-pair__tag">
+          <strong>{p.name}</strong>
+          {p.role}
+        </span>
+      </div>
+    ))
+  }
+  <figcaption class="v5-sr">Mohib and Saad, the two engineers behind Proofload</figcaption>
+</figure>

@@ -1,5 +1,5 @@
 ---
-import PlaceholderV5 from "./PlaceholderV5.astro";
+import TeamPairV5 from "./TeamPairV5.astro";
 
 /* SPEC §3 — four operating facts, nothing adjectival, nothing invented.
    Tagged rather than numbered: they are not a sequence. */
@@ -34,7 +34,7 @@ const right = [
     <header class="v5-head">
       <div>
         <p class="v5-label">How we work with clients</p>
-        <h2 class="v5-h2" id="v5-facts-title">Four commitments you<br />can hold us to.</h2>
+        <h2 class="v5-h2" id="v5-facts-title">Four commitments you <br />can hold us to.</h2>
       </div>
       <p class="v5-head__aside">
         Working with a remote development team should feel as dependable as one down the hall. If any of these stops being true, it comes off this page.
@@ -53,12 +53,7 @@ const right = [
           ))
         }
       </div>
-      <PlaceholderV5
-        class="v5-approach__img"
-        lines="b"
-        tone="light"
-        label="Photograph: Mohib and Saad at work in Lahore"
-      />
+      <TeamPairV5 class="v5-approach__img" />
       <div class="v5-approach__col">
         {
           right.map((c) => (

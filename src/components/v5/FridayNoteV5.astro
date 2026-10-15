@@ -1,0 +1,48 @@
+---
+/* The weekly rhythm, drawn as the two things a client actually receives on
+   a Friday: the release that went to staging and the written note. A
+   sample, labelled as one; no client, figure or date is real. */
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+const log = [
+  ["Tests", "All checks passed"],
+  ["Build", "Deployed to staging"],
+  ["Monitor", "No new errors since release"],
+];
+const moved = ["Checkout flow finished", "Password reset emails", "Admin search"];
+const waiting = ["Payment provider keys from you"];
+---
+
+<figure class:list={["v5-note", className]} aria-label="Sample Friday release note">
+  <div class="v5-note__panel" data-v5-reveal="rise" data-v5-stagger>
+    <div class="v5-note__card v5-note__card--log">
+      <span class="v5-note__kicker">Sample Friday release</span>
+      <ul class="v5-note__log">
+        {
+          log.map(([k, v]) => (
+            <li>
+              <span class="v5-note__dot" aria-hidden="true" />
+              <strong>{k}</strong>
+              <span>{v}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <span class="v5-note__link">staging link shared in your channel</span>
+    </div>
+
+    <div class="v5-note__card">
+      <span class="v5-note__kicker">Friday note, week 3</span>
+      <span class="v5-note__h">What moved</span>
+      <ul class="v5-note__list">{moved.map((m) => <li>{m}</li>)}</ul>
+      <span class="v5-note__h">Waiting on you</span>
+      <ul class="v5-note__list v5-note__list--wait">{waiting.map((m) => <li>{m}</li>)}</ul>
+      <span class="v5-note__h">Next week</span>
+      <span class="v5-note__lines" aria-hidden="true"><i></i><i></i></span>
+    </div>
+  </div>
+</figure>

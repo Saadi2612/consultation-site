@@ -1923,3 +1923,502 @@ html.v5-js [data-v5-reveal].is-in[data-v5-stagger] > * {
     display: none;
   }
 }
+
+/* ======================= visuals that replace the grey placeholders */
+
+.v5-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+figure.v5-pair,
+figure.v5-doc,
+figure.v5-note,
+figure.v5-overlap {
+  margin: 0;
+}
+
+/* ---- the founders, between the four commitments ---- */
+
+.v5-pair {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--v5-gap);
+  min-height: 480px;
+}
+
+.v5-pair__person {
+  position: relative;
+  overflow: hidden;
+  background: var(--v5-ph-light);
+}
+
+.v5-pair__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 22%;
+}
+
+.v5-pair__tag {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: grid;
+  gap: 2px;
+  padding: 10px 14px;
+  background: var(--v5-white);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--v5-muted);
+}
+
+.v5-pair__tag strong {
+  font-family: var(--v5-head);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--v5-ink);
+}
+
+/* ---- the scope document, beside the consultation ---- */
+
+.v5-doc {
+  display: grid;
+  place-items: center;
+  padding: 48px 40px;
+  background: var(--v5-surface);
+}
+
+.v5-doc__paper {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 30px;
+  background: var(--v5-white);
+  border: 1px solid var(--v5-line);
+  display: grid;
+  gap: 22px;
+}
+
+.v5-doc__head {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--v5-line);
+}
+
+.v5-doc__kicker,
+.v5-note__kicker,
+.v5-overlap__kicker {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--v5-muted);
+}
+
+.v5-doc__title {
+  font-family: var(--v5-head);
+  font-size: 1.375rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.v5-doc__meta {
+  font-size: 0.75rem;
+  color: var(--v5-muted);
+}
+
+.v5-doc__block {
+  display: grid;
+  gap: 8px;
+}
+
+.v5-doc__h {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.v5-doc__block li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+.v5-doc__yes::before,
+.v5-doc__no::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 9px;
+  height: 9px;
+}
+
+.v5-doc__yes::before {
+  background: var(--v5-accent);
+}
+
+.v5-doc__no {
+  color: var(--v5-muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.v5-doc__no::before {
+  border: 1px solid var(--v5-muted);
+}
+
+.v5-doc__plan {
+  display: grid;
+  gap: 6px;
+}
+
+.v5-doc__row {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  color: var(--v5-muted);
+}
+
+.v5-doc__track {
+  position: relative;
+  height: 10px;
+  background: var(--v5-bg);
+}
+
+.v5-doc__track i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--from) / 8 * 100%);
+  width: calc(var(--span) / 8 * 100%);
+  background: var(--v5-ink);
+}
+
+.v5-doc__total {
+  display: grid;
+  gap: 8px;
+  padding-top: 18px;
+  border-top: 1px solid var(--v5-line);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.v5-doc__lines,
+.v5-note__lines {
+  display: grid;
+  gap: 6px;
+}
+
+.v5-doc__lines i,
+.v5-note__lines i {
+  display: block;
+  height: 6px;
+  background: var(--v5-bg);
+}
+
+.v5-doc__lines i:last-child,
+.v5-note__lines i:last-child {
+  width: 62%;
+}
+
+/* ---- the Friday release and note, behind the engagement weeks ---- */
+
+.v5-note {
+  background: var(--v5-art-base);
+  color: var(--v5-bg);
+  overflow: hidden;
+}
+
+.v5-note__panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 60%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  gap: 14px;
+  padding: 48px;
+}
+
+.v5-note__card {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.v5-note__card--log {
+  align-self: start;
+}
+
+.v5-note__kicker {
+  color: rgba(246, 244, 240, 0.7);
+}
+
+.v5-note__log {
+  display: grid;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.v5-note__log li {
+  display: grid;
+  grid-template-columns: 10px auto;
+  column-gap: 10px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.v5-note__log li span:last-child {
+  grid-column: 2;
+  color: rgba(246, 244, 240, 0.7);
+}
+
+.v5-note__dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 0.4em;
+  border-radius: 50%;
+  background: var(--v5-accent);
+}
+
+.v5-note__link {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: rgba(246, 244, 240, 0.7);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.v5-note__h {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.v5-note__list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: rgba(246, 244, 240, 0.85);
+}
+
+.v5-note__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 7px;
+  height: 7px;
+  background: var(--v5-accent);
+}
+
+.v5-note__list--wait li::before {
+  background: transparent;
+  border: 1px solid var(--v5-accent);
+}
+
+.v5-note__lines i {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ---- overlap hours, above the booking card ---- */
+
+.v5-overlap {
+  background: var(--v5-art-base);
+  color: var(--v5-bg);
+}
+
+.v5-overlap__inner {
+  display: grid;
+  gap: 22px;
+  padding: 44px 40px;
+}
+
+.v5-overlap__head {
+  display: grid;
+  gap: 6px;
+}
+
+.v5-overlap__kicker {
+  color: rgba(246, 244, 240, 0.7);
+}
+
+.v5-overlap__title {
+  font-family: var(--v5-head);
+  font-size: clamp(1.375rem, 2vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.v5-overlap__rows {
+  display: grid;
+  gap: 14px;
+}
+
+.v5-overlap__row,
+.v5-overlap__axis {
+  display: grid;
+  grid-template-columns: 104px 1fr 88px;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.8125rem;
+}
+
+.v5-overlap__time {
+  color: rgba(246, 244, 240, 0.7);
+  font-size: 0.75rem;
+}
+
+.v5-overlap__track {
+  position: relative;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.v5-overlap__track i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--v5-accent);
+}
+
+.v5-overlap__ticks {
+  position: relative;
+  height: 16px;
+  font-size: 0.6875rem;
+  color: rgba(246, 244, 240, 0.6);
+}
+
+.v5-overlap__ticks span {
+  position: absolute;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.v5-overlap__ticks span:first-child {
+  transform: none;
+}
+
+/* ---- the visuals on narrow screens ---- */
+
+@media (max-width: 1024px) {
+  .v5-note__panel {
+    width: 58%;
+    grid-template-columns: 1fr;
+    padding: 32px;
+  }
+}
+
+@media (max-width: 860px) {
+  .v5-pair {
+    grid-template-rows: none;
+    grid-template-columns: 1fr 1fr;
+    min-height: 0;
+  }
+
+  .v5-pair__person {
+    aspect-ratio: 4 / 5;
+  }
+
+  .v5-approach__img.v5-pair {
+    min-height: 0;
+  }
+
+  .v5-pair__tag {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    padding: 8px 10px;
+  }
+
+  .v5-about__img.v5-doc {
+    min-height: 0;
+    padding: 28px 16px;
+  }
+
+  .v5-process__img.v5-note {
+    height: auto;
+  }
+
+  .v5-note__panel {
+    position: static;
+    width: auto;
+    padding: 24px 16px;
+  }
+
+  .v5-contact__img.v5-overlap {
+    height: auto;
+    min-height: 0;
+  }
+
+  .v5-overlap__inner {
+    padding: 28px 18px;
+  }
+
+  .v5-overlap__row,
+  .v5-overlap__axis {
+    grid-template-columns: 84px 1fr;
+  }
+
+  .v5-overlap__row .v5-overlap__time {
+    grid-column: 2;
+    margin-top: -8px;
+  }
+
+  .v5-overlap__axis .v5-overlap__time {
+    display: none;
+  }
+}
+
+/* Centre the chart in the space the booking card leaves above it. */
+@media (min-width: 861px) {
+  .v5-contact__img.v5-overlap {
+    display: flex;
+    align-items: center;
+    padding-bottom: 260px;
+  }
+
+  .v5-overlap__inner {
+    width: 100%;
+  }
+}
+
+@media (max-width: 860px) {
+  /* Headings reflow on their own at this width; forced breaks only
+     strand single words. */
+  .v5-h2 br {
+    display: none;
+  }
+
+  /* Phone: name labels sit under the photograph, not over the face. */
+  .v5-pair__person {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    background: var(--v5-white);
+  }
+
+  .v5-pair__img {
+    position: static;
+    height: 210px;
+  }
+
+  .v5-pair__tag {
+    position: static;
+    padding: 10px 12px;
+  }
+}

@@ -1,0 +1,61 @@
+---
+/* When we are both awake: each client region's overlap window on one
+   Pakistan time axis. The windows are the ones stated in the commitments
+   and the cross border section, so this chart cannot drift from the copy. */
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+// Hours in PKT on a 24 hour clock; anything past midnight carries on past 24.
+const AXIS_START = 8;
+const AXIS_END = 25;
+const regions = [
+  { city: "Sydney", from: 8, to: 12, label: "8am to 12pm" },
+  { city: "Berlin", from: 12, to: 20, label: "12pm to 8pm" },
+  { city: "London", from: 13, to: 21, label: "1pm to 9pm" },
+  { city: "New York", from: 18, to: 22, label: "6pm to 10pm" },
+  { city: "San Francisco", from: 21, to: 25, label: "9pm to 1am" },
+];
+const span = AXIS_END - AXIS_START;
+const ticks = [8, 12, 16, 20, 24];
+const tickLabel = (h: number) => (h === 12 ? "12pm" : h === 24 ? "12am" : h > 12 ? `${h - 12}pm` : `${h}am`);
+---
+
+<figure class:list={["v5-overlap", className]} aria-label="Overlap hours with each client region, in Pakistan time">
+  <div class="v5-overlap__inner" data-v5-reveal="slide" data-v5-stagger>
+    <header class="v5-overlap__head">
+      <span class="v5-overlap__kicker">Our working day, in Pakistan time</span>
+      <span class="v5-overlap__title">Your hours overlap with ours</span>
+    </header>
+
+    <ul class="v5-overlap__rows">
+      {
+        regions.map((r) => (
+          <li class="v5-overlap__row">
+            <span class="v5-overlap__city">{r.city}</span>
+            <span class="v5-overlap__track">
+              <i
+                style={`left:${((r.from - AXIS_START) / span) * 100}%;width:${((r.to - r.from) / span) * 100}%`}
+              />
+            </span>
+            <span class="v5-overlap__time">{r.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="v5-overlap__axis" aria-hidden="true">
+      <span class="v5-overlap__city"></span>
+      <span class="v5-overlap__ticks">
+        {
+          ticks.map((t) => (
+            <span style={`left:${((t - AXIS_START) / span) * 100}%`}>{tickLabel(t)}</span>
+          ))
+        }
+      </span>
+      <span class="v5-overlap__time"></span>
+    </div>
+  </div>
+</figure>
