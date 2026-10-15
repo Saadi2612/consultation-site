@@ -2422,3 +2422,386 @@ figure.v5-overlap {
     padding: 10px 12px;
   }
 }
+
+/* ===================================== type: a mature editorial voice
+   Headings move to Newsreader, a light text serif, which reads as
+   considered rather than startup loud. Only the 300 weight is shipped, so
+   the face is declared across the whole weight range: every heading
+   renders in the real light cut and the browser never fakes a bold. Body
+   copy stays Inter, one step larger for comfortable reading. */
+
+@font-face {
+  font-family: "Newsreader v5";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/newsreader-latin-300.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Newsreader v5 fallback";
+  src: local("Georgia"), local("Times New Roman");
+  size-adjust: 96%;
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+:root {
+  --v5-head: "Newsreader v5", "Newsreader v5 fallback", Georgia, "Times New Roman", serif;
+}
+
+body.v5 {
+  font-size: 16px;
+}
+
+.v5-display {
+  font-size: clamp(2.75rem, 5vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.v5-h2 {
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+
+.v5-card__body,
+.v5-head__aside {
+  font-size: 0.875rem;
+}
+
+/* the rail markers and the big numbers keep the sans: figures read
+   cleaner in it */
+.v5-stage__marker,
+.v5-stats__figure,
+.v5-price__figure,
+.v5-readout__before,
+.v5-readout__after {
+  font-family: "Instrument Sans v5", "Instrument Sans v5 fallback", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ===================================== hero: say what we do, plainly */
+
+.v5-hero__head {
+  align-items: flex-end;
+}
+
+.v5-hero__lead {
+  margin-top: 22px;
+  max-width: 62ch;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--v5-muted);
+}
+
+.v5-hero__aside {
+  max-width: 320px;
+  text-align: left;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.v5-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.v5-btn--ghost {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--v5-ink);
+}
+
+.v5-btn--ghost:hover {
+  background: var(--v5-surface);
+}
+
+/* ===================================== selected work */
+
+.v5-reel {
+  position: relative;
+  overflow: hidden;
+  background: var(--v5-art-base);
+  aspect-ratio: 16 / 8;
+}
+
+.v5-reel__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.v5-reel__frames,
+.v5-reel__frame {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+}
+
+.v5-reel__frame {
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.v5-reel__frame.is-active {
+  opacity: 1;
+}
+
+.v5-reel__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  transform: scale(1.04);
+}
+
+/* a slow drift on the visible frame, the motion a showreel would have */
+.v5-reel__frame.is-active .v5-reel__img {
+  animation: v5-reel-drift 7s ease-out both;
+}
+
+.v5-reel.is-paused .v5-reel__img {
+  animation-play-state: paused;
+}
+
+@keyframes v5-reel-drift {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.v5-reel__caption {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  display: grid;
+  gap: 2px;
+  padding: 14px 18px;
+  background: var(--v5-white);
+  font-size: 0.8125rem;
+  color: var(--v5-muted);
+}
+
+.v5-reel__caption strong {
+  font-family: var(--v5-head);
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: var(--v5-ink);
+}
+
+.v5-reel__controls {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  background: rgba(27, 33, 48, 0.78);
+  color: var(--v5-bg);
+}
+
+.v5-reel__toggle {
+  border: 0;
+  background: none;
+  color: inherit;
+  font: 500 0.75rem/1 var(--v5-sans);
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.v5-reel__dots {
+  display: flex;
+  gap: 8px;
+}
+
+.v5-reel__dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 1px solid var(--v5-bg);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.v5-reel__dot.is-active {
+  background: var(--v5-accent);
+  border-color: var(--v5-accent);
+}
+
+.v5-projects {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--v5-gap);
+  margin-top: var(--v5-gap);
+}
+
+.v5-project {
+  display: flex;
+  flex-direction: column;
+  background: var(--v5-surface);
+}
+
+.v5-project__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--v5-ph-light);
+}
+
+.v5-project__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .v5-project:hover .v5-project__img {
+    transform: scale(1.03);
+  }
+}
+
+.v5-project__body {
+  display: grid;
+  gap: 8px;
+  padding: 22px 24px 26px;
+}
+
+.v5-project__name {
+  font-family: var(--v5-head);
+  font-weight: 400;
+  font-size: 1.625rem;
+  line-height: 1.15;
+}
+
+.v5-project__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.v5-project__tags li {
+  padding: 4px 10px;
+  border: 1px solid var(--v5-line);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: var(--v5-muted);
+}
+
+.v5-work__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: var(--v5-gap);
+  padding: 24px 28px;
+  background: var(--v5-ink);
+  color: var(--v5-bg);
+}
+
+.v5-work__cta p {
+  font-family: var(--v5-head);
+  font-size: 1.25rem;
+}
+
+@media (max-width: 1024px) {
+  .v5-projects {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .v5-hero__aside {
+    max-width: none;
+  }
+
+  .v5-reel {
+    aspect-ratio: 4 / 3;
+  }
+
+  .v5-reel__caption {
+    left: 12px;
+    right: 12px;
+    bottom: 64px;
+    padding: 10px 14px;
+  }
+
+  .v5-reel__controls {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    justify-content: space-between;
+  }
+
+  .v5-projects {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v5-reel__frame.is-active .v5-reel__img {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Show each project whole in the reel, framed on the dark stage, rather
+   than cropped to fill it; and anchor card crops to the top left, where
+   every screen puts its headline. */
+.v5-reel__frame {
+  padding: 40px 40px 96px;
+}
+
+.v5-reel__img {
+  object-fit: contain;
+  object-position: 50% 50%;
+}
+
+.v5-project__img {
+  object-position: 0 0;
+}
+
+@media (max-width: 860px) {
+  .v5-reel__frame {
+    padding: 16px 16px 132px;
+  }
+}
+
+@media (max-width: 860px) {
+  .v5-reel {
+    aspect-ratio: auto;
+  }
+
+  .v5-reel__frames {
+    position: relative;
+    height: 340px;
+  }
+
+  .v5-reel__frame {
+    padding: 14px 14px 100px;
+  }
+
+  .v5-reel__caption {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .v5-reel__controls {
+    position: static;
+    padding: 12px 14px;
+  }
+}
