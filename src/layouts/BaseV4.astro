@@ -1,14 +1,17 @@
 ---
 import "../styles/v4.css";
+import { site } from "../lib/site";
 
 interface Props {
   title: string;
   description: string;
+  jsonLd?: object[];
   /** Keep a backup copy of the page out of search results. */
   noindex?: boolean;
 }
 
-const { title, description, noindex = false } = Astro.props;
+const { title, description, jsonLd = [], noindex = false } = Astro.props;
+const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefined;
 ---
 
 <!doctype html>
@@ -18,7 +21,19 @@ const { title, description, noindex = false } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="robots" content={noindex ? "noindex" : "index, follow"} />
+    <meta name="author" content="Mohib and Saad, Proofload" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
     <meta name="theme-color" content="#15191e" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>

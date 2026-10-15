@@ -1,14 +1,17 @@
 ---
 import "../styles/v5.css";
+import { site } from "../lib/site";
 
 interface Props {
   title: string;
   description: string;
   /** Let search engines index this page. Only the page served at the root does. */
   index?: boolean;
+  jsonLd?: object[];
 }
 
-const { title, description, index = false } = Astro.props;
+const { title, description, index = false, jsonLd = [] } = Astro.props;
+const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefined;
 ---
 
 <!doctype html>
@@ -18,8 +21,25 @@ const { title, description, index = false } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {!index && <meta name="robots" content="noindex" />}
+    <meta name="robots" content={index ? "index, follow" : "noindex"} />
+    <meta name="author" content="Mohib and Saad, Proofload" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      /* Entrance pre-states are scoped to this class, so with scripting off
+         the page renders fully resolved. */
+      document.documentElement.classList.add("v5-js");
+    </script>
     <link
       rel="preload"
       href="/fonts/instrument-sans-latin-var.woff2"
@@ -32,3 +52,30 @@ const { title, description, index = false } = Astro.props;
     <slot />
   </body>
 </html>
+
+<script>
+  /* Once-only entrances. Each element opts in with data-v5-reveal (its
+     treatment is set in CSS by the attribute value) and stops being
+     watched the moment it arrives. */
+  const items = document.querySelectorAll<HTMLElement>("[data-v5-reveal]");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || !("IntersectionObserver" in window)) {
+    items.forEach((el) => el.classList.add("is-in"));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const el = entry.target as HTMLElement;
+          el.querySelectorAll<HTMLElement>("[data-v5-stagger] > *").forEach((kid, i) => {
+            kid.style.transitionDelay = `${i * 80}ms`;
+          });
+          el.classList.add("is-in");
+          io.unobserve(el);
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+    );
+    items.forEach((el) => io.observe(el));
+  }
+</script>

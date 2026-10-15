@@ -509,7 +509,42 @@ function initNavSpy() {
   sections.forEach((section) => io.observe(section));
 }
 
+/* The site is static, so the enquiry form hands off to the visitor's own mail
+   app. Without JS the form's mailto action still works, just as raw
+   name=value lines; with JS the message is laid out readably. */
+function initEnquiry() {
+  const form = document.querySelector<HTMLFormElement>("[data-v4-form]");
+  if (!form) return;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const value = (name: string) => String(data.get(name) ?? "").trim();
+    const state = form.querySelector<HTMLSelectElement>("[name=state]");
+    const stateLabel = state?.selectedOptions[0]?.textContent?.trim() ?? "";
+
+    const body = [
+      `Name: ${value("name")}`,
+      `Email: ${value("email")}`,
+      `Company: ${value("company") || "Not given"}`,
+      `Where we are: ${stateLabel}`,
+      `Budget: ${value("budget")}`,
+      `Timeline: ${value("timeline")}`,
+      "",
+      value("detail"),
+    ].join("\n");
+
+    const subject = `Project enquiry from ${value("name")}`;
+    window.location.href =
+      `mailto:${form.dataset.v4Mailto}` +
+      `?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+}
+
 export function initV4() {
+  initEnquiry();
   initHero();
   initRail();
   initTilt();

@@ -1,33 +1,32 @@
 ---
-/* SPEC §7 — the second column has to be genuinely disqualifying. */
+/* SPEC §7: the second column has to be genuinely disqualifying. */
 const take = [
-  "A founder or an operator who can decide without a committee",
-  "A product with one workflow that earns the money, not nine that might",
-  "Web products on Django, FastAPI, Express, NestJS, React and Postgres, deployed on AWS",
-  "An existing codebase someone else wrote, as long as we can read it before quoting",
-  "A budget that starts at $1,999 and a date you can name",
+  "Founders and operators who can make a decision without a committee",
+  "A live product that needs bug fixing, testing and stabilising before you market it",
+  "Websites, web apps and iOS and Android apps on Next.js, React, React Native, Node.js and Django",
+  "An existing codebase someone else wrote, as long as we can read it before we quote",
+  "A budget that starts at $1,999 and a launch date you can name",
 ];
 
 const turnDown = [
-  ["Work under $1,500", "Below that the scoping costs more than the build returns, for you and for us."],
-  ["Mobile-first native apps", "We do not write Swift or Kotlin. A team that does will beat us on both time and price."],
-  ["Blockchain, trading bots and anything where losing a request loses money", "The failure modes need specialists, and we are not them."],
+  ["Work under $1,500", "Below that, scoping costs more than the build returns, for you and for us."],
   ["Staff augmentation inside your sprint board", "We take outcomes with a date on them, not seats in a standup."],
-  ["A rewrite with no way to run the old system", "If nobody can explain what the current system does, week one becomes archaeology and the estimate is fiction."],
+  ["A rewrite with no way to run the old system", "If nobody can explain what the current system does, week one becomes archaeology and any estimate is fiction."],
+  ["Fixed price work with no written scope", "A price without a scope is a guess. We write the scope first, then we commit to the number."],
 ];
 ---
 
 <section class="v4-section" aria-labelledby="v4-fit-title">
   <div class="v4-container v4-split">
     <div class="v4-split__head">
-      <p class="v4-eyebrow" data-v4-reveal>Fit</p>
+      <p class="v4-eyebrow" data-v4-reveal>Who we work with</p>
       <h2 class="v4-h2" id="v4-fit-title" data-v4-reveal data-v4-delay="60">
-        Some of this isn't a fit, and we'd rather say so up front.
+        The projects we take on, and the ones we turn down.
       </h2>
       <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
-        We build web products on Django, FastAPI, Express, NestJS, React and
-        Postgres, deployed on AWS. That is the whole stack. Anything outside it
-        goes to someone who lives in it.
+        We build and harden web and mobile products on Next.js, React, React
+        Native, Node.js and Django, deployed on AWS. Saying no early is cheaper
+        for both of us than a project that was never a fit.
       </p>
     </div>
 

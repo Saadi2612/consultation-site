@@ -2,32 +2,31 @@
 /* SPEC §7 — the centred-head layout. The second column is genuinely
    disqualifying; the stack sentence lives here. */
 const take = [
-  "A founder or an operator who can decide without a committee",
-  "A product with one workflow that earns the money, not nine that might",
-  "An existing codebase someone else wrote, as long as we can read it before quoting",
-  "A budget that starts at $1,999 and a date you can name",
+  "Founders and operators who can make a decision without a committee",
+  "A live product that needs bug fixing, testing and stabilising before you market it",
+  "Websites, web apps and iOS and Android apps on Next.js, React, React Native, Node.js and Django",
+  "An existing codebase someone else wrote, as long as we can read it before we quote",
+  "A budget that starts at $1,999 and a launch date you can name",
 ];
 const turnDown = [
-  ["Work under $1,500", "Below that the scoping costs more than the build returns, for you and for us."],
-  ["Mobile-first native apps", "We do not write Swift or Kotlin. A team that does will beat us on time and price."],
-  ["Blockchain, trading bots, anything where a lost request loses money", "The failure modes need specialists, and we are not them."],
+  ["Work under $1,500", "Below that, scoping costs more than the build returns, for you and for us."],
   ["Staff augmentation inside your sprint board", "We take outcomes with a date on them, not seats in a standup."],
-  ["A rewrite with no way to run the old system", "If nobody can explain what the current system does, the estimate is fiction."],
+  ["A rewrite with no way to run the old system", "If nobody can explain what the current system does, any estimate is fiction."],
+  ["Fixed price work with no written scope", "A price without a scope is a guess. We write the scope first, then commit to the number."],
 ];
 ---
 
 <section class="v5-section" id="v5-fit" aria-labelledby="v5-fit-title">
   <div class="v5-container">
     <header class="v5-head v5-head--center">
-      <p class="v5-label">Fit</p>
-      <h2 class="v5-h2" id="v5-fit-title">Some of this isn't a fit, and<br />we'd rather say so up front.</h2>
+      <p class="v5-label">Who we work with</p>
+      <h2 class="v5-h2" id="v5-fit-title">The projects we take on,<br />and the ones we turn down.</h2>
       <p class="v5-head__aside">
-        We build web products on Django, FastAPI, Express, NestJS, React and Postgres, deployed
-        on AWS. Anything outside that goes to someone who lives in it.
+        We build and harden web and mobile products on Next.js, React, React Native, Node.js and Django, deployed on AWS. Saying no early is cheaper for both of us than a project that was never a fit.
       </p>
     </header>
 
-    <div class="v5-fit">
+    <div class="v5-fit" data-v5-reveal="fade">
       <div class="v5-fit__col">
         <h3 class="v5-scope__title">Work we take</h3>
         <ul class="v5-scope__list">{take.map((i) => <li>{i}</li>)}</ul>

@@ -1,34 +1,39 @@
 ---
+import { site } from "../../lib/site";
+
 /* SPEC §9 — each starting figure sits next to the scope it buys. */
 const tiers = [
   {
     name: "Consultation",
     figure: "$35",
-    unit: "/hour",
-    total: "Typical two-week scope: 20–30 hours, $700–$1,050",
+    unit: " an hour",
+    total: "A typical two week scope is 20 to 30 hours, $700 to $1,050",
     buys: "Two weeks of questions and a written scope: feature list, exclusions with reasons, stack, sequence, timeline and price assumptions. Yours whether or not we build it.",
     cta: "Book the call",
+    href: site.booking,
   },
   {
-    name: "MVP build",
+    name: "MVP development",
     figure: "$3,499",
     unit: " to start",
     total: "The smallest sensible v0",
-    buys: "One workflow, accounts, payments if you charge, transactional email, an admin view, deploys and error reporting. Shipped to a URL your users can sign into.",
+    buys: "A web app or a React Native app for iOS and Android: one core workflow, accounts, payments if you charge, transactional email, an admin view, deploys and error reporting. Shipped to real users.",
     cta: "Start a build",
+    href: "#v5-contact",
   },
   {
-    name: "Hardening",
+    name: "Product hardening",
     figure: "$1,999",
     unit: " to start",
     total: "Four weeks on a live product",
-    buys: "Four agreed numbers moved and reported weekly: latency, error rate, test coverage and deploy frequency. Plus the runbook that keeps them moved.",
-    cta: "Get it stable",
+    buys: "Bug fixing, automated tests, a security pass, performance work and safe deploys on your live product. Four agreed numbers moved and reported weekly, plus a runbook that keeps them there.",
+    cta: "Stabilise my product",
+    href: "#v5-contact",
   },
 ];
 const pushers = [
-  "How many user-facing screens there are",
-  "How many third-party integrations have to work on day one",
+  "How many screens your users see, and on how many platforms",
+  "How many outside integrations have to work on day one",
   "Whether an existing codebase has to be read and understood first",
   "Compliance requirements, such as SOC 2, HIPAA or GDPR data residency",
   "How much design already exists",
@@ -39,8 +44,8 @@ const pushers = [
   <div class="v5-container">
     <header class="v5-head">
       <div>
-        <p class="v5-label">Pricing</p>
-        <h2 class="v5-h2" id="v5-pricing-title">Three starting prices,<br />and what each one buys.</h2>
+        <p class="v5-label">Pricing for software development</p>
+        <h2 class="v5-h2" id="v5-pricing-title">Clear starting prices, and<br />exactly what each one buys.</h2>
       </div>
       <p class="v5-head__aside">
         Starting prices describe the smallest sensible version of each engagement. The list
@@ -48,7 +53,7 @@ const pushers = [
       </p>
     </header>
 
-    <div class="v5-prices">
+    <div class="v5-prices" data-v5-reveal="rise" data-v5-stagger>
       {
         tiers.map((t) => (
           <article class="v5-card v5-price">
@@ -59,7 +64,7 @@ const pushers = [
             </p>
             <p class="v5-price__total">{t.total}</p>
             <p class="v5-card__body">{t.buys}</p>
-            <a class="v5-btn v5-btn--sm v5-price__cta" href="#v5-contact">{t.cta}</a>
+            <a class="v5-btn v5-btn--sm v5-price__cta" href={t.href}>{t.cta}</a>
           </article>
         ))
       }
@@ -72,7 +77,7 @@ const pushers = [
       </div>
       <p class="v5-missing">
         <strong>Missing figure.</strong> $3,499 is the smallest sensible v0. The price of a build
-        that genuinely takes the 6–8 weeks quoted above has not been set yet.
+        that genuinely takes the 6 to 8 weeks quoted above has not been set yet.
       </p>
     </div>
   </div>

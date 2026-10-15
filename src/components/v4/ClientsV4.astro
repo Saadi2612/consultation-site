@@ -1,0 +1,65 @@
+---
+import { site, clients } from "../../lib/site";
+
+/* Seven years of client work, said once as figures and once as names. The
+   strip scrolls on its own, pauses under a pointer or keyboard focus, and
+   becomes a plain wrapped list when motion is reduced. The second copy of the
+   list exists only to close the loop, so it is hidden from assistive tech. */
+const stats = [
+  { figure: site.experience, label: "Building and shipping software for clients" },
+  { figure: "Web and mobile", label: "Websites, web apps and iOS and Android apps" },
+  { figure: "2 engineers", label: "Both full stack, both on your project from day one" },
+  { figure: "1 working day", label: "The longest you wait for a written reply" },
+];
+
+const initials = (name: string) =>
+  name
+    .replace(/[^A-Za-z0-9 ]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("");
+---
+
+<section class="v4-clients" aria-labelledby="v4-clients-title">
+  <div class="v4-container">
+    <div class="v4-clients__head">
+      <h2 class="v4-clients__title" id="v4-clients-title" data-v4-reveal>
+        Seven years of building, fixing and launching products for founders and
+        growing businesses.
+      </h2>
+    </div>
+
+    <dl class="v4-stats" data-v4-group data-v4-step="90">
+      {
+        stats.map((s) => (
+          <div class="v4-stats__item" data-v4-group-item>
+            <dt class="v4-stats__figure v4-num">{s.figure}</dt>
+            <dd class="v4-small v4-stats__label">{s.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+
+  <div class="v4-marquee" data-v4-reveal>
+    <p class="v4-container v4-small v4-marquee__label">Products we have built and supported</p>
+    <div class="v4-marquee__viewport" tabindex="0" aria-label="Client products">
+      <div class="v4-marquee__track">
+        {
+          [0, 1].map((copy) => (
+            <ul class="v4-marquee__list" aria-hidden={copy === 1 ? "true" : undefined}>
+              {clients.map((c) => (
+                <li class="v4-logo">
+                  <span class="v4-logo__mark" aria-hidden="true">{initials(c.name)}</span>
+                  <span class="v4-logo__name">{c.name}</span>
+                </li>
+              ))}
+            </ul>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

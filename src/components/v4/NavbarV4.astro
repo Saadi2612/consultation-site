@@ -2,15 +2,17 @@
 import { site } from "../../lib/site";
 
 const links = [
-  { href: "#v4-services", label: "What we do" },
+  { href: "#v4-services", label: "Services" },
+  { href: "#v4-hardening", label: "Product hardening" },
   { href: "#v4-pricing", label: "Pricing" },
-  { href: "#v4-faq", label: "Questions" },
+  { href: "#v4-team", label: "Team" },
+  { href: "#v4-faq", label: "FAQ" },
 ];
 ---
 
 <header class="v4-header" data-v4-header>
   <div class="v4-container v4-header__inner">
-    <a class="v4-wordmark" href="#v4-main">
+    <a class="v4-wordmark" href="#v4-main" aria-label="Proofload home">
       <span class="v4-wordmark__mark" aria-hidden="true"></span>
       {site.name}
     </a>
@@ -25,8 +27,8 @@ const links = [
       }
     </nav>
 
-    <a class="v4-btn v4-btn--primary v4-btn--sm v4-header__cta" href="#v4-rail">
-      Tell us where you are
+    <a class="v4-btn v4-btn--primary v4-btn--sm v4-header__cta" href={site.booking}>
+      Book a call
     </a>
   </div>
 </header>

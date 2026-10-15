@@ -1,12 +1,12 @@
 ---
 import { site } from "../../lib/site";
 
-/* SPEC §5 — a real sequence, so the numbering is earned. Each week names what
+/* SPEC §5: a real sequence, so the numbering is earned. Each week names what
    the client owes us as well as what we owe them. */
 const weeks = [
   {
     n: "01",
-    title: "Week one — access and the first slice",
+    title: "Week one: access and the first slice",
     time: "5 working days",
     ours:
       "We set up the repository, CI, staging and error reporting, and ship the first slice of real functionality to a URL you can open.",
@@ -15,7 +15,7 @@ const weeks = [
   },
   {
     n: "02",
-    title: "Weeks two to five — build, demo on Fridays",
+    title: "Weeks two to five: build, demo on Fridays",
     time: "Weekly cadence",
     ours:
       "Feature work against the agreed sequence, deployed to staging as it lands. A Friday demo on the real build, never slides, plus a written note of what moved and what did not.",
@@ -24,7 +24,7 @@ const weeks = [
   },
   {
     n: "03",
-    title: "Week six — hardening and handover prep",
+    title: "Week six: hardening and handover prep",
     time: "5 working days",
     ours:
       "Tests around the paths that take money, load checks, backups, runbook, and the migration plan from staging to production.",
@@ -38,7 +38,7 @@ const weeks = [
     ours:
       "We deploy, watch it, and fix what launch surfaces. Thirty days of bug fixes on delivered scope are included and are not billed as new work.",
     yours:
-      "Tell us the launch date at least a week out, so the deploy happens on a working morning in your timezone rather than a Friday night in ours.",
+      "Tell us the launch date at least a week out, so the deploy happens on a working morning rather than a Friday night.",
   },
 ];
 ---
@@ -46,14 +46,12 @@ const weeks = [
 <section class="v4-section v4-section--tint" aria-labelledby="v4-engagement-title">
   <div class="v4-container v4-split">
     <div class="v4-split__head">
-      <p class="v4-eyebrow" data-v4-reveal>The engagement</p>
+      <p class="v4-eyebrow" data-v4-reveal>Our development process</p>
       <h2 class="v4-h2" id="v4-engagement-title" data-v4-reveal data-v4-delay="60">
-        How an engagement actually runs.
+        Week by week, you know what we are doing and what we need from you.
       </h2>
       <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
-        Each week names what we do and what you have to do. The second half is
-        the part most studios leave out, and it is the part that decides whether
-        the date holds.
+        Every project runs on the same weekly rhythm: working software on a staging link, a Friday demo and a written progress note. Each week also names what we need from you, because that is what decides whether the launch date holds.
       </p>
       <a
         class="v4-btn v4-btn--dark v4-magnet"
@@ -91,6 +89,6 @@ const weeks = [
   </div>
 
   <p class="v4-container v4-small v4-shutter__foot">
-    Questions about a week of this? Mail <a class="v4-link" href={`mailto:${site.email}`}>{site.email}</a>.
+    Questions about a week of this? Mail Mohib at <a class="v4-link" href={`mailto:${site.emails[0].address}`}>{site.emails[0].address}</a> or Saad at <a class="v4-link" href={`mailto:${site.emails[1].address}`}>{site.emails[1].address}</a>.
   </p>
 </section>

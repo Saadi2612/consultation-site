@@ -1,47 +1,15 @@
 ---
-/* SPEC §11 — eight real objections, answered directly. */
-const faqs = [
-  {
-    q: "What happens if one of you gets sick mid-build?",
-    a: "The other one keeps shipping, slower. We both have read and deploy access to every project and the Friday note tells you what moved, so nothing lives only in one head. If it is longer than a few days we tell you the same week and give you a revised date rather than quietly missing the old one. Two people is the honest answer to this question, and if you need guaranteed capacity through illness you need a larger team than ours.",
-  },
-  {
-    q: "Who owns the code, and from when?",
-    a: "You do, from the moment each milestone is paid. Repository, history, deploy configuration and credentials. We do not hold a licence-back and we do not keep a copy running anywhere after handover.",
-  },
-  {
-    q: "What if we go over scope?",
-    a: "Scope changes are quoted before they are built, as a written line item with a price and a date impact. We do not absorb them silently and then arrive late, and we do not start them on a verbal yes in a call.",
-  },
-  {
-    q: "Can you work alongside our existing developer?",
-    a: "Yes, and it works best when the split is by surface rather than by ticket — we take the API and they take the app, or the reverse. Sharing one codebase with no boundary means two people rewriting each other's work on a four-hour delay.",
-  },
-  {
-    q: "Whose NDA do we sign?",
-    a: "Yours. Send it and we sign it before the first call. If you do not have one, we send ours and you are welcome to redline it.",
-  },
-  {
-    q: "What if the MVP fails?",
-    a: "Then you have a working product, the code, the deployment and a scope document that says what was cut and why — which is what makes the next decision cheap. We cannot promise your market wants it. Nobody can, and anyone who does is selling you something else.",
-  },
-  {
-    q: "How do we pay a studio in Pakistan?",
-    a: "Wise, Payoneer or a direct SWIFT transfer to a business account, in USD, GBP, EUR or AUD. Invoices per milestone, net 7. Wise and Payoneer usually clear in one to two working days; SWIFT takes three to five.",
-  },
-  {
-    q: "What happens after launch?",
-    a: "Thirty days of bug fixes on delivered scope are included. After that it is either a hardening engagement or nothing — we do not put you on a retainer to keep a thing alive that should be able to run without us.",
-  },
-];
+/* SPEC §11: real objections, answered directly. The list lives in lib/faq.ts
+   so the FAQPage structured data reads the same words. */
+import { faqs } from "../../lib/faq";
 ---
 
 <section class="v4-section" id="v4-faq" aria-labelledby="v4-faq-title">
   <div class="v4-container v4-split">
     <div class="v4-split__head">
-      <p class="v4-eyebrow" data-v4-reveal>Questions</p>
+      <p class="v4-eyebrow" data-v4-reveal>Frequently asked questions</p>
       <h2 class="v4-h2" id="v4-faq-title" data-v4-reveal data-v4-delay="60">
-        The eight things founders ask before signing.
+        What founders ask us before they sign.
       </h2>
     </div>
 

@@ -1,0 +1,70 @@
+---
+import { site, clients } from "../../lib/site";
+
+/* Seven years of client work, said once as figures and once as names. The
+   strip scrolls on its own, pauses under a pointer or keyboard focus, and
+   becomes a plain wrapped list when motion is reduced. The second copy of the
+   list exists only to close the loop, so it is hidden from assistive tech.
+   Real logo files can replace the initials later (see clients in site.ts). */
+const stats = [
+  { figure: site.experience, label: "Building and shipping software for clients" },
+  { figure: "Web and mobile", label: "Websites, web apps and iOS and Android apps" },
+  { figure: "2 engineers", label: "Both full stack, both on your project from day one" },
+  { figure: "1 working day", label: "The longest you wait for a written reply" },
+];
+
+const initials = (name: string) =>
+  name
+    .replace(/[^A-Za-z0-9 ]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("");
+---
+
+<section class="v5-section v5-clients" aria-labelledby="v5-clients-title">
+  <div class="v5-container">
+    <header class="v5-head">
+      <div>
+        <p class="v5-label">Experience</p>
+        <h2 class="v5-h2" id="v5-clients-title">Seven years of building, fixing<br />and launching products.</h2>
+      </div>
+      <p class="v5-head__aside">
+        For founders and growing businesses in the US, UK, Europe and Australia, across
+        property, healthcare, ecommerce and finance.
+      </p>
+    </header>
+
+    <dl class="v5-stats" data-v5-reveal="rise" data-v5-stagger>
+      {
+        stats.map((s) => (
+          <div class="v5-stats__item">
+            <dt class="v5-stats__figure">{s.figure}</dt>
+            <dd class="v5-stats__label">{s.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+
+  <div class="v5-marquee" data-v5-reveal="fade">
+    <p class="v5-container v5-label v5-marquee__label">Products we have built and supported</p>
+    <div class="v5-marquee__viewport" tabindex="0" aria-label="Client products">
+      <div class="v5-marquee__track">
+        {
+          [0, 1].map((copy) => (
+            <ul class="v5-marquee__list" aria-hidden={copy === 1 ? "true" : undefined}>
+              {clients.map((c) => (
+                <li class="v5-brand">
+                  <span class="v5-brand__mark" aria-hidden="true">{initials(c.name)}</span>
+                  <span class="v5-brand__name">{c.name}</span>
+                </li>
+              ))}
+            </ul>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
