@@ -1,0 +1,49 @@
+---
+/* SPEC §4c — before-and-after on four measures, marked illustrative in the
+   body at body size, because these are not a named client's measurements. */
+const rows = [
+  { metric: "p95 API response", before: "2400ms", after: "280ms", note: "Index audit, N+1 removal, connection pooling" },
+  { metric: "Error rate", before: "3%", after: "0.4%", note: "Structured logging, then fixing what it showed" },
+  { metric: "Integration tests", before: "0", after: "140", note: "Covering the path that takes the money" },
+  { metric: "Deploys", before: "1/month", after: "9/week", note: "CI, migrations and a rollback that has been used" },
+];
+---
+
+<section class="v5-section" id="v5-hardening" aria-labelledby="v5-hard-title">
+  <div class="v5-container">
+    <header class="v5-head">
+      <div>
+        <p class="v5-label">Hardening</p>
+        <h2 class="v5-h2" id="v5-hard-title">It's live, and it keeps<br />falling over.</h2>
+      </div>
+      <p class="v5-head__aside">
+        From $1,999 for four weeks. We agree your four numbers in week one and report them
+        every Friday.
+      </p>
+    </header>
+
+    <p class="v5-illustrative">
+      The figures below are illustrative: the shape of a typical four-week engagement, not
+      measurements from a named client.
+    </p>
+
+    <div class="v5-readout" role="table" aria-label="Before and after, illustrative">
+      <div class="v5-readout__row v5-readout__row--head" role="row">
+        <span role="columnheader">Measure</span>
+        <span role="columnheader">Before</span>
+        <span role="columnheader">After</span>
+        <span role="columnheader">What moved it</span>
+      </div>
+      {
+        rows.map((r) => (
+          <div class="v5-readout__row" role="row">
+            <span role="cell" class="v5-readout__metric">{r.metric}</span>
+            <span role="cell" class="v5-readout__before">{r.before}</span>
+            <span role="cell" class="v5-readout__after">{r.after}</span>
+            <span role="cell" class="v5-readout__note">{r.note}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

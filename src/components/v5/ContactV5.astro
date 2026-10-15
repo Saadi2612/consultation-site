@@ -1,0 +1,110 @@
+---
+import { site, mailto } from "../../lib/site";
+import PlaceholderV5 from "./PlaceholderV5.astro";
+
+const states = [
+  ["vq", "v? — I know the problem, I don't have a spec"],
+  ["v0", "v0 — the spec is ready, nothing is built"],
+  ["v1", "v1 — it's live and it breaks under load"],
+];
+const budgets = [
+  "Under $1,500 (likely not a fit)",
+  "$1,500 – $3,500",
+  "$3,500 – $8,000",
+  "$8,000 – $20,000",
+  "Over $20,000",
+];
+const timelines = ["Starting now", "Inside a month", "This quarter", "Still deciding"];
+---
+
+<section class="v5-contact" id="v5-contact" aria-labelledby="v5-contact-title">
+  <div class="v5-container v5-contact__grid">
+    <div class="v5-contact__media">
+      <PlaceholderV5 class="v5-contact__img" tone="dark" label="Photograph: Lahore studio" />
+      <div class="v5-team__card v5-contact__book">
+        <h3>The faster path</h3>
+        <p class="v5-team__bio">
+          Skip the form and talk to Saad directly. Or mail{" "}
+          <a class="v5-link" href={mailto}>{site.email}</a>. We are in {site.city}, UTC+5.
+        </p>
+        <a class="v5-btn v5-btn--sm" href={site.booking}>Book a 30-minute call with Saad</a>
+      </div>
+    </div>
+
+    <form class="v5-form" name="v5-enquiry" method="post" data-v5-form>
+      <p class="v5-label">Tell us where you are</p>
+      <p class="v5-form__kicker">Two engineers, one reply,</p>
+      <h2 class="v5-h2" id="v5-contact-title">inside a working day.</h2>
+      <p class="v5-form__intro">
+        The form is a filter, not a funnel. If we are not the right people for this we will say
+        so in the reply and, where we can, name someone who is.
+      </p>
+
+      <div class="v5-form__row">
+        <label class="v5-field">
+          <span>Your name</span>
+          <input type="text" name="name" autocomplete="name" required />
+        </label>
+        <label class="v5-field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+      </div>
+      <label class="v5-field">
+        <span>Company URL</span>
+        <input type="url" name="company" placeholder="https://" />
+      </label>
+      <div class="v5-form__row">
+        <label class="v5-field">
+          <span>Where you are</span>
+          <select name="state" data-v5-state-field>
+            {states.map(([v, l]) => <option value={v}>{l}</option>)}
+          </select>
+        </label>
+        <label class="v5-field">
+          <span>Budget</span>
+          <select name="budget">
+            {budgets.map((b) => <option>{b}</option>)}
+          </select>
+        </label>
+      </div>
+      <label class="v5-field">
+        <span>Timeline</span>
+        <select name="timeline">
+          {timelines.map((t) => <option>{t}</option>)}
+        </select>
+      </label>
+      <label class="v5-field">
+        <span>What is in front of you right now</span>
+        <textarea name="detail" rows="4"></textarea>
+      </label>
+
+      <button class="v5-btn v5-btn--block" type="submit">Send this to Mohib and Saad</button>
+
+      <p class="v5-form__note" data-v5-form-note aria-live="polite">
+        One of us replies by the end of our next working day: inside 24 hours from London,
+        Berlin or New York, and inside 30 from Sydney.
+      </p>
+    </form>
+  </div>
+</section>
+
+<script>
+  // Choosing a rail position pre-fills the form; submit confirms in place.
+  const field = document.querySelector<HTMLSelectElement>("[data-v5-state-field]");
+  document.querySelectorAll<HTMLAnchorElement>("[data-v5-state]").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (field) field.value = link.dataset.v5State ?? field.value;
+    });
+  });
+
+  const form = document.querySelector<HTMLFormElement>("[data-v5-form]");
+  const note = document.querySelector<HTMLElement>("[data-v5-form-note]");
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (note) {
+      note.textContent =
+        "Sent. One of us will reply by the end of our next working day, and the reply will say which of us has it.";
+    }
+  });
+</script>

@@ -1,0 +1,48 @@
+---
+import PlaceholderV5 from "./PlaceholderV5.astro";
+
+/* SPEC §10 — the team layout, one card per founder. Division of labour is
+   the point, because the quiet worry is the bus factor. */
+const founders = [
+  {
+    name: "Mohib",
+    owns: "Owns the backend, the database and everything that runs in production",
+    quote: "I write the API, the data model and the migrations, and I am the one paged when production misbehaves. If your p95 is two seconds, I am the person who finds out why and tells you what it costs to fix.",
+  },
+  {
+    name: "Saad",
+    owns: "Owns the frontend, the scope and the conversation with you",
+    quote: "I build the interface and I run the engagement: the scope, the Friday note, the demo and the invoice. When you ask whether something is in scope, mine is the answer, and I would rather give you a no in week two than a surprise in week six.",
+  },
+];
+---
+
+<section class="v5-section" id="v5-founders" aria-labelledby="v5-founders-title">
+  <div class="v5-container">
+    <header class="v5-head">
+      <div>
+        <p class="v5-label">The two of us</p>
+        <h2 class="v5-h2" id="v5-founders-title">You always know which of<br />us owns your problem.</h2>
+      </div>
+      <p class="v5-head__aside">
+        Two people, 6+ years each, in Lahore. GitHub and LinkedIn links have not been supplied
+        yet.
+      </p>
+    </header>
+
+    <div class="v5-team">
+      {
+        founders.map((f) => (
+          <div class="v5-team__lead">
+            <PlaceholderV5 class="v5-team__img" frame tone="dark" label={`Photograph of ${f.name}, not supplied yet`} />
+            <div class="v5-team__card">
+              <h3>{f.name}</h3>
+              <p class="v5-team__role">{f.owns}</p>
+              <p class="v5-team__bio">{f.quote}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

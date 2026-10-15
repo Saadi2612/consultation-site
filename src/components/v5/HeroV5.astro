@@ -1,0 +1,93 @@
+---
+import { site } from "../../lib/site";
+import { domeDefaults, domeDots, domeShadows } from "../../lib/dome";
+
+// The dots behind the rail, computed here at build time and shipped as
+// plain CSS: one box-shadow list per dot size.
+const dome = domeShadows(domeDots(domeDefaults));
+
+/* SPEC §2 — one instrument with three positions. Every position is fully
+   legible with nothing selected; choosing one only pre-fills the form. */
+const stages = [
+  {
+    id: "vq",
+    marker: "v?",
+    state: "You know the problem. You don't have a spec.",
+    service: "Consultation, two weeks",
+    deliverable: "You leave with a written scope you can hand to anyone.",
+    price: "$35/hour, usually $700–$1,050 in total",
+    cta: "Book the scoping call",
+    href: site.booking,
+  },
+  {
+    id: "v0",
+    marker: "v0",
+    state: "Spec is ready. Nothing is built.",
+    service: "MVP build, 6–8 weeks",
+    deliverable: "Something real users can sign into and use.",
+    price: "From $3,499",
+    cta: "Start an MVP build",
+    href: "#v5-contact",
+  },
+  {
+    id: "v1",
+    marker: "v1",
+    state: "It's live, and it breaks under load.",
+    service: "Hardening, four weeks",
+    deliverable: "Stability, performance and a test suite that holds.",
+    price: "From $1,999",
+    cta: "Get it stable",
+    href: "#v5-contact",
+  },
+];
+---
+
+<section class="v5-hero" id="v5-top" aria-labelledby="v5-hero-title">
+  <div class="v5-container">
+    <div class="v5-hero__head">
+      <h1 class="v5-display" id="v5-hero-title">Where is your product right now?</h1>
+      <p class="v5-hero__aside">
+        Mohib and Saad, 6+ years each, building from Lahore on your working hours.
+      </p>
+    </div>
+
+    <div class="v5-rail" id="v5-rail">
+      <div class="v5-art" aria-hidden="true">
+        <span class="v5-art__field">
+          {
+            dome.map((b) => (
+              <i
+                class="v5-art__dots"
+                style={`--v5-dot:${b.size.toFixed(3)}cqw;box-shadow:${b.shadow}`}
+              />
+            ))
+          }
+        </span>
+        <span class="v5-art__blur v5-art__blur--1"></span>
+        <span class="v5-art__blur v5-art__blur--2"></span>
+        <span class="v5-art__blur v5-art__blur--3"></span>
+        <span class="v5-art__blur v5-art__blur--4"></span>
+        <span class="v5-art__blur v5-art__blur--5"></span>
+        <span class="v5-art__blur v5-art__blur--6"></span>
+        <span class="v5-art__grain"></span>
+      </div>
+      <span class="v5-ph__frame" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      {
+        stages.map((s) => (
+          <article class="v5-stage">
+            <p class="v5-stage__marker">{s.marker}</p>
+            <div class="v5-stage__copy">
+              <h2 class="v5-stage__state">{s.state}</h2>
+              <p class="v5-stage__service">{s.service}</p>
+              <p class="v5-stage__deliverable">{s.deliverable}</p>
+              <p class="v5-stage__price">{s.price}</p>
+              <a class="v5-btn v5-btn--sm v5-stage__cta" href={s.href} data-v5-state={s.id}>
+                {s.cta}
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

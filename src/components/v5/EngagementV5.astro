@@ -1,0 +1,65 @@
+---
+import PlaceholderV5 from "./PlaceholderV5.astro";
+
+/* SPEC §5 — a real sequence, so the week numbering is earned. Each card
+   names what the client owes that week as well as what we do. */
+const steps = [
+  {
+    when: "Week 1",
+    title: "Access and the first slice",
+    ours: "We set up the repository, CI, staging and error reporting, and ship the first slice of real functionality to a URL you can open.",
+    yours: "Repository access, the domain, the payment provider, anything behind a login. Every day this waits moves the finish date by a day.",
+  },
+  {
+    when: "Weeks 2–5",
+    title: "Build, demo on Fridays",
+    ours: "Feature work against the agreed sequence, deployed to staging as it lands. A Friday demo on the real build, plus a written note of what moved and what did not.",
+    yours: "Watch the Friday demo, or the recording, inside three working days and say what is wrong while it is cheap to change.",
+  },
+  {
+    when: "Week 6",
+    title: "Hardening and handover prep",
+    ours: "Tests around the paths that take money, load checks, backups, a runbook and the migration plan from staging to production.",
+    yours: "Name the person who will own this after us, even if that is you, and put them on the calls this week.",
+  },
+  {
+    when: "Launch + 30 days",
+    title: "Launch and the month after",
+    ours: "We deploy, watch it, and fix what launch surfaces. Thirty days of bug fixes on delivered scope are included.",
+    yours: "Give us the launch date a week out, so the deploy lands on a working morning in your timezone.",
+  },
+];
+---
+
+<section class="v5-section" id="v5-engagement" aria-labelledby="v5-eng-title">
+  <div class="v5-container">
+    <header class="v5-head">
+      <div>
+        <p class="v5-label">The engagement</p>
+        <h2 class="v5-h2" id="v5-eng-title">Each week names what we do<br />and what you have to do.</h2>
+      </div>
+      <p class="v5-head__aside">
+        The second half is the part most studios leave out, and it is the part that decides
+        whether the date holds.
+      </p>
+    </header>
+
+    <div class="v5-process">
+      <PlaceholderV5 class="v5-process__img" lines="c" tone="dark" label="Photograph: a Friday demo" />
+      <ol class="v5-process__list" tabindex="0" aria-label="Engagement weeks">
+        {
+          steps.map((s) => (
+            <li class="v5-step">
+              <p class="v5-step__when">{s.when}</p>
+              <h3 class="v5-step__title">{s.title}</h3>
+              <p class="v5-step__body">{s.ours}</p>
+              <p class="v5-step__yours">
+                <strong>Your part:</strong> {s.yours}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

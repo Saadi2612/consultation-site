@@ -1,0 +1,60 @@
+---
+/* SPEC §11 — eight real objections. Native details/summary, no JS. */
+const faqs = [
+  {
+    q: "What happens if one of you gets sick mid-build?",
+    a: "The other one keeps shipping, slower. We both have read and deploy access to every project and the Friday note tells you what moved, so nothing lives in one head. If it is longer than a few days we tell you that week and give you a revised date. If you need guaranteed capacity through illness, you need a larger team than ours.",
+  },
+  {
+    q: "Who owns the code, and from when?",
+    a: "You do, from the moment each milestone is paid: repository, history, deploy configuration and credentials. We hold no licence-back and keep no copy running after handover.",
+  },
+  {
+    q: "What if we go over scope?",
+    a: "Scope changes are quoted before they are built, as a written line item with a price and a date impact. We do not absorb them silently and arrive late, and we do not start them on a verbal yes.",
+  },
+  {
+    q: "Can you work alongside our existing developer?",
+    a: "Yes, and it works best when the split is by surface rather than by ticket: we take the API and they take the app, or the reverse.",
+  },
+  {
+    q: "Whose NDA do we sign?",
+    a: "Yours. Send it and we sign it before the first call. If you do not have one, we send ours and you are welcome to redline it.",
+  },
+  {
+    q: "What if the MVP fails?",
+    a: "Then you have a working product, the code, the deployment and a scope document that says what was cut and why, which makes the next decision cheap. We cannot promise your market wants it, and nobody honestly can.",
+  },
+  {
+    q: "How do we pay a studio in Pakistan?",
+    a: "Wise, Payoneer or a direct SWIFT transfer to a business account, in USD, GBP, EUR or AUD. Invoices per milestone, net 7. Wise and Payoneer usually clear in one to two working days; SWIFT takes three to five.",
+  },
+  {
+    q: "What happens after launch?",
+    a: "Thirty days of bug fixes on delivered scope are included. After that it is a hardening engagement or nothing. We do not put you on a retainer to keep alive a thing that should run without us.",
+  },
+];
+---
+
+<section class="v5-section" id="v5-faq" aria-labelledby="v5-faq-title">
+  <div class="v5-container v5-faq">
+    <header class="v5-faq__head">
+      <p class="v5-label">Questions</p>
+      <h2 class="v5-h2" id="v5-faq-title">The eight things founders ask before signing.</h2>
+    </header>
+
+    <div class="v5-faq__list">
+      {
+        faqs.map((f) => (
+          <details class="v5-faq__item">
+            <summary>
+              {f.q}
+              <span class="v5-faq__icon" aria-hidden="true" />
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

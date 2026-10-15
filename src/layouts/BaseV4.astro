@@ -6,9 +6,11 @@ interface Props {
   title: string;
   description: string;
   jsonLd?: object[];
+  /** Keep a backup copy of the page out of search results. */
+  noindex?: boolean;
 }
 
-const { title, description, jsonLd = [] } = Astro.props;
+const { title, description, jsonLd = [], noindex = false } = Astro.props;
 const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefined;
 ---
 
@@ -19,7 +21,7 @@ const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefi
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? "noindex" : "index, follow"} />
     <meta name="author" content="Mohib and Saad, Proofload" />
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:type" content="website" />
@@ -32,7 +34,7 @@ const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefi
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
-    <meta name="theme-color" content="#1c3a76" />
+    <meta name="theme-color" content="#15191e" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>
       /* Set before first paint: every entrance pre-state is scoped to this

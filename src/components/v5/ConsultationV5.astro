@@ -1,0 +1,60 @@
+---
+import { site } from "../../lib/site";
+import PlaceholderV5 from "./PlaceholderV5.astro";
+
+/* SPEC §4a — the consultation as the two weeks it actually is, in the
+   image-left, text-right layout. */
+const weeks = [
+  {
+    label: "Week one",
+    body: "We read whatever exists (code, Figma, a spreadsheet, a support inbox) and ask the questions that change the estimate: who the first users are, what they do instead today, and what has to be true for you to call it finished.",
+    yours: "Two hours of calls and access to whatever already exists.",
+  },
+  {
+    label: "Week two",
+    body: "We turn the answers into a written scope: the v0 feature list, what is left out and why, the stack, the sequence, the week-by-week plan and a price with its assumptions.",
+    yours: "One review pass, and a decision on the cuts we propose.",
+  },
+];
+---
+
+<section class="v5-about" id="v5-consultation" aria-labelledby="v5-consult-title">
+  <div class="v5-container v5-about__grid">
+    <div class="v5-about__media">
+      <PlaceholderV5 class="v5-about__img" lines="a" label="Photograph: a scoping call" />
+    </div>
+
+    <div class="v5-about__body">
+      <p class="v5-label">Consultation</p>
+      <h2 class="v5-h2" id="v5-consult-title">Two weeks of questions, then a written scope.</h2>
+      <p class="v5-lead v5-about__lead">
+        Usually 20–30 hours at $35/hour, so $700 to $1,050 in total. You keep the scope whether
+        or not we build it.
+      </p>
+
+      <ol class="v5-weeks">
+        {
+          weeks.map((w) => (
+            <li class="v5-week">
+              <h3 class="v5-week__label">{w.label}</h3>
+              <p class="v5-week__body">{w.body}</p>
+              <p class="v5-week__yours">
+                <strong>Your part:</strong> {w.yours}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="v5-quote">
+        <h3 class="v5-quote__title">What you get on day ten</h3>
+        <p>
+          A scope document you can hand to any competent team and get a comparable quote back:
+          feature list, exclusions with reasons, stack, sequence, timeline and price
+          assumptions.
+        </p>
+        <a class="v5-link" href={site.booking}>Book the call that starts week one</a>
+      </div>
+    </div>
+  </div>
+</section>
