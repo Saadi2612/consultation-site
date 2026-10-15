@@ -1,20 +1,21 @@
 ---
-import { site, mailto } from "../../lib/site";
+import { site } from "../../lib/site";
 import PlaceholderV5 from "./PlaceholderV5.astro";
 
 const states = [
-  ["vq", "v? — I know the problem, I don't have a spec"],
-  ["v0", "v0 — the spec is ready, nothing is built"],
-  ["v1", "v1 — it's live and it breaks under load"],
+  ["vq", "I have an idea and need a scope and a quote"],
+  ["v0", "I have a scope and need an MVP built"],
+  ["v1", "My product is live and needs hardening"],
 ];
 const budgets = [
   "Under $1,500 (likely not a fit)",
-  "$1,500 – $3,500",
-  "$3,500 – $8,000",
-  "$8,000 – $20,000",
+  "$1,500 to $3,500",
+  "$3,500 to $8,000",
+  "$8,000 to $20,000",
   "Over $20,000",
 ];
 const timelines = ["Starting now", "Inside a month", "This quarter", "Still deciding"];
+const recipients = site.emails.map((e) => e.address).join(",");
 ---
 
 <section class="v5-contact" id="v5-contact" aria-labelledby="v5-contact-title">
@@ -24,20 +25,31 @@ const timelines = ["Starting now", "Inside a month", "This quarter", "Still deci
       <div class="v5-team__card v5-contact__book">
         <h3>The faster path</h3>
         <p class="v5-team__bio">
-          Skip the form and talk to Saad directly. Or mail{" "}
-          <a class="v5-link" href={mailto}>{site.email}</a>. We are in {site.city}, UTC+5.
+          Skip the form and book a 30 minute call with Mohib, or mail Mohib at{" "}
+          <a class="v5-link" href={`mailto:${site.emails[0].address}`}>{site.emails[0].address}</a>{" "}
+          or Saad at{" "}
+          <a class="v5-link" href={`mailto:${site.emails[1].address}`}>{site.emails[1].address}</a>.
+          We are in {site.city}, UTC+5.
         </p>
-        <a class="v5-btn v5-btn--sm" href={site.booking}>Book a 30-minute call with Saad</a>
+        <a class="v5-btn v5-btn--sm" href={site.booking}>Book a 30 minute call with Mohib</a>
       </div>
     </div>
 
-    <form class="v5-form" name="v5-enquiry" method="post" data-v5-form>
-      <p class="v5-label">Tell us where you are</p>
-      <p class="v5-form__kicker">Two engineers, one reply,</p>
-      <h2 class="v5-h2" id="v5-contact-title">inside a working day.</h2>
+    <form
+      class="v5-form"
+      name="v5-enquiry"
+      method="post"
+      enctype="text/plain"
+      action={`mailto:${recipients}?subject=Project enquiry`}
+      data-v5-form
+      data-v5-mailto={recipients}
+    >
+      <p class="v5-label">Start your project</p>
+      <p class="v5-form__kicker">Tell us about your product.</p>
+      <h2 class="v5-h2" id="v5-contact-title">A written reply within one working day.</h2>
       <p class="v5-form__intro">
-        The form is a filter, not a funnel. If we are not the right people for this we will say
-        so in the reply and, where we can, name someone who is.
+        Share where your product stands, your budget and your timeline. If we are not the right
+        team for it, we will say so in the reply and, where we can, recommend someone who is.
       </p>
 
       <div class="v5-form__row">
@@ -75,22 +87,24 @@ const timelines = ["Starting now", "Inside a month", "This quarter", "Still deci
         </select>
       </label>
       <label class="v5-field">
-        <span>What is in front of you right now</span>
+        <span>What would you like us to build or fix?</span>
         <textarea name="detail" rows="4"></textarea>
       </label>
 
       <button class="v5-btn v5-btn--block" type="submit">Send this to Mohib and Saad</button>
 
       <p class="v5-form__note" data-v5-form-note aria-live="polite">
-        One of us replies by the end of our next working day: inside 24 hours from London,
-        Berlin or New York, and inside 30 from Sydney.
+        Sending opens your email app with a message to both of us and your answers filled in.
+        One of us replies by the end of our next working day.
       </p>
     </form>
   </div>
 </section>
 
 <script>
-  // Choosing a rail position pre-fills the form; submit confirms in place.
+  // Choosing a rail position pre-fills the form. Submitting opens the
+  // visitor's email app addressed to both of us, with the answers filled in,
+  // so an enquiry is never silently dropped.
   const field = document.querySelector<HTMLSelectElement>("[data-v5-state-field]");
   document.querySelectorAll<HTMLAnchorElement>("[data-v5-state]").forEach((link) => {
     link.addEventListener("click", () => {
@@ -99,12 +113,29 @@ const timelines = ["Starting now", "Inside a month", "This quarter", "Still deci
   });
 
   const form = document.querySelector<HTMLFormElement>("[data-v5-form]");
-  const note = document.querySelector<HTMLElement>("[data-v5-form-note]");
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
-    if (note) {
-      note.textContent =
-        "Sent. One of us will reply by the end of our next working day, and the reply will say which of us has it.";
-    }
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const value = (name: string) => String(data.get(name) ?? "").trim();
+    const state = form.querySelector<HTMLSelectElement>("[name=state]");
+    const stateLabel = state?.selectedOptions[0]?.textContent?.trim() ?? "";
+
+    const body = [
+      `Name: ${value("name")}`,
+      `Email: ${value("email")}`,
+      `Company: ${value("company") || "Not given"}`,
+      `Where we are: ${stateLabel}`,
+      `Budget: ${value("budget")}`,
+      `Timeline: ${value("timeline")}`,
+      "",
+      value("detail"),
+    ].join("\n");
+
+    const subject = `Project enquiry from ${value("name")}`;
+    window.location.href =
+      `mailto:${form.dataset.v5Mailto}` +
+      `?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 </script>

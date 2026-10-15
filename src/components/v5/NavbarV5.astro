@@ -4,7 +4,7 @@ import { site } from "../../lib/site";
 
 <header class="v5-header">
   <div class="v5-container v5-header__inner">
-    <a class="v5-logo" href="#v5-top">
+    <a class="v5-logo" href="#v5-top" aria-label="Proofload home">
       <span class="v5-logo__mark" aria-hidden="true">
         <svg viewBox="0 0 20 20"><path d="M10 2 L12 8 L18 10 L12 12 L10 18 L8 12 L2 10 L8 8 Z" /></svg>
       </span>
@@ -12,11 +12,13 @@ import { site } from "../../lib/site";
     </a>
 
     <nav class="v5-nav" aria-label="Sections">
-      <a href="#v5-consultation">What we do</a>
+      <a href="#v5-services">Services</a>
+      <a href="#v5-hardening">Product hardening</a>
       <a href="#v5-pricing">Pricing</a>
-      <a href="#v5-faq">Questions</a>
+      <a href="#v5-founders">Team</a>
+      <a href="#v5-faq">FAQ</a>
     </nav>
 
-    <a class="v5-btn v5-btn--sm" href="#v5-rail">Tell us where you are</a>
+    <a class="v5-btn v5-btn--sm" href={site.booking}>Book a call</a>
   </div>
 </header>

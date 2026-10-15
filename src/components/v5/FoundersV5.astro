@@ -1,18 +1,26 @@
 ---
-import PlaceholderV5 from "./PlaceholderV5.astro";
-
 /* SPEC §10 — the team layout, one card per founder. Division of labour is
-   the point, because the quiet worry is the bus factor. */
+   the point, because the quiet worry is the bus factor. Both founders are
+   full stack; each one leads a side. */
+import { Picture } from "astro:assets";
+import { site } from "../../lib/site";
+import mohibPhoto from "../../assets/founders/mohib-photo.jpg";
+import saadPhoto from "../../assets/founders/saad-photo.jpg";
+
 const founders = [
   {
     name: "Mohib",
-    owns: "Owns the backend, the database and everything that runs in production",
-    quote: "I write the API, the data model and the migrations, and I am the one paged when production misbehaves. If your p95 is two seconds, I am the person who finds out why and tells you what it costs to fix.",
+    photo: mohibPhoto,
+    email: site.emails[0].address,
+    owns: "Full stack engineer and founder. Leads the backend, DevOps and product hardening.",
+    quote: "I write the APIs, the data model and the infrastructure, and I am the one who is paged when production misbehaves. If your pages take two seconds to load or your checkout fails at peak, I find out why, tell you what it costs to fix, and fix it.",
   },
   {
     name: "Saad",
-    owns: "Owns the frontend, the scope and the conversation with you",
-    quote: "I build the interface and I run the engagement: the scope, the Friday note, the demo and the invoice. When you ask whether something is in scope, mine is the answer, and I would rather give you a no in week two than a surprise in week six.",
+    photo: saadPhoto,
+    email: site.emails[1].address,
+    owns: "Full stack engineer and founder. Leads the frontend, mobile apps and delivery.",
+    quote: "I build the interfaces your users touch on the web and on their phones, and I run the project: the scope, the Friday note, the demo and the invoice. I would rather give you a clear no in week two than a surprise in week six.",
   },
 ];
 ---
@@ -21,24 +29,35 @@ const founders = [
   <div class="v5-container">
     <header class="v5-head">
       <div>
-        <p class="v5-label">The two of us</p>
-        <h2 class="v5-h2" id="v5-founders-title">You always know which of<br />us owns your problem.</h2>
+        <p class="v5-label">The engineers behind Proofload</p>
+        <h2 class="v5-h2" id="v5-founders-title">Two full stack engineers. You always<br />know who owns your problem.</h2>
       </div>
       <p class="v5-head__aside">
-        Two people, 6+ years each, in Lahore. GitHub and LinkedIn links have not been supplied
-        yet.
+        {site.experience} of building and supporting software for clients, from {site.city}.
+        We both work across the whole stack and both have access to every project, so your
+        product never depends on one person.
       </p>
     </header>
 
-    <div class="v5-team">
+    <div class="v5-team" data-v5-reveal="scale" data-v5-stagger>
       {
         founders.map((f) => (
           <div class="v5-team__lead">
-            <PlaceholderV5 class="v5-team__img" frame tone="dark" label={`Photograph of ${f.name}, not supplied yet`} />
+            <Picture
+              src={f.photo}
+              formats={["avif", "webp"]}
+              widths={[400, 700, 1110]}
+              sizes="(min-width: 900px) 50vw, 100vw"
+              alt={`${f.name}, full stack engineer and founder of Proofload`}
+              class="v5-team__img v5-team__photo"
+              loading="lazy"
+              decoding="async"
+            />
             <div class="v5-team__card">
               <h3>{f.name}</h3>
               <p class="v5-team__role">{f.owns}</p>
               <p class="v5-team__bio">{f.quote}</p>
+              <a class="v5-link v5-team__mail" href={`mailto:${f.email}`}>{f.email}</a>
             </div>
           </div>
         ))

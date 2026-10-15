@@ -1,19 +1,19 @@
 ---
 /* SPEC §4b — the scope table. The right column is the section. */
 const ships = [
-  "Accounts, sign-in and password reset",
-  "The one workflow the product is paid for",
+  "Accounts, sign in and password reset",
+  "The one workflow customers pay for",
   "Payments, if you charge from day one",
   "Transactional email that reaches inboxes",
   "An admin view you can run support from",
   "Deploys, backups and error reporting",
 ];
 const cut = [
-  ["Native mobile apps", "The web app answers the same question at a tenth of the build."],
-  ["In-app messaging", "Email carries it until you have the volume to justify a thread model."],
+  ["Web and mobile on day one", "Launch on the platform your users are already on. The second follows once the first has traction, sharing the same API."],
+  ["Messaging inside the app", "Email carries it until you have the volume to justify a thread model."],
   ["Reviews and ratings", "Needs both sides of a market to exist before it means anything."],
-  ["An analytics dashboard", "For the first hundred users you read the database and we write the query."],
-  ["Multi-currency", "One currency until a second country actually asks."],
+  ["A custom analytics dashboard", "For the first hundred users, a hosted analytics tool and a few saved queries answer every question you will have."],
+  ["More than one currency", "One currency until a second country actually asks."],
   ["Roles beyond admin and user", "A permission matrix invented before anyone has asked for it is a month of rework."],
 ];
 ---
@@ -22,16 +22,15 @@ const cut = [
   <div class="v5-container">
     <header class="v5-head">
       <div>
-        <p class="v5-label">MVP build</p>
-        <h2 class="v5-h2" id="v5-mvp-title">Half of scoping a v0 is<br />deciding what not to build.</h2>
+        <p class="v5-label">MVP development from $3,499</p>
+        <h2 class="v5-h2" id="v5-mvp-title">A startup MVP ships on time when<br />half the ideas wait for version two.</h2>
       </div>
       <p class="v5-head__aside">
-        From $3,499. Six to eight weeks to something real users can sign into. The column on
-        the right is where the date comes from.
+        Six to eight weeks to a web app or mobile app that real users can sign into and pay for. The column on the right is where that date comes from.
       </p>
     </header>
 
-    <div class="v5-scope">
+    <div class="v5-scope" data-v5-reveal="fade">
       <div class="v5-scope__col v5-scope__col--ships">
         <h3 class="v5-scope__title">Ships in v0</h3>
         <ul class="v5-scope__list">

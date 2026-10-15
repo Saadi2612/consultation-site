@@ -1,11 +1,21 @@
 ---
-/* SPEC §4c — before-and-after on four measures, marked illustrative in the
-   body at body size, because these are not a named client's measurements. */
+import { site } from "../../lib/site";
+
+/* SPEC §4c — before and after on four measures, marked illustrative in the
+   body at body size, because these are not a named client's measurements.
+   Hardening is the service we lead with, so the four weeks are spelled out. */
 const rows = [
   { metric: "p95 API response", before: "2400ms", after: "280ms", note: "Index audit, N+1 removal, connection pooling" },
   { metric: "Error rate", before: "3%", after: "0.4%", note: "Structured logging, then fixing what it showed" },
   { metric: "Integration tests", before: "0", after: "140", note: "Covering the path that takes the money" },
   { metric: "Deploys", before: "1/month", after: "9/week", note: "CI, migrations and a rollback that has been used" },
+];
+
+const weeks = [
+  ["Week 1", "Audit", "We read the codebase, the logs and the support inbox, reproduce the worst bugs, and agree with you the four numbers that define stable for your product."],
+  ["Week 2", "Fix what hurts users", "Crashes, failed payments, broken sign ups and slow pages come first, each one fixed with a test that stops it coming back."],
+  ["Week 3", "Tests, security and speed", "Automated tests across every critical flow, a security pass on authentication, data access and dependencies, and performance work on the slowest screens."],
+  ["Week 4", "Release and handover", "CI/CD, monitoring and alerts in place, a production release you can roll back, and a runbook so your team or ours can keep it stable."],
 ];
 ---
 
@@ -13,21 +23,36 @@ const rows = [
   <div class="v5-container">
     <header class="v5-head">
       <div>
-        <p class="v5-label">Hardening</p>
-        <h2 class="v5-h2" id="v5-hard-title">It's live, and it keeps<br />falling over.</h2>
+        <p class="v5-label">Product hardening from $1,999</p>
+        <h2 class="v5-h2" id="v5-hard-title">It is live, and it keeps falling<br />over. We fix that in four weeks.</h2>
       </div>
       <p class="v5-head__aside">
-        From $1,999 for four weeks. We agree your four numbers in week one and report them
-        every Friday.
+        For software that already has users: built quickly, by an earlier developer or an AI
+        coding tool, and now failing under real traffic. We fix it, test it and make releases
+        safe, so you can market it with confidence.
+        <a class="v5-link v5-head__link" href={site.booking}>Book a hardening call</a>
       </p>
     </header>
 
+    <ol class="v5-hard-weeks" data-v5-reveal="drop" data-v5-stagger>
+      {
+        weeks.map(([when, title, body]) => (
+          <li class="v5-card">
+            <span class="v5-card__n">{when}</span>
+            <h3 class="v5-card__title">{title}</h3>
+            <p class="v5-card__body">{body}</p>
+          </li>
+        ))
+      }
+    </ol>
+
     <p class="v5-illustrative">
-      The figures below are illustrative: the shape of a typical four-week engagement, not
-      measurements from a named client.
+      Four numbers have to move before we call it stable. The figures below are illustrative:
+      the shape of a typical four week engagement, not measurements from a named client. We
+      agree your own four numbers in week one and report them every Friday.
     </p>
 
-    <div class="v5-readout" role="table" aria-label="Before and after, illustrative">
+    <div class="v5-readout" role="table" aria-label="Before and after, illustrative" data-v5-reveal="fade">
       <div class="v5-readout__row v5-readout__row--head" role="row">
         <span role="columnheader">Measure</span>
         <span role="columnheader">Before</span>

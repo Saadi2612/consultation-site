@@ -1553,3 +1553,355 @@ body.v5 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- hero additions ---------- */
+
+.v5-hero__aside {
+  max-width: 300px;
+}
+
+.v5-hero__book {
+  margin-top: 14px;
+}
+
+.v5-head__link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--v5-ink);
+}
+
+/* ---------- experience: stats and client strip ---------- */
+
+.v5-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--v5-gap);
+}
+
+.v5-stats__item {
+  padding: 24px;
+  background: var(--v5-surface);
+}
+
+.v5-stats__figure {
+  font-family: var(--v5-head);
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.v5-stats__label {
+  margin-top: 28px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--v5-muted);
+  max-width: 28ch;
+}
+
+.v5-marquee {
+  margin-top: 56px;
+}
+
+.v5-marquee__label {
+  margin-bottom: 16px;
+}
+
+.v5-marquee__viewport {
+  overflow: hidden;
+  border-block: 1px solid var(--v5-line);
+}
+
+.v5-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: v5-marquee 48s linear infinite;
+}
+
+.v5-marquee__viewport:hover .v5-marquee__track,
+.v5-marquee__viewport:focus-visible .v5-marquee__track {
+  animation-play-state: paused;
+}
+
+.v5-marquee__list {
+  display: flex;
+  flex-shrink: 0;
+}
+
+@keyframes v5-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.v5-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 48px;
+  border-right: 1px solid var(--v5-line);
+  white-space: nowrap;
+}
+
+.v5-brand__mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--v5-ink);
+  border-radius: 50%;
+  font: 600 0.8125rem/1 var(--v5-sans);
+}
+
+.v5-brand__name {
+  font-family: var(--v5-head);
+  font-size: 1.375rem;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- services ---------- */
+
+.v5-service-lead {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 48px;
+  padding: 40px;
+  background: var(--v5-ink);
+  color: var(--v5-bg);
+  margin-bottom: var(--v5-gap);
+}
+
+.v5-service-lead__title {
+  font-family: var(--v5-head);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  line-height: 1.2;
+  margin: 28px 0 14px;
+}
+
+.v5-service-lead__body {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  max-width: 60ch;
+  color: rgba(246, 244, 240, 0.82);
+}
+
+.v5-service-lead__cta {
+  margin-top: 24px;
+}
+
+.v5-service-lead .v5-scope__list li {
+  border-color: rgba(246, 244, 240, 0.18);
+  color: var(--v5-bg);
+}
+
+.v5-services {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--v5-gap);
+}
+
+.v5-stack {
+  margin-top: 28px;
+  font-size: 0.875rem;
+  color: var(--v5-muted);
+  max-width: 90ch;
+}
+
+.v5-stack strong {
+  color: var(--v5-ink);
+  font-weight: 500;
+}
+
+/* ---------- hardening weeks ---------- */
+
+.v5-hard-weeks {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--v5-gap);
+  margin-bottom: 40px;
+}
+
+.v5-hard-weeks .v5-card {
+  min-height: 260px;
+}
+
+/* ---------- founder photographs ---------- */
+
+.v5-team__photo {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 15%;
+  background: var(--v5-ph-light);
+}
+
+.v5-team__mail {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.8125rem;
+}
+
+/* ---------- responsive for the additions ---------- */
+
+@media (max-width: 1024px) {
+  .v5-stats,
+  .v5-hard-weeks {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .v5-services {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .v5-service-lead {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 28px 24px;
+  }
+
+  .v5-services,
+  .v5-hard-weeks {
+    grid-template-columns: 1fr;
+  }
+
+  .v5-hard-weeks .v5-card {
+    min-height: 0;
+  }
+
+  .v5-brand {
+    padding: 22px 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .v5-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- entrances ----------
+   One treatment per kind of section, each run once by the observer in
+   BaseV5. Only opacity, transform and clip-path move. Without scripting,
+   or with motion reduced, everything is shown at rest. */
+
+html.v5-js [data-v5-reveal] {
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    clip-path 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.v5-js [data-v5-reveal="fade"] {
+  opacity: 0;
+}
+
+html.v5-js [data-v5-reveal="slide"] {
+  opacity: 0;
+  transform: translateX(24px);
+}
+
+html.v5-js [data-v5-reveal="wipe"] > * {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.v5-js [data-v5-reveal="wipe"].is-in > * {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Staggered groups move their children rather than themselves. */
+html.v5-js [data-v5-stagger] > * {
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    clip-path 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.v5-js [data-v5-reveal="rise"][data-v5-stagger] > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+html.v5-js [data-v5-reveal="drop"][data-v5-stagger] > * {
+  clip-path: inset(0 0 100% 0);
+}
+
+html.v5-js [data-v5-reveal="slide"][data-v5-stagger] {
+  opacity: 1;
+  transform: none;
+}
+
+html.v5-js [data-v5-reveal="slide"][data-v5-stagger] > * {
+  opacity: 0;
+  transform: translateX(24px);
+}
+
+html.v5-js [data-v5-reveal="scale"][data-v5-stagger] > * {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+html.v5-js [data-v5-reveal].is-in,
+html.v5-js [data-v5-reveal].is-in[data-v5-stagger] > * {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v5-marquee__track {
+    animation: none;
+    width: auto;
+  }
+
+  .v5-marquee__list {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+  }
+
+  .v5-marquee__list[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* The booking button sits on its own line under the hero aside. */
+.v5-hero__book {
+  display: flex;
+  width: fit-content;
+  margin-left: auto;
+}
+
+@media (max-width: 860px) {
+  .v5-hero__book {
+    margin-left: 0;
+  }
+}
+
+/* Founder photographs are landscape portraits, so on wide screens the
+   card sits under the photograph rather than over the face. */
+.v5-team {
+  height: auto;
+}
+
+.v5-team__lead {
+  display: flex;
+  flex-direction: column;
+}
+
+.v5-team__photo {
+  height: auto;
+  aspect-ratio: 3 / 2;
+}
+
+.v5-team__lead .v5-team__card {
+  position: static;
+  flex: 1;
+}
+
+@media (max-width: 860px) {
+  .v5-hero .v5-display br {
+    display: none;
+  }
+}

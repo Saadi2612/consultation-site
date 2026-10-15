@@ -1,5 +1,14 @@
 ---
-import { site, mailto } from "../../lib/site";
+import { site } from "../../lib/site";
+
+const services = [
+  "Product hardening",
+  "MVP development",
+  "Web application development",
+  "iOS and Android apps",
+  "Website development",
+  "DevOps and AI integrations",
+];
 ---
 
 <footer class="v5-footer">
@@ -14,18 +23,19 @@ import { site, mailto } from "../../lib/site";
 
       <nav class="v5-footer__cols" aria-label="Footer">
         <div>
+          <h3>Services</h3>
+          {services.map((s) => <a href="#v5-services">{s}</a>)}
+        </div>
+        <div>
           <h3>Contact</h3>
-          <a href={mailto}>{site.email}</a>
+          {site.emails.map((e) => <a href={`mailto:${e.address}`}>{e.name}: {e.address}</a>)}
+          <a href={site.booking}>Book a 30 minute call</a>
         </div>
         <div>
           <h3>Studio</h3>
           <p>{site.city}</p>
           <p>UTC+5</p>
-        </div>
-        <div>
-          <h3>Legal</h3>
-          <a href="#">Privacy policy</a>
-          <a href="#">Terms</a>
+          <p>Clients in the US, UK, Europe and Australia</p>
         </div>
       </nav>
     </div>
