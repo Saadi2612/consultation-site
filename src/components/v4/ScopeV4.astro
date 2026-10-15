@@ -1,35 +1,34 @@
 ---
 import { site } from "../../lib/site";
 
-/* SPEC §4a — the consultation, as the two weeks it actually is. */
+/* SPEC §4a: the consultation, as the two weeks it actually is. */
 const weeks = [
   {
     n: "01",
     label: "Week one",
     body:
-      "We read whatever exists — code, Figma, a spreadsheet, a support inbox — and ask the questions that change the estimate. Who the first users are, what they do instead today, which integrations are non-negotiable, and what has to be true for you to call it finished.",
+      "We read whatever exists (code, Figma, a spreadsheet, a support inbox) and ask the questions that change the estimate. Who the first users are, what they do instead today, which integrations you cannot launch without, and what has to be true for you to call it finished.",
     yours: "Two hours of calls and access to whatever already exists.",
   },
   {
     n: "02",
     label: "Week two",
     body:
-      "We turn the answers into a written scope: the feature list for v0, the list of things left out and why, the stack, the sequence, the week-by-week plan and a price with the assumptions it rests on.",
+      "We turn the answers into a written scope: the feature list for v0, the list of things left out and why, the technology stack for web and mobile, the build sequence, the week by week plan and a price with the assumptions it rests on.",
     yours: "One review pass, and a decision on the cuts we propose.",
   },
 ];
 ---
 
-<section class="v4-section v4-section--tint" id="v4-services" aria-labelledby="v4-scope-title">
+<section class="v4-section v4-section--tint" id="v4-consultation" aria-labelledby="v4-scope-title">
   <div class="v4-container v4-split">
     <div class="v4-split__head">
-      <p class="v4-eyebrow" data-v4-reveal>Consultation · $35/hour</p>
+      <p class="v4-eyebrow" data-v4-reveal>Software consultation at $35 an hour</p>
       <h2 class="v4-h2" id="v4-scope-title" data-v4-reveal data-v4-delay="60">
-        Two weeks of questions, then a written scope.
+        Two weeks of the right questions, then a written product scope.
       </h2>
       <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
-        Usually 20–30 hours of work, so $700 to $1,050 in total. You keep the
-        scope whether or not we build it.
+        Before a line of code is written, we turn your idea into a scope any team can price. It is usually 20 to 30 hours of work, so $700 to $1,050 in total, and the document is yours whether or not we build it.
       </p>
     </div>
 
@@ -67,7 +66,7 @@ const weeks = [
           paying for, not a sales artefact.
         </p>
         <a class="v4-link v4-scope__link" href={site.booking}>
-          Book the call that starts week one
+          Book the call that starts week one with Mohib
         </a>
       </div>
     </div>

@@ -1,5 +1,5 @@
 ---
-/* SPEC §6 — two worked examples, labelled illustrative at body size. No
+/* SPEC §6: two worked examples, labelled illustrative at body size. No
    client name, company, country or quotation is attached to either. */
 const hardening = [
   { metric: "p95 API response", before: "2400ms", after: "290ms" },
@@ -16,20 +16,20 @@ const mvpShipped = [
 ];
 
 const mvpCut = [
-  "Native mobile apps",
-  "In-app messaging",
+  "A separate mobile app",
+  "Messaging inside the app",
   "Reviews",
   "An analytics dashboard",
-  "Multi-currency",
+  "More than one currency",
 ];
 ---
 
 <section class="v4-section" aria-labelledby="v4-examples-title">
   <div class="v4-container v4-split">
     <div class="v4-split__head">
-      <p class="v4-eyebrow" data-v4-reveal>Two engagements</p>
+      <p class="v4-eyebrow" data-v4-reveal>Example projects</p>
       <h2 class="v4-h2" id="v4-examples-title" data-v4-reveal data-v4-delay="60">
-        What an engagement looks like, end to end.
+        Two typical projects, from first call to launch.
       </h2>
       <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
         Both of these are illustrative. They describe the shape and sequence of
@@ -41,7 +41,7 @@ const mvpCut = [
     <div class="v4-examples">
       <article class="v4-card v4-example" data-v4-reveal>
         <header class="v4-example__head">
-          <span class="v4-badge v4-badge--warn">Illustrative · hardening</span>
+          <span class="v4-badge v4-badge--warn">Illustrative hardening example</span>
           <h3 class="v4-h3" style="margin-top: var(--v4-3)">
             A B2B scheduling tool that stopped taking bookings at peak
           </h3>
@@ -54,7 +54,7 @@ const mvpCut = [
         </p>
 
         <p class="v4-body" style="margin-top: var(--v4-3)">
-          Four weeks of work — an index audit and removal of N+1 queries,
+          Four weeks of work: an index audit and removal of N+1 queries,
           connection pooling through PgBouncer, report generation moved onto a
           Celery queue, 140 integration tests covering the booking path, CI with
           automated deploys, Sentry with structured logging.
@@ -79,7 +79,7 @@ const mvpCut = [
 
       <article class="v4-card v4-example" data-v4-reveal data-v4-delay="120">
         <header class="v4-example__head">
-          <span class="v4-badge v4-badge--warn">Illustrative · MVP</span>
+          <span class="v4-badge v4-badge--warn">Illustrative MVP example</span>
           <h3 class="v4-h3" style="margin-top: var(--v4-3)">
             An equipment rental marketplace, from a Figma file to sixty listings
           </h3>

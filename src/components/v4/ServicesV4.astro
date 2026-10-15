@@ -1,0 +1,119 @@
+---
+/* What we build, named the way a founder searches for it. Hardening leads
+   because it is the work we are best known for; the rest is the full stack
+   we cover from first screen to production server. */
+const lead = {
+  title: "Product hardening for live software",
+  body:
+    "Your product is already in front of customers, and it keeps breaking. We audit the codebase, fix the bugs that cost you users, add automated tests around the flows that take money, tighten security, speed up slow pages and APIs, and set up deploys and monitoring you can trust. You get a product that is fully tested and ready to market, with a written record of every change.",
+  points: [
+    "Bug fixing and code audit",
+    "Automated test coverage",
+    "Performance and load tuning",
+    "Security review and fixes",
+    "CI/CD, monitoring and alerts",
+    "Launch and 30 days of support",
+  ],
+};
+
+const services = [
+  {
+    title: "Website development",
+    body:
+      "Fast, search friendly marketing sites and content platforms built with Next.js and React, with clean markup, structured data and the Core Web Vitals scores that search engines reward.",
+  },
+  {
+    title: "Web application development",
+    body:
+      "Dashboards, portals, marketplaces and SaaS products with a React or Next.js front end and a Node.js or Django back end, on a Postgres database designed to grow with you.",
+  },
+  {
+    title: "iOS and Android app development",
+    body:
+      "Cross platform mobile apps in React Native that ship to the App Store and Google Play from one codebase, sharing the API and business logic with your web product.",
+  },
+  {
+    title: "MVP development for startups",
+    body:
+      "A first version real users can sign into in six to eight weeks, scoped down to the one workflow that proves the idea, then built so it does not need rewriting at the first sign of traction.",
+  },
+  {
+    title: "DevOps and production systems",
+    body:
+      "Cloud setup on AWS, Docker, CI/CD pipelines, staging environments, backups, logging and error tracking, so releases are routine and outages are rare and short.",
+  },
+  {
+    title: "AI features and integrations",
+    body:
+      "Practical AI inside your product using the Claude, Gemini and ChatGPT APIs: document search, support assistants, content generation and data extraction, with cost and accuracy measured rather than guessed.",
+  },
+];
+
+const stack = [
+  "Next.js",
+  "React",
+  "React Native",
+  "Node.js",
+  "Django",
+  "Python",
+  "TypeScript",
+  "PostgreSQL",
+  "AWS",
+  "Docker",
+  "Claude",
+  "Gemini",
+  "ChatGPT",
+];
+---
+
+<section class="v4-section v4-section--tint" id="v4-services" aria-labelledby="v4-services-title">
+  <div class="v4-container v4-split">
+    <div class="v4-split__head">
+      <p class="v4-eyebrow" data-v4-reveal>Full stack development services</p>
+      <h2 class="v4-h2" id="v4-services-title" data-v4-reveal data-v4-delay="60">
+        From the first screen to a stable production system.
+      </h2>
+      <p class="v4-body" data-v4-reveal data-v4-delay="120" style="margin-top: var(--v4-4)">
+        Websites, web apps and iOS and Android apps, built and maintained by the
+        same two engineers. No hand offs between agencies, and no part of your
+        product that nobody on the team understands.
+      </p>
+    </div>
+
+    <div class="v4-services">
+      <article class="v4-card v4-card--elevated v4-service-lead" data-v4-reveal>
+        <span class="v4-badge v4-badge--info">What we are known for</span>
+        <h3 class="v4-h3" style="margin-top: var(--v4-3)">{lead.title}</h3>
+        <p class="v4-body" style="margin-top: var(--v4-3)">{lead.body}</p>
+        <ul class="v4-service-lead__points" data-v4-group data-v4-step="70">
+          {
+            lead.points.map((p) => (
+              <li class="v4-service-lead__point" data-v4-group-item>
+                {p}
+              </li>
+            ))
+          }
+        </ul>
+        <a class="v4-btn v4-btn--dark v4-btn--sm v4-service-lead__cta" href="#v4-hardening">
+          See how hardening works
+        </a>
+      </article>
+
+      <ul class="v4-service-list" data-v4-group data-v4-step="80">
+        {
+          services.map((s) => (
+            <li class="v4-service" data-v4-group-item>
+              <h3 class="v4-h4">{s.title}</h3>
+              <p class="v4-body" style="margin-top: var(--v4-2)">{s.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="v4-stack" data-v4-reveal>
+        <h3 class="v4-h5">Technologies we work in every week</h3>
+        <p class="v4-body v4-stack__list">{stack.join(", ")}.</p>
+      </div>
+    </div>
+  </div>
+</section>

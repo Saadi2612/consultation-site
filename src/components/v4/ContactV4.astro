@@ -2,16 +2,16 @@
 import { site } from "../../lib/site";
 
 const states = [
-  ["vq", "v? — I know the problem, I don't have a spec"],
-  ["v0", "v0 — the spec is ready, nothing is built"],
-  ["v1", "v1 — it's live and it breaks under load"],
+  ["vq", "I have an idea and need a scope and a quote"],
+  ["v0", "I have a scope and need an MVP built"],
+  ["v1", "My product is live and needs hardening"],
 ];
 
 const budgets = [
-  "Under $1,500 — likely not a fit",
-  "$1,500 – $3,500",
-  "$3,500 – $8,000",
-  "$8,000 – $20,000",
+  "Under $1,500 (likely not a fit)",
+  "$1,500 to $3,500",
+  "$3,500 to $8,000",
+  "$8,000 to $20,000",
   "Over $20,000",
 ];
 
@@ -25,27 +25,37 @@ const timelines = ["Starting now", "Inside a month", "This quarter", "Still deci
 
       <div class="v4-cta__grid">
         <div class="v4-cta__left">
-          <p class="v4-eyebrow">Tell us where you are</p>
+          <p class="v4-eyebrow">Start your project</p>
           <h2 class="v4-h2" id="v4-cta-title" style="margin-top: var(--v4-4)">
-            Two engineers, one reply, inside a working day.
+            Tell us about your product. You get a written reply within one working day.
           </h2>
           <p class="v4-body" style="margin-top: var(--v4-5)">
-            The form is a filter, not a funnel. If we are not the right people
-            for this we will say so in the reply and, where we can, name someone
-            who is.
+            Share where your product stands, your budget and your timeline. If we are not the right team for it, we will say so in the reply and, where we can, recommend someone who is.
           </p>
 
           <a class="v4-btn v4-btn--primary v4-magnet v4-cta__book" data-v4-magnet href={site.booking}>
-            Book a 30-minute call with Saad
+            Book a 30 minute call with Mohib
           </a>
 
           <p class="v4-small v4-cta__mail">
-            Or mail <a class="v4-link" href={`mailto:${site.email}`}>{site.email}</a> directly.
-            We are in {site.city}, UTC+5.
+            Or mail Mohib at{" "}
+            <a class="v4-link" href={`mailto:${site.emails[0].address}`}>{site.emails[0].address}</a>{" "}
+            or Saad at{" "}
+            <a class="v4-link" href={`mailto:${site.emails[1].address}`}>{site.emails[1].address}</a>{" "}
+            directly. We are based in {site.base} and work {site.hours},
+            Monday to Friday.
           </p>
         </div>
 
-        <form class="v4-form" name="v4-enquiry" method="post" data-v4-form>
+        <form
+          class="v4-form"
+          name="v4-enquiry"
+          method="post"
+          enctype="text/plain"
+          action={`mailto:${site.emails.map((e) => e.address).join(",")}?subject=Project enquiry`}
+          data-v4-form
+          data-v4-mailto={site.emails.map((e) => e.address).join(",")}
+        >
           <div class="v4-form__row">
             <label class="v4-field">
               <span class="v4-field__label">Your name</span>
@@ -87,7 +97,7 @@ const timelines = ["Starting now", "Inside a month", "This quarter", "Still deci
           </label>
 
           <label class="v4-field">
-            <span class="v4-field__label">What is in front of you right now</span>
+            <span class="v4-field__label">What would you like us to build or fix?</span>
             <textarea class="v4-input v4-input--area" name="detail" rows="4"></textarea>
           </label>
 
@@ -96,9 +106,9 @@ const timelines = ["Starting now", "Inside a month", "This quarter", "Still deci
           </button>
 
           <p class="v4-small v4-form__note">
-            On submit you get a confirmation on screen and a copy by email. One
-            of us replies by the end of our next working day — that is inside 24
-            hours from London, Berlin or New York, and inside 30 from Sydney.
+            Sending opens your email app with a message to both of us and your
+            answers filled in. One of us replies by the end of our next working
+            day.
           </p>
         </form>
       </div>

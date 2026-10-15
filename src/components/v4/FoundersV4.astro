@@ -1,64 +1,67 @@
 ---
-/* SPEC §10 — the division of labour is the point, because the quiet worry is
-   the bus factor. A founder whose photograph has not been supplied keeps a
-   visible placeholder rather than stock photography or an avatar circle. */
+/* SPEC §10: the division of labour is the point, because the quiet worry is
+   the bus factor. Both founders are full stack; each one leads a side. */
 import { Picture } from "astro:assets";
-import mohibPhoto from "../../assets/founders/mohib.jpg";
-import saadPhoto from "../../assets/founders/saad-portrait-v6.jpg";
+import { site } from "../../lib/site";
+import mohibPhoto from "../../assets/founders/mohib-photo.jpg";
+import saadPhoto from "../../assets/founders/saad-photo.jpg";
 
 const founders = [
   {
     name: "Mohib",
+    role: "Full stack engineer and founder",
     photo: mohibPhoto,
-    owns: "Owns the backend, the database and everything that runs in production",
+    email: site.emails[0].address,
+    owns: "Leads the backend, DevOps and product hardening",
     quote:
-      "I write the API, the data model and the migrations, and I am the one paged when production misbehaves. If your p95 is two seconds, I am the person who finds out why and tells you what it costs to fix.",
+      "I write the APIs, the data model and the infrastructure, and I am the one who is paged when production misbehaves. If your pages take two seconds to load or your checkout fails at peak, I find out why, tell you what it costs to fix, and fix it.",
   },
   {
     name: "Saad",
+    role: "Full stack engineer and founder",
     photo: saadPhoto,
-    owns: "Owns the frontend, the scope and the conversation with you",
+    email: site.emails[1].address,
+    owns: "Leads the frontend, mobile apps and delivery",
     quote:
-      "I build the interface and I run the engagement — the scope, the Friday note, the demo and the invoice. When you ask whether something is in scope, mine is the answer, and I would rather give you a no in week two than a surprise in week six.",
+      "I build the interfaces your users touch on the web and on their phones, and I run the project: the scope, the Friday note, the demo and the invoice. I would rather give you a clear no in week two than a surprise in week six.",
   },
 ];
 ---
 
-<section class="v4-section v4-section--tint" aria-labelledby="v4-founders-title">
+<section class="v4-section v4-section--tint" id="v4-team" aria-labelledby="v4-founders-title">
   <div class="v4-container">
     <div class="v4-pricing__head">
-      <p class="v4-eyebrow" data-v4-reveal>The two of us</p>
+      <p class="v4-eyebrow" data-v4-reveal>The engineers behind Proofload</p>
       <h2 class="v4-h2" id="v4-founders-title" data-v4-reveal data-v4-delay="60">
-        Two people, and you always know which one owns your problem.
+        Two full stack engineers. You always know who owns your problem.
       </h2>
+      <p class="v4-body v4-founders__intro" data-v4-reveal data-v4-delay="120">
+        Between us we have {site.experience} of building and supporting
+        software for clients. We both work across the whole stack and both have
+        access to every project, so your product never depends on one person.
+      </p>
     </div>
 
     <div class="v4-founders" data-v4-group data-v4-step="120">
       {
         founders.map((founder) => (
           <article class="v4-card v4-founder" data-v4-group-item>
-            {founder.photo ? (
-              <Picture
-                src={founder.photo}
-                formats={["avif", "webp"]}
-                widths={[400, 600, 800, 1110]}
-                sizes="(min-width: 900px) 562px, calc(100vw - 32px)"
-                alt={`Portrait of ${founder.name}`}
-                class="v4-founder__photo v4-founder__photo--img"
-                loading="lazy"
-                decoding="async"
-              />
-            ) : (
-              <div class="v4-founder__photo">
-                <span>Photograph of {founder.name} — not supplied yet</span>
-              </div>
-            )}
+            <Picture
+              src={founder.photo}
+              formats={["avif", "webp"]}
+              widths={[400, 600, 800, 1110]}
+              sizes="(min-width: 900px) 562px, calc(100vw - 32px)"
+              alt={`${founder.name}, full stack engineer and founder of Proofload`}
+              class="v4-founder__photo v4-founder__photo--img"
+              loading="lazy"
+              decoding="async"
+            />
             <h3 class="v4-h3">{founder.name}</h3>
+            <p class="v4-small v4-founder__role">{founder.role}</p>
             <p class="v4-h5 v4-founder__owns">{founder.owns}</p>
             <p class="v4-founder__quote">{founder.quote}</p>
-            <p class="v4-small v4-founder__links">
-              GitHub and LinkedIn addresses for {founder.name} have not been
-              supplied, so there is nothing to link to yet.
+            <p class="v4-founder__links">
+              <a class="v4-link" href={`mailto:${founder.email}`}>{founder.email}</a>
             </p>
           </article>
         ))

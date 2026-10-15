@@ -1,12 +1,15 @@
 ---
 import "../styles/v4.css";
+import { site } from "../lib/site";
 
 interface Props {
   title: string;
   description: string;
+  jsonLd?: object[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, jsonLd = [] } = Astro.props;
+const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefined;
 ---
 
 <!doctype html>
@@ -16,7 +19,20 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#15191e" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Mohib and Saad, Proofload" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+    <meta name="theme-color" content="#1c3a76" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>
       /* Set before first paint: every entrance pre-state is scoped to this

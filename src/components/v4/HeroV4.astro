@@ -1,74 +1,79 @@
 ---
+import { Image } from "astro:assets";
 import { site } from "../../lib/site";
+import mohibPhoto from "../../assets/founders/mohib-photo.jpg";
+import saadPhoto from "../../assets/founders/saad-photo.jpg";
 
 /* The three positions are one instrument, not three cards. Every row stays
-   legible with nothing selected — the selection only adds depth. */
+   legible with nothing selected; the selection only adds depth. */
 const stages = [
   {
     id: "vq",
     marker: "v?",
-    state: "You know the problem. You don't have a spec.",
+    state: "You have the idea. You need a clear plan and a price.",
     service: "Consultation",
-    span: "Two weeks",
-    deliverable: "You leave with a written scope you can hand to anyone.",
-    price: "$35/hour · 20–30 hours · $700–$1,050",
+    span: "two weeks",
+    deliverable: "A written product scope, technical plan and quote you can hand to any team.",
+    price: "$35 an hour, usually 20 to 30 hours, so $700 to $1,050",
     cta: "Book the scoping call",
     href: site.booking,
   },
   {
     id: "v0",
     marker: "v0",
-    state: "Spec is ready. Nothing is built.",
-    service: "MVP build",
-    span: "6–8 weeks",
-    deliverable: "Something real users can sign into and use.",
+    state: "The plan is ready. Nothing is built yet.",
+    service: "MVP development",
+    span: "6 to 8 weeks",
+    deliverable: "A working web or mobile MVP that real users can sign into and pay for.",
     price: "From $3,499",
-    cta: "Start an MVP build",
+    cta: "Plan your MVP",
     href: "#v4-contact",
   },
   {
     id: "v1",
     marker: "v1",
-    state: "It's live, and it breaks under load.",
-    service: "Hardening",
-    span: "Four weeks",
-    deliverable: "Stability, performance and a test suite that holds.",
+    state: "It is live, and it keeps breaking.",
+    service: "Product hardening",
+    span: "four weeks",
+    deliverable: "Bugs fixed, every key flow tested, and a product ready to market.",
     price: "From $1,999",
-    cta: "Get it stable",
+    cta: "Stabilise my product",
     href: "#v4-contact",
   },
 ];
 
 const holds = [
-  ["Your hours", "1pm–9pm PKT covers a London day"],
-  ["Your answers", "Inside one working day, every working day"],
-  ["Your code", "Transfers at each milestone, not at the end"],
+  ["Experience", "7+ years shipping web and mobile products"],
+  ["Your hours", "9am to 5pm EST, Monday to Friday"],
+  ["Your code", "Yours at every milestone, not at the end"],
 ];
 ---
 
 <section class="v4-hero" aria-labelledby="v4-hero-title">
   <div class="v4-container v4-hero__grid">
     <div class="v4-hero__left">
-      <p class="v4-eyebrow" data-v4-hero-item>Two engineers, Lahore, on your clock</p>
+      <p class="v4-eyebrow" data-v4-hero-item>Product hardening and full stack development</p>
 
       <h1 class="v4-display v4-hero__title" id="v4-hero-title">
-        <span class="v4-wipe" data-v4-wipe><span class="v4-wipe__text">Where is your</span></span>
-        <span class="v4-wipe" data-v4-wipe><span class="v4-wipe__text">product right</span></span>
-        <span class="v4-wipe" data-v4-wipe><span class="v4-wipe__text">now?</span></span>
+        <span class="v4-wipe" data-v4-wipe><span class="v4-wipe__text">We make your</span></span>
+        <span class="v4-wipe" data-v4-wipe><span class="v4-wipe__text">software stable,</span></span>
+        <span class="v4-wipe" data-v4-wipe><span class="v4-wipe__text">tested and live.</span></span>
       </h1>
 
       <p class="v4-lead v4-hero__lead" data-v4-hero-item>
-        Pick the point you are standing on. Each one has a fixed starting price,
-        a written deliverable and a date we are finished by. Nothing on this page
-        needs a call to understand.
+        Proofload is a two engineer software studio. For seven years we have
+        built websites, web apps and iOS and Android apps, and repaired the ones
+        that were already live and failing. Tell us where your product stands
+        today and you get a starting price, a written deliverable and a finish
+        date.
       </p>
 
       <div class="v4-hero__ctas" data-v4-hero-item>
-        <a class="v4-btn v4-btn--primary v4-magnet" data-v4-magnet href="#v4-rail">
-          Tell us where you are
+        <a class="v4-btn v4-btn--primary v4-magnet" data-v4-magnet href={site.booking}>
+          Book a 30 minute call
         </a>
-        <a class="v4-btn v4-btn--secondary" href={site.booking}>
-          Book a 30-minute call with Saad
+        <a class="v4-btn v4-btn--secondary" href="#v4-rail">
+          Find the right service
         </a>
       </div>
 
@@ -100,7 +105,7 @@ const holds = [
     <div class="v4-hero__right" data-v4-tilt-scene>
       <div class="v4-rail-card v4-card v4-card--elevated" id="v4-rail" data-v4-tilt>
         <div class="v4-rail-card__head">
-          <h2 class="v4-h5">Pick the one that describes today</h2>
+          <h2 class="v4-h5">Where is your product today?</h2>
         </div>
 
         <div
@@ -127,7 +132,7 @@ const holds = [
                   <span class="v4-stage__copy">
                     <span class="v4-stage__state">{stage.state}</span>
                     <span class="v4-stage__service">
-                      {stage.service} · {stage.span}
+                      {stage.service}, {stage.span}
                     </span>
                   </span>
                 </button>
@@ -148,15 +153,23 @@ const holds = [
       </div>
 
       <div class="v4-float v4-float--a" data-v4-float="1">
-        <p class="v4-small v4-float__label">Overlap today</p>
-        <p class="v4-h5 v4-num">1pm – 9pm PKT</p>
-        <p class="v4-small">A full 9-to-5 in London</p>
+        <p class="v4-small v4-float__label">Working hours</p>
+        <p class="v4-h5 v4-num">9am to 5pm EST</p>
+        <p class="v4-small">A full US East Coast working day</p>
       </div>
 
       <div class="v4-float v4-float--b" data-v4-float="2">
-        <p class="v4-small v4-float__label">Team</p>
-        <p class="v4-h5">Mohib and Saad</p>
-        <p class="v4-small">6+ years each. No one else on the call.</p>
+        <div class="v4-team">
+          <span class="v4-team__faces" aria-hidden="true">
+            <Image src={mohibPhoto} alt="" width={96} height={96} class="v4-team__face" />
+            <Image src={saadPhoto} alt="" width={96} height={96} class="v4-team__face" />
+          </span>
+          <span>
+            <span class="v4-small v4-float__label v4-team__label">Your engineers</span>
+            <span class="v4-h5 v4-team__names">Mohib and Saad</span>
+          </span>
+        </div>
+        <p class="v4-small v4-team__note">{site.experience} in the market. No one else on the call.</p>
       </div>
     </div>
   </div>

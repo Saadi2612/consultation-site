@@ -2,10 +2,12 @@
 import BaseV4 from "../layouts/BaseV4.astro";
 import NavbarV4 from "../components/v4/NavbarV4.astro";
 import HeroV4 from "../components/v4/HeroV4.astro";
+import ClientsV4 from "../components/v4/ClientsV4.astro";
 import HoldV4 from "../components/v4/HoldV4.astro";
+import ServicesV4 from "../components/v4/ServicesV4.astro";
+import NumbersV4 from "../components/v4/NumbersV4.astro";
 import ScopeV4 from "../components/v4/ScopeV4.astro";
 import DecisionV4 from "../components/v4/DecisionV4.astro";
-import NumbersV4 from "../components/v4/NumbersV4.astro";
 import ExamplesV4 from "../components/v4/ExamplesV4.astro";
 import EngagementV4 from "../components/v4/EngagementV4.astro";
 import FitV4 from "../components/v4/FitV4.astro";
@@ -15,19 +17,78 @@ import FoundersV4 from "../components/v4/FoundersV4.astro";
 import FaqV4 from "../components/v4/FaqV4.astro";
 import ContactV4 from "../components/v4/ContactV4.astro";
 import FooterV4 from "../components/v4/FooterV4.astro";
+import { site } from "../lib/site";
+import { faqs } from "../lib/faq";
+
+const title =
+  "Product hardening, MVP development and full stack engineering | Proofload";
+const description =
+  "Proofload fixes, tests and stabilises live web and mobile products, and builds MVPs, web apps and iOS and Android apps in Next.js, React Native, Node.js and Django. 7+ years of experience.";
+
+/* Structured data: who we are, what we sell at what starting price, and the
+   FAQ in the exact words shown on the page. */
+const org = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: site.name,
+  description,
+  ...(site.url ? { url: site.url } : {}),
+  email: site.email,
+  areaServed: ["United States", "United Kingdom", "European Union", "Australia"],
+  address: { "@type": "PostalAddress", addressCountry: "PK" },
+  founder: site.emails.map((e) => ({
+    "@type": "Person",
+    name: e.name,
+    email: e.address,
+    jobTitle: "Full stack engineer",
+  })),
+  knowsAbout: [
+    "Product hardening",
+    "MVP development",
+    "Web application development",
+    "iOS app development",
+    "Android app development",
+    "React Native",
+    "Next.js",
+    "Node.js",
+    "Django",
+    "DevOps",
+    "AI integration",
+  ],
+  makesOffer: [
+    ["Software consultation", "35", "Two week product scoping, billed hourly"],
+    ["MVP development", "3499", "A web or mobile MVP in six to eight weeks"],
+    ["Product hardening", "1999", "Four weeks of bug fixing, testing and stabilising a live product"],
+  ].map(([name, price, desc]) => ({
+    "@type": "Offer",
+    priceCurrency: "USD",
+    price,
+    itemOffered: { "@type": "Service", name, description: desc },
+  })),
+  potentialAction: { "@type": "ReserveAction", target: site.booking, name: "Book a 30 minute call" },
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 ---
 
-<BaseV4
-  title="Proofload — a two-person software studio in Lahore"
-  description="Mohib and Saad scope, build and stabilise software for founders in the US, UK, EU and Australia. Consultations from $35/hour, MVP builds from $3,499, hardening from $1,999."
->
+<BaseV4 title={title} description={description} jsonLd={[org, faqLd]}>
   <NavbarV4 />
   <main id="v4-main">
     <HeroV4 />
+    <ClientsV4 />
     <HoldV4 />
+    <ServicesV4 />
+    <NumbersV4 />
     <ScopeV4 />
     <DecisionV4 />
-    <NumbersV4 />
     <ExamplesV4 />
     <EngagementV4 />
     <FitV4 />
