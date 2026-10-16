@@ -36,7 +36,7 @@ const initials = (name: string) =>
       </p>
     </header>
 
-    <dl class="v5-stats" data-v5-reveal="rise" data-v5-stagger data-v5-glow>
+    <dl class="v5-stats" data-v5-reveal="rise" data-v5-stagger>
       {
         stats.map((s) => (
           <div class="v5-stats__item">
@@ -68,27 +68,3 @@ const initials = (name: string) =>
     </div>
   </div>
 </section>
-
-<script>
-  /* A soft glow sits under the pointer while it is over a stats card and
-     follows it. Fine pointers only, and never with reduced motion. */
-  const group = document.querySelector<HTMLElement>("[data-v5-glow]");
-  const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (group && fine && !reduce) {
-    group.querySelectorAll<HTMLElement>(".v5-stats__item").forEach((card) => {
-      let frame = 0;
-      card.addEventListener("pointermove", (event) => {
-        cancelAnimationFrame(frame);
-        frame = requestAnimationFrame(() => {
-          const box = card.getBoundingClientRect();
-          card.style.setProperty("--glow-x", `${event.clientX - box.left}px`);
-          card.style.setProperty("--glow-y", `${event.clientY - box.top}px`);
-        });
-      });
-      card.addEventListener("pointerenter", () => card.classList.add("is-glowing"));
-      card.addEventListener("pointerleave", () => card.classList.remove("is-glowing"));
-    });
-  }
-</script>

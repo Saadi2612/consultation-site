@@ -78,4 +78,34 @@ const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefi
     );
     items.forEach((el) => io.observe(el));
   }
+
+  /* A soft glow under the pointer on every small text box, following it
+     while it moves. One delegated listener for the whole page; fine
+     pointers only, and never with reduced motion. */
+  const GLOW = ".v5-card, .v5-step, .v5-example, .v5-project, .v5-stats__item, .v5-quote, .v5-handover, .v5-work__cta";
+  const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (fine && !reduce) {
+    document.querySelectorAll<HTMLElement>(GLOW).forEach((el) => el.classList.add("v5-glow"));
+    let lit: HTMLElement | null = null;
+    let frame = 0;
+    document.addEventListener("pointermove", (event) => {
+      const target = (event.target as Element | null)?.closest<HTMLElement>(".v5-glow") ?? null;
+      if (target !== lit) {
+        lit?.classList.remove("is-glowing");
+        target?.classList.add("is-glowing");
+        lit = target;
+      }
+      if (!target) return;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const box = target.getBoundingClientRect();
+        target.style.setProperty("--glow-x", `${event.clientX - box.left}px`);
+        target.style.setProperty("--glow-y", `${event.clientY - box.top}px`);
+      });
+    });
+    document.addEventListener("pointerleave", () => {
+      lit?.classList.remove("is-glowing");
+      lit = null;
+    });
+  }
 </script>
