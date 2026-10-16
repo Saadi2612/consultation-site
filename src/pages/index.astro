@@ -36,7 +36,6 @@ const org = {
   ...(site.url ? { url: site.url } : {}),
   email: site.email,
   areaServed: ["United States", "United Kingdom", "European Union", "Australia"],
-  address: { "@type": "PostalAddress", addressLocality: "Lahore", addressCountry: "PK" },
   founder: site.emails.map((e) => ({
     "@type": "Person",
     name: e.name,

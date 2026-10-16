@@ -1,33 +1,33 @@
 ---
-/* When we are both awake: each client region's overlap window on one
-   Pakistan time axis. The windows are the ones stated in the commitments
-   and the cross border section, so this chart cannot drift from the copy. */
+/* When we are both working: each client region's shared hours, shown in
+   that region's own local time so a reader never has to convert. The
+   windows match the overlap commitment and the cross border section. */
 interface Props {
   class?: string;
 }
 
 const { class: className = "" } = Astro.props;
 
-// Hours in PKT on a 24 hour clock; anything past midnight carries on past 24.
+// Local hours on a 24 hour clock, in the client's own time zone.
 const AXIS_START = 8;
-const AXIS_END = 25;
+const AXIS_END = 18;
 const regions = [
-  { city: "Sydney", from: 8, to: 12, label: "8am to 12pm" },
-  { city: "Berlin", from: 12, to: 20, label: "12pm to 8pm" },
-  { city: "London", from: 13, to: 21, label: "1pm to 9pm" },
-  { city: "New York", from: 18, to: 22, label: "6pm to 10pm" },
-  { city: "San Francisco", from: 21, to: 25, label: "9pm to 1am" },
+  { city: "London", from: 9, to: 17, label: "9am to 5pm" },
+  { city: "Berlin", from: 9, to: 17, label: "9am to 5pm" },
+  { city: "New York", from: 9, to: 13, label: "9am to 1pm" },
+  { city: "San Francisco", from: 9, to: 13, label: "9am to 1pm" },
+  { city: "Sydney", from: 13, to: 17, label: "1pm to 5pm" },
 ];
 const span = AXIS_END - AXIS_START;
-const ticks = [8, 12, 16, 20, 24];
-const tickLabel = (h: number) => (h === 12 ? "12pm" : h === 24 ? "12am" : h > 12 ? `${h - 12}pm` : `${h}am`);
+const ticks = [8, 10, 12, 14, 16, 18];
+const tickLabel = (h: number) => (h === 12 ? "12pm" : h > 12 ? `${h - 12}pm` : `${h}am`);
 ---
 
-<figure class:list={["v5-overlap", className]} aria-label="Overlap hours with each client region, in Pakistan time">
+<figure class:list={["v5-overlap", className]} aria-label="Hours we share with each client region, in local time">
   <div class="v5-overlap__inner" data-v5-reveal="slide" data-v5-stagger>
     <header class="v5-overlap__head">
-      <span class="v5-overlap__kicker">Our working day, in Pakistan time</span>
-      <span class="v5-overlap__title">Your hours overlap with ours</span>
+      <span class="v5-overlap__kicker">Shared hours, in your local time</span>
+      <span class="v5-overlap__title">We work inside your day</span>
     </header>
 
     <ul class="v5-overlap__rows">
@@ -57,5 +57,7 @@ const tickLabel = (h: number) => (h === 12 ? "12pm" : h === 24 ? "12am" : h > 12
       </span>
       <span class="v5-overlap__time"></span>
     </div>
+
+    <p class="v5-overlap__note">Times move by an hour when your clocks change.</p>
   </div>
 </figure>

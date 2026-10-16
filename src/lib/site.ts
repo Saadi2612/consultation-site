@@ -11,13 +11,10 @@ export const site = {
   ],
   booking: "https://calendly.com/mohibijaz9/30min",
   hours: "9am to 5pm EST",
-  base: "Pakistan",
   experience: "7+ years",
   /* Set this to the live domain (https://...) once it exists. It switches on
      the canonical link and absolute Open Graph URLs. */
   url: "",
-  /* Only the older /v2 and /v3 builds still print the city. */
-  city: "Lahore, Pakistan",
 } as const;
 
 export const mailto = `mailto:${site.email}`;

@@ -2673,3 +2673,142 @@ figure.v5-handover {
     padding: 26px 22px;
   }
 }
+
+/* Project screens are shown whole, never cropped: each sits inside its
+   frame on a quiet backdrop, at full resolution. */
+.v5-project__media {
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: var(--v5-ph-light);
+}
+
+.v5-project__media picture {
+  display: contents;
+}
+
+.v5-project__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 50%;
+  box-shadow: 0 1px 2px rgba(31, 29, 26, 0.12), 0 8px 24px rgba(31, 29, 26, 0.10);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .v5-project:hover .v5-project__img {
+    transform: translateY(-3px);
+  }
+}
+
+/* ===================================== type: one family, set with care
+   Headings and body share Inter, as most product companies do: headings
+   in a firm weight with tight tracking, body at a regular weight with
+   open leading. This replaces the serif headings. */
+
+:root {
+  --v5-head: "Inter v5", "Helvetica Neue", Arial, sans-serif;
+}
+
+.v5-display {
+  font-weight: 600;
+  font-size: clamp(2.5rem, 4.6vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+.v5-h2 {
+  font-weight: 600;
+  font-size: clamp(1.875rem, 3vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.v5-stage__state,
+.v5-week__label,
+.v5-quote__title,
+.v5-card__title,
+.v5-scope__title,
+.v5-step__title,
+.v5-example__title,
+.v5-team__card h3,
+.v5-faq__item summary,
+.v5-form__kicker,
+.v5-service-lead__title,
+.v5-doc__title,
+.v5-overlap__title,
+.v5-project__name,
+.v5-handover__title,
+.v5-brand__name {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.v5-card__title,
+.v5-step__title,
+.v5-example__title {
+  font-size: 1.25rem;
+}
+
+.v5-project__name {
+  font-size: 1.375rem;
+}
+
+.v5-project--wide .v5-project__name {
+  font-size: 1.625rem;
+}
+
+.v5-lead,
+.v5-team__bio,
+.v5-work__cta p {
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.v5-stage__marker,
+.v5-stats__figure,
+.v5-price__figure,
+.v5-readout__before,
+.v5-readout__after {
+  font-family: var(--v5-head);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.v5-label,
+.v5-card__n {
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+body.v5 {
+  font-feature-settings: "ss01" 1, "cv11" 1;
+}
+
+/* ===================================== the closing wordmark
+   Sized to sit fully inside the container and on the page, not cropped
+   by the bottom edge. */
+
+.v5-wordmark {
+  margin-top: 72px;
+  padding-bottom: 40px;
+  font-family: var(--v5-head);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 17vw, 16rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  transform: none;
+  color: var(--v5-ink);
+}
+
+@media (max-width: 1024px) {
+  .v5-wordmark {
+    margin-top: 48px;
+    padding-bottom: 28px;
+  }
+}
+
+.v5-overlap__note {
+  font-size: 0.75rem;
+  color: rgba(246, 244, 240, 0.6);
+}

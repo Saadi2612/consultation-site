@@ -28,7 +28,8 @@ import { portfolio } from "../../lib/portfolio";
               <Picture
                 src={p.image}
                 formats={["avif", "webp"]}
-                widths={[480, 800, 1200]}
+                widths={[480, 800, p.image.width].filter((w, n, a) => w <= p.image.width && a.indexOf(w) === n)}
+                quality={90}
                 sizes={i < 2 ? "(min-width: 860px) 50vw, 100vw" : "(min-width: 860px) 33vw, 100vw"}
                 alt={p.alt}
                 class="v5-project__img"
