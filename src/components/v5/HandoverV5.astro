@@ -1,0 +1,57 @@
+---
+/* The slot between the four commitments, drawn as what those commitments
+   add up to: what a client holds at each milestone, and a sample of
+   milestones being handed over. Labelled as a sample; no client is named. */
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+const holds = [
+  "Repository and full commit history",
+  "Deployment configuration and credentials",
+  "An NDA signed before the first call",
+  "A written note every Friday",
+  "A reply inside one working day",
+];
+
+const milestones = [
+  { name: "Milestone 1", state: "Transferred", done: true },
+  { name: "Milestone 2", state: "Transferred", done: true },
+  { name: "Milestone 3", state: "In progress", done: false },
+];
+---
+
+<figure class:list={["v5-handover", className]} aria-label="What you hold at every milestone">
+  <div class="v5-handover__inner">
+    <span class="v5-handover__kicker">What you hold at every milestone</span>
+    <span class="v5-handover__title">Paid for means handed over.</span>
+
+    <ul class="v5-handover__list">
+      {
+        holds.map((h) => (
+          <li>
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+              <path d="M3 8.5 6.2 11.7 13 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            {h}
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="v5-handover__track">
+      <span class="v5-handover__sample">Sample project</span>
+      {
+        milestones.map((m) => (
+          <div class:list={["v5-handover__step", m.done && "is-done"]}>
+            <span class="v5-handover__dot" aria-hidden="true" />
+            <span>{m.name}</span>
+            <span class="v5-handover__state">{m.state}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</figure>

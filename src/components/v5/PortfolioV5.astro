@@ -1,17 +1,10 @@
 ---
-/* Selected work. A showreel first, so a visitor sees finished products in
-   the first scroll, then one card per project saying what it is.
-
-   The showreel plays public/showreel.mp4 when that file exists. Until then
-   it is a slow crossfade through the project images, which pauses on a
-   button press and never moves at all when motion is reduced. */
-import fs from "node:fs";
-import path from "node:path";
+/* Selected work: one card per project saying what it is and what the
+   screens show. The first two are set larger, so the grid reads as two
+   featured projects and three more. */
 import { Picture } from "astro:assets";
 import { site } from "../../lib/site";
 import { portfolio } from "../../lib/portfolio";
-
-const hasVideo = fs.existsSync(path.join(process.cwd(), "public", "showreel.mp4"));
 ---
 
 <section class="v5-section v5-work" id="v5-work" aria-labelledby="v5-work-title">
@@ -22,77 +15,21 @@ const hasVideo = fs.existsSync(path.join(process.cwd(), "public", "showreel.mp4"
         <h2 class="v5-h2" id="v5-work-title">Products we have designed <br />and built for clients.</h2>
       </div>
       <p class="v5-head__aside">
-        Healthcare platforms, fintech websites and mobile apps for iPhone and Android. Every one
-        of them designed, built and launched by the same two engineers you would work with.
+        Healthcare booking, fintech and youth finance products, from marketing sites to full web
+        apps. Each one designed, built and launched by the same two engineers you would work with.
       </p>
     </header>
 
-    <div class="v5-reel" data-v5-reel data-v5-reveal="fade">
-      {
-        hasVideo ? (
-          <video
-            class="v5-reel__video"
-            src="/showreel.mp4"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            aria-label="Showreel of Proofload client work"
-          />
-        ) : (
-          <>
-            <div class="v5-reel__frames">
-              {portfolio.map((p, i) => (
-                <figure class:list={["v5-reel__frame", i === 0 && "is-active"]} data-v5-reel-frame>
-                  <Picture
-                    src={p.image}
-                    formats={["avif", "webp"]}
-                    widths={[640, 1024, 1600]}
-                    sizes="(min-width: 1440px) 1312px, calc(100vw - 32px)"
-                    alt={p.alt}
-                    class="v5-reel__img"
-                    loading={i === 0 ? "eager" : "lazy"}
-                    decoding="async"
-                  />
-                  <figcaption class="v5-reel__caption">
-                    <strong>{p.name}</strong>
-                    <span>{p.kind}</span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-            <div class="v5-reel__controls">
-              <button class="v5-reel__toggle" type="button" data-v5-reel-toggle aria-pressed="false">
-                Pause showreel
-              </button>
-              <div class="v5-reel__dots" role="group" aria-label="Choose a project">
-                {portfolio.map((p, i) => (
-                  <button
-                    type="button"
-                    class:list={["v5-reel__dot", i === 0 && "is-active"]}
-                    data-v5-reel-dot={i}
-                    aria-label={`Show ${p.name}`}
-                    aria-current={i === 0 ? "true" : undefined}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )
-      }
-    </div>
-
     <div class="v5-projects" data-v5-reveal="rise" data-v5-stagger>
       {
-        portfolio.map((p) => (
-          <article class="v5-project">
+        portfolio.map((p, i) => (
+          <article class:list={["v5-project", i < 2 && "v5-project--wide"]}>
             <div class="v5-project__media">
               <Picture
                 src={p.image}
                 formats={["avif", "webp"]}
                 widths={[480, 800, 1200]}
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                sizes={i < 2 ? "(min-width: 860px) 50vw, 100vw" : "(min-width: 860px) 33vw, 100vw"}
                 alt={p.alt}
                 class="v5-project__img"
                 loading="lazy"
@@ -118,73 +55,3 @@ const hasVideo = fs.existsSync(path.join(process.cwd(), "public", "showreel.mp4"
     </div>
   </div>
 </section>
-
-<script>
-  /* Crossfade the showreel every five seconds. A visible pause button keeps
-     it under the reader's control, and reduced motion never starts it. */
-  const reel = document.querySelector<HTMLElement>("[data-v5-reel]");
-  const frames = reel ? Array.from(reel.querySelectorAll<HTMLElement>("[data-v5-reel-frame]")) : [];
-  const dots = reel ? Array.from(reel.querySelectorAll<HTMLButtonElement>("[data-v5-reel-dot]")) : [];
-  const toggle = reel?.querySelector<HTMLButtonElement>("[data-v5-reel-toggle]");
-
-  if (reel && frames.length > 1) {
-    let current = 0;
-    let timer: number | undefined;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    const show = (i: number) => {
-      current = (i + frames.length) % frames.length;
-      frames.forEach((f, n) => f.classList.toggle("is-active", n === current));
-      dots.forEach((d, n) => {
-        d.classList.toggle("is-active", n === current);
-        if (n === current) d.setAttribute("aria-current", "true");
-        else d.removeAttribute("aria-current");
-      });
-    };
-
-    const play = () => {
-      window.clearInterval(timer);
-      timer = window.setInterval(() => show(current + 1), 5000);
-      reel.classList.remove("is-paused");
-      if (toggle) {
-        toggle.textContent = "Pause showreel";
-        toggle.setAttribute("aria-pressed", "false");
-      }
-    };
-
-    const pause = () => {
-      window.clearInterval(timer);
-      timer = undefined;
-      reel.classList.add("is-paused");
-      if (toggle) {
-        toggle.textContent = "Play showreel";
-        toggle.setAttribute("aria-pressed", "true");
-      }
-    };
-
-    toggle?.addEventListener("click", () => (timer ? pause() : play()));
-    dots.forEach((d) =>
-      d.addEventListener("click", () => {
-        show(Number(d.dataset.v5ReelDot));
-        pause();
-      })
-    );
-
-    // Only run while the reel is on screen.
-    if (reduce) {
-      pause();
-    } else if ("IntersectionObserver" in window) {
-      let userPaused = false;
-      toggle?.addEventListener("click", () => (userPaused = !timer));
-      new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting && !userPaused && !timer) play();
-        if (!entry.isIntersecting && timer) {
-          window.clearInterval(timer);
-          timer = undefined;
-        }
-      }).observe(reel);
-    } else {
-      play();
-    }
-  }
-</script>

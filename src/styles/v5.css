@@ -1935,57 +1935,6 @@ html.v5-js [data-v5-reveal].is-in[data-v5-stagger] > * {
   white-space: nowrap;
 }
 
-figure.v5-pair,
-figure.v5-doc,
-figure.v5-note,
-figure.v5-overlap {
-  margin: 0;
-}
-
-/* ---- the founders, between the four commitments ---- */
-
-.v5-pair {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: var(--v5-gap);
-  min-height: 480px;
-}
-
-.v5-pair__person {
-  position: relative;
-  overflow: hidden;
-  background: var(--v5-ph-light);
-}
-
-.v5-pair__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 22%;
-}
-
-.v5-pair__tag {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  display: grid;
-  gap: 2px;
-  padding: 10px 14px;
-  background: var(--v5-white);
-  font-size: 0.75rem;
-  line-height: 1.35;
-  color: var(--v5-muted);
-}
-
-.v5-pair__tag strong {
-  font-family: var(--v5-head);
-  font-weight: 500;
-  font-size: 1rem;
-  color: var(--v5-ink);
-}
-
 /* ---- the scope document, beside the consultation ---- */
 
 .v5-doc {
@@ -2324,26 +2273,6 @@ figure.v5-overlap {
 }
 
 @media (max-width: 860px) {
-  .v5-pair {
-    grid-template-rows: none;
-    grid-template-columns: 1fr 1fr;
-    min-height: 0;
-  }
-
-  .v5-pair__person {
-    aspect-ratio: 4 / 5;
-  }
-
-  .v5-approach__img.v5-pair {
-    min-height: 0;
-  }
-
-  .v5-pair__tag {
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    padding: 8px 10px;
-  }
 
   .v5-about__img.v5-doc {
     min-height: 0;
@@ -2402,24 +2331,6 @@ figure.v5-overlap {
      strand single words. */
   .v5-h2 br {
     display: none;
-  }
-
-  /* Phone: name labels sit under the photograph, not over the face. */
-  .v5-pair__person {
-    aspect-ratio: auto;
-    display: flex;
-    flex-direction: column;
-    background: var(--v5-white);
-  }
-
-  .v5-pair__img {
-    position: static;
-    height: 210px;
-  }
-
-  .v5-pair__tag {
-    position: static;
-    padding: 10px 12px;
   }
 }
 
@@ -2519,125 +2430,6 @@ body.v5 {
   background: var(--v5-surface);
 }
 
-/* ===================================== selected work */
-
-.v5-reel {
-  position: relative;
-  overflow: hidden;
-  background: var(--v5-art-base);
-  aspect-ratio: 16 / 8;
-}
-
-.v5-reel__video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.v5-reel__frames,
-.v5-reel__frame {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-}
-
-.v5-reel__frame {
-  opacity: 0;
-  transition: opacity 900ms ease;
-}
-
-.v5-reel__frame.is-active {
-  opacity: 1;
-}
-
-.v5-reel__img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 30%;
-  transform: scale(1.04);
-}
-
-/* a slow drift on the visible frame, the motion a showreel would have */
-.v5-reel__frame.is-active .v5-reel__img {
-  animation: v5-reel-drift 7s ease-out both;
-}
-
-.v5-reel.is-paused .v5-reel__img {
-  animation-play-state: paused;
-}
-
-@keyframes v5-reel-drift {
-  from {
-    transform: scale(1.08);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-.v5-reel__caption {
-  position: absolute;
-  left: 24px;
-  bottom: 24px;
-  display: grid;
-  gap: 2px;
-  padding: 14px 18px;
-  background: var(--v5-white);
-  font-size: 0.8125rem;
-  color: var(--v5-muted);
-}
-
-.v5-reel__caption strong {
-  font-family: var(--v5-head);
-  font-weight: 400;
-  font-size: 1.25rem;
-  color: var(--v5-ink);
-}
-
-.v5-reel__controls {
-  position: absolute;
-  right: 24px;
-  bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 10px 14px;
-  background: rgba(27, 33, 48, 0.78);
-  color: var(--v5-bg);
-}
-
-.v5-reel__toggle {
-  border: 0;
-  background: none;
-  color: inherit;
-  font: 500 0.75rem/1 var(--v5-sans);
-  cursor: pointer;
-  padding: 4px 0;
-}
-
-.v5-reel__dots {
-  display: flex;
-  gap: 8px;
-}
-
-.v5-reel__dot {
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  border: 1px solid var(--v5-bg);
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-}
-
-.v5-reel__dot.is-active {
-  background: var(--v5-accent);
-  border-color: var(--v5-accent);
-}
-
 .v5-projects {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2728,80 +2520,156 @@ body.v5 {
     max-width: none;
   }
 
-  .v5-reel {
-    aspect-ratio: 4 / 3;
-  }
-
-  .v5-reel__caption {
-    left: 12px;
-    right: 12px;
-    bottom: 64px;
-    padding: 10px 14px;
-  }
-
-  .v5-reel__controls {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    justify-content: space-between;
-  }
-
   .v5-projects {
     grid-template-columns: 1fr;
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .v5-reel__frame.is-active .v5-reel__img {
-    animation: none;
-    transform: none;
-  }
-}
-
-/* Show each project whole in the reel, framed on the dark stage, rather
-   than cropped to fill it; and anchor card crops to the top left, where
-   every screen puts its headline. */
-.v5-reel__frame {
-  padding: 40px 40px 96px;
-}
-
-.v5-reel__img {
-  object-fit: contain;
-  object-position: 50% 50%;
 }
 
 .v5-project__img {
   object-position: 0 0;
 }
 
-@media (max-width: 860px) {
-  .v5-reel__frame {
-    padding: 16px 16px 132px;
+/* ======================= selected work: two featured, three more */
+
+.v5-projects {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin-top: 0;
+}
+
+.v5-project {
+  grid-column: span 2;
+}
+
+.v5-project--wide {
+  grid-column: span 3;
+}
+
+.v5-project--wide .v5-project__name {
+  font-size: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .v5-projects {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .v5-project,
+  .v5-project--wide {
+    grid-column: auto;
+  }
+
+  .v5-project--wide {
+    grid-column: span 2;
   }
 }
 
 @media (max-width: 860px) {
-  .v5-reel {
-    aspect-ratio: auto;
+  .v5-projects {
+    grid-template-columns: 1fr;
   }
 
-  .v5-reel__frames {
-    position: relative;
-    height: 340px;
+  .v5-project--wide {
+    grid-column: auto;
+  }
+}
+
+/* ======================= milestone handover, between the commitments */
+
+figure.v5-handover {
+  margin: 0;
+}
+
+.v5-handover {
+  display: flex;
+  background: var(--v5-ink);
+  color: var(--v5-bg);
+  min-height: 480px;
+}
+
+.v5-handover__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  padding: 32px 30px;
+}
+
+.v5-handover__kicker {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(246, 244, 240, 0.7);
+}
+
+.v5-handover__title {
+  margin-top: -8px;
+  font-family: var(--v5-head);
+  font-size: 1.75rem;
+  line-height: 1.15;
+}
+
+.v5-handover__list {
+  display: grid;
+  gap: 10px;
+}
+
+.v5-handover__list li {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 10px;
+  align-items: start;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: rgba(246, 244, 240, 0.88);
+}
+
+.v5-handover__list svg {
+  margin-top: 0.2em;
+  color: var(--v5-accent);
+}
+
+.v5-handover__track {
+  display: grid;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(246, 244, 240, 0.16);
+}
+
+.v5-handover__sample {
+  font-size: 0.6875rem;
+  color: rgba(246, 244, 240, 0.6);
+}
+
+.v5-handover__step {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8125rem;
+}
+
+.v5-handover__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--v5-accent);
+}
+
+.v5-handover__step.is-done .v5-handover__dot {
+  background: var(--v5-accent);
+}
+
+.v5-handover__state {
+  font-size: 0.75rem;
+  color: rgba(246, 244, 240, 0.7);
+}
+
+@media (max-width: 860px) {
+  .v5-approach__img.v5-handover {
+    min-height: 0;
   }
 
-  .v5-reel__frame {
-    padding: 14px 14px 100px;
-  }
-
-  .v5-reel__caption {
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-  }
-
-  .v5-reel__controls {
-    position: static;
-    padding: 12px 14px;
+  .v5-handover__inner {
+    padding: 26px 22px;
   }
 }
