@@ -6,25 +6,24 @@
    composition still reads, labelled with the photograph it stands in for. */
 
 @font-face {
-  font-family: "Instrument Sans v5";
+  font-family: "Rubik v5";
   font-style: normal;
-  font-weight: 400 700;
-  font-stretch: 75% 100%;
+  font-weight: 300 900;
   font-display: swap;
-  src: url("/fonts/instrument-sans-latin-var.woff2") format("woff2");
+  src: url("/fonts/rubik-latin-var.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Inter v5";
+  font-family: "Golos Text v5";
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400 900;
   font-display: swap;
-  src: url("/fonts/inter-latin-var.woff2") format("woff2");
+  src: url("/fonts/golos-text-latin-var.woff2") format("woff2");
 }
 
 /* size-adjust fallback so the heading font swap does not shift lines. */
 @font-face {
-  font-family: "Instrument Sans v5 fallback";
+  font-family: "Rubik v5 fallback";
   src: local("Helvetica Neue"), local("Arial"), local("Liberation Sans");
   size-adjust: 95%;
   ascent-override: 96%;
@@ -57,8 +56,8 @@
   --v5-ph-mid: #cdcac5;
   --v5-ph-dark: #bdbab4;
 
-  --v5-head: "Instrument Sans v5", "Instrument Sans v5 fallback", "Helvetica Neue", Arial, sans-serif;
-  --v5-sans: "Inter v5", "Helvetica Neue", Arial, sans-serif;
+  --v5-head: "Rubik v5", "Rubik v5 fallback", "Helvetica Neue", Arial, sans-serif;
+  --v5-sans: "Golos Text v5", "Helvetica Neue", Arial, sans-serif;
 
   --v5-pad: 64px;
   --v5-gap: 12px;
@@ -2335,31 +2334,10 @@ html.v5-js [data-v5-reveal].is-in[data-v5-stagger] > * {
 }
 
 /* ===================================== type: a mature editorial voice
-   Headings move to Newsreader, a light text serif, which reads as
-   considered rather than startup loud. Only the 300 weight is shipped, so
-   the face is declared across the whole weight range: every heading
-   renders in the real light cut and the browser never fakes a bold. Body
-   copy stays Inter, one step larger for comfortable reading. */
-
-@font-face {
-  font-family: "Newsreader v5";
-  font-style: normal;
-  font-weight: 300 700;
-  font-display: swap;
-  src: url("/fonts/newsreader-latin-300.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Newsreader v5 fallback";
-  src: local("Georgia"), local("Times New Roman");
-  size-adjust: 96%;
-  ascent-override: 92%;
-  descent-override: 24%;
-  line-gap-override: 0%;
-}
+   Headings and large text are Rubik, body copy is Golos Text. */
 
 :root {
-  --v5-head: "Newsreader v5", "Newsreader v5 fallback", Georgia, "Times New Roman", serif;
+  --v5-head: "Rubik v5", "Rubik v5 fallback", "Helvetica Neue", Arial, sans-serif;
 }
 
 body.v5 {
@@ -2390,7 +2368,7 @@ body.v5 {
 .v5-price__figure,
 .v5-readout__before,
 .v5-readout__after {
-  font-family: "Instrument Sans v5", "Instrument Sans v5 fallback", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Rubik v5", "Rubik v5 fallback", "Helvetica Neue", Arial, sans-serif;
 }
 
 /* ===================================== hero: say what we do, plainly */
@@ -2455,13 +2433,6 @@ body.v5 {
   height: 100%;
   object-fit: cover;
   object-position: 50% 0;
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .v5-project:hover .v5-project__img {
-    transform: scale(1.03);
-  }
 }
 
 .v5-project__body {
@@ -2695,19 +2666,13 @@ figure.v5-handover {
   box-shadow: 0 1px 2px rgba(31, 29, 26, 0.12), 0 8px 24px rgba(31, 29, 26, 0.10);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .v5-project:hover .v5-project__img {
-    transform: translateY(-3px);
-  }
-}
-
 /* ===================================== type: one family, set with care
    Headings and body share Inter, as most product companies do: headings
    in a firm weight with tight tracking, body at a regular weight with
    open leading. This replaces the serif headings. */
 
 :root {
-  --v5-head: "Inter v5", "Helvetica Neue", Arial, sans-serif;
+  --v5-head: "Rubik v5", "Rubik v5 fallback", "Helvetica Neue", Arial, sans-serif;
 }
 
 .v5-display {
@@ -2859,13 +2824,13 @@ body.v5 {
    from the cream page. */
 
 .v5-project {
-  background: #0b0b0c;
+  background: #1e1d19;
   color: #f4f2ee;
   transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease;
 }
 
 .v5-project__media {
-  background: #0b0b0c;
+  background: #1e1d19;
   padding: 22px 22px 6px;
 }
 
@@ -2894,6 +2859,6 @@ body.v5 {
 @media (hover: hover) and (pointer: fine) {
   .v5-project:hover {
     transform: translateY(-4px);
-    box-shadow: 0 22px 48px rgba(11, 11, 12, 0.22);
+    box-shadow: 0 22px 48px rgba(30, 29, 25, 0.28);
   }
 }
