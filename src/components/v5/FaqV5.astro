@@ -1,29 +1,113 @@
 ---
-/* SPEC §11 — real objections, answered directly. Native details/summary,
-   no JS. The list lives in lib/faq.ts so the FAQPage structured data reads
-   the same words. */
+/* SPEC §11 — real objections, answered directly. Native details/summary.
+   The list lives in lib/faq.ts so the FAQPage structured data reads the same
+   words.
+
+   On a wide screen the section pins while the visitor scrolls: the heading
+   holds still, the questions arrive one at a time, and the page moves on only
+   once the last one is in. The pin is added by the script below, so without
+   scripting, under 900px, or with reduced motion it is a plain list. */
 import { faqs } from "../../lib/faq";
 ---
 
-<section class="v5-section" id="faq" aria-labelledby="v5-faq-title">
-  <div class="v5-container v5-faq">
-    <header class="v5-faq__head">
-      <p class="v5-label">Frequently asked questions</p>
-      <h2 class="v5-h2" id="v5-faq-title">What founders ask us before they sign.</h2>
-    </header>
+<section class="v5-section v5-faq-section" id="faq" aria-labelledby="v5-faq-title" data-v5-faq>
+  <div class="v5-faq__pin">
+    <div class="v5-container v5-faq">
+      <header class="v5-faq__head">
+        <p class="v5-label">Frequently asked questions</p>
+        <h2 class="v5-h2" id="v5-faq-title">What founders ask us before they sign.</h2>
+      </header>
 
-    <div class="v5-faq__list" data-v5-reveal="fade">
-      {
-        faqs.map((f) => (
-          <details class="v5-faq__item">
-            <summary>
-              {f.q}
-              <span class="v5-faq__icon" aria-hidden="true" />
-            </summary>
-            <p>{f.a}</p>
-          </details>
-        ))
-      }
+      <div class="v5-faq__window">
+        <div class="v5-faq__list" data-v5-faq-list>
+          {
+            faqs.map((f) => (
+              <details class="v5-faq__item">
+                <summary>
+                  {f.q}
+                  <span class="v5-faq__icon" aria-hidden="true" />
+                </summary>
+                <p>{f.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  const section = document.querySelector<HTMLElement>("[data-v5-faq]");
+  const list = section?.querySelector<HTMLElement>("[data-v5-faq-list]");
+  const windowEl = section?.querySelector<HTMLElement>(".v5-faq__window");
+
+  if (section && list && windowEl) {
+    const items = Array.from(list.querySelectorAll<HTMLDetailsElement>(".v5-faq__item"));
+    const wide = window.matchMedia("(min-width: 900px)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    /* Scroll distance each question is given while the section is pinned. */
+    const STEP = 120;
+    let pinned = false;
+    let frame = 0;
+
+    const headerHeight = () =>
+      document.querySelector<HTMLElement>(".v5-header")?.offsetHeight ?? 0;
+
+    const show = (count: number) => {
+      items.forEach((item, i) => item.classList.toggle("is-shown", i < count));
+    };
+
+    const update = () => {
+      frame = 0;
+      if (!pinned) return;
+      const distance = items.length * STEP;
+      const top = headerHeight();
+      const progress = Math.min(1, Math.max(0, (top - section.getBoundingClientRect().top) / distance));
+
+      show(Math.min(items.length, Math.floor(progress * items.length) + 1));
+
+      /* When the open list is taller than the pinned window, slide it up in
+         step with the scroll so the last question ends inside the window. */
+      const overflow = list.scrollHeight - windowEl.clientHeight;
+      list.style.transform = overflow > 0 ? `translateY(${-overflow * progress}px)` : "";
+    };
+
+    const queue = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    const layout = () => {
+      const shouldPin = wide.matches && !reduce.matches;
+      if (shouldPin !== pinned) {
+        pinned = shouldPin;
+        section.classList.toggle("is-pinned", pinned);
+        if (!pinned) {
+          section.style.height = "";
+          list.style.transform = "";
+          show(items.length);
+        }
+      }
+      if (pinned) {
+        const top = headerHeight();
+        section.style.setProperty("--v5-faq-top", `${top}px`);
+        section.style.height = `${window.innerHeight - top + items.length * STEP}px`;
+        update();
+      }
+    };
+
+    /* A question reached by keyboard is never left invisible. */
+    list.addEventListener("focusin", (event) => {
+      const index = items.findIndex((item) => item.contains(event.target as Node));
+      if (index >= 0) items.slice(0, index + 1).forEach((item) => item.classList.add("is-shown"));
+    });
+    /* Opening an answer changes the list height, so the slide is recomputed. */
+    items.forEach((item) => item.addEventListener("toggle", queue));
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", layout);
+    wide.addEventListener("change", layout);
+    reduce.addEventListener("change", layout);
+    layout();
+  }
+</script>

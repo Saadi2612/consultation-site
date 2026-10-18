@@ -1146,6 +1146,51 @@ body.v5 {
   max-width: 68ch;
 }
 
+/* Pinned FAQ (added by FaqV5's script on wide screens only). The section's
+   height is set to the viewport plus one scroll step per question; the pin
+   holds the heading and list still while that distance is scrolled. */
+.v5-faq-section.is-pinned {
+  padding-top: 0;
+}
+
+.v5-faq-section.is-pinned .v5-faq__pin {
+  position: sticky;
+  top: var(--v5-faq-top, 0px);
+  height: calc(100vh - var(--v5-faq-top, 0px));
+  display: flex;
+  align-items: center;
+}
+
+.v5-faq-section.is-pinned .v5-faq {
+  width: 100%;
+}
+
+.v5-faq-section.is-pinned .v5-faq__head {
+  position: static;
+}
+
+.v5-faq-section.is-pinned .v5-faq__window {
+  max-height: calc(100vh - var(--v5-faq-top, 0px) - 96px);
+  overflow: hidden;
+}
+
+.v5-faq-section.is-pinned .v5-faq__list {
+  transition: transform 160ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.v5-faq-section.is-pinned .v5-faq__item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.v5-faq-section.is-pinned .v5-faq__item.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
 /* ---------- contact ---------- */
 
 .v5-contact {
@@ -1623,9 +1668,18 @@ body.v5 {
   margin-bottom: 16px;
 }
 
+/* The strip is a band in the theme's two colours: the navy of the hero art
+   behind, the amber accent on each mark. */
 .v5-marquee__viewport {
   overflow: hidden;
-  border-block: 1px solid var(--v5-line);
+  background: var(--v5-art-base);
+  color: var(--v5-bg);
+  border-block: 3px solid var(--v5-accent);
+}
+
+.v5-marquee__viewport:focus-visible {
+  outline-color: var(--v5-accent);
+  outline-offset: -6px;
 }
 
 .v5-marquee__track {
@@ -1655,7 +1709,7 @@ body.v5 {
   align-items: center;
   gap: 12px;
   padding: 28px 48px;
-  border-right: 1px solid var(--v5-line);
+  border-right: 1px solid rgba(246, 244, 240, 0.14);
   white-space: nowrap;
 }
 
@@ -1664,7 +1718,8 @@ body.v5 {
   place-items: center;
   width: 40px;
   height: 40px;
-  border: 1.5px solid var(--v5-ink);
+  background: var(--v5-accent);
+  color: var(--v5-ink);
   border-radius: 50%;
   font: 600 0.8125rem/1 var(--v5-sans);
 }

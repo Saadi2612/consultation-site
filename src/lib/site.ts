@@ -6,10 +6,10 @@ export const site = {
   name: "Proofload",
   email: "mohibijaz9@gmail.com",
   emails: [
-    { name: "Mohib", address: "mohibijaz9@gmail.com" },
-    { name: "Saad", address: "saadhassan817@gmail.com" },
+    { name: "Mohib", address: "mohibijaz9@gmail.com", role: "Web designer and developer" },
+    { name: "Saad", address: "saadhassan817@gmail.com", role: "Senior AI engineer" },
   ],
-  booking: "https://calendly.com/mohibijaz9/30min",
+  booking: "https://calendly.com/saadhassan817/30min",
   hours: "9am to 5pm EST",
   experience: "7+ years",
   /* Set this to the live domain (https://...) once it exists. It switches on

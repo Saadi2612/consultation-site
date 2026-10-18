@@ -1,26 +1,28 @@
 ---
 /* SPEC §10 — the team layout, one card per founder. Division of labour is
-   the point, because the quiet worry is the bus factor. Both founders are
-   full stack; each one leads a side. */
+   the point, because the quiet worry is the bus factor. Mohib leads design
+   and the front end, Saad leads AI and the backend. */
 import { Picture } from "astro:assets";
 import { site } from "../../lib/site";
-import mohibPhoto from "../../assets/founders/mohib-photo.jpg";
-import saadPhoto from "../../assets/founders/saad-photo.jpg";
+import mohibPhoto from "../../assets/founders/mohib-amber.jpg";
+import saadPhoto from "../../assets/founders/saad-amber.jpg";
 
 const founders = [
   {
     name: "Mohib",
     photo: mohibPhoto,
     email: site.emails[0].address,
-    owns: "Full stack engineer and founder. Leads the backend, DevOps and product hardening.",
-    quote: "I write the APIs, the data model and the infrastructure, and I am the one who is paged when production misbehaves. If your pages take two seconds to load or your checkout fails at peak, I find out why, tell you what it costs to fix, and fix it.",
+    role: site.emails[0].role,
+    owns: "Web designer and developer, and founder. Leads design, the front end and the delivery of websites and web apps.",
+    quote: "I design and build the part of your product people see and use: the website, the web app and the front end that connects them to the backend. I have designed, developed and managed websites and web apps for clients from first sketch to launch, and I look after them afterwards, so pages stay fast, work on every screen and stay easy to change.",
   },
   {
     name: "Saad",
     photo: saadPhoto,
     email: site.emails[1].address,
-    owns: "Full stack engineer and founder. Leads the architecture, infrastructure and scalability.",
-    quote: "I design how your product fits together: the architecture, the cloud infrastructure and how it scales as more users arrive. I also run the project, so the scope, the Friday note and the demo come from me, and I would rather give you a clear no in week two than a surprise in week six.",
+    role: site.emails[1].role,
+    owns: "Senior AI engineer and founder. Leads AI, the backend and the technical architecture.",
+    quote: "I build the AI features in your product and the backend they run on: language model integrations, retrieval over your own data, AI agents and automations, the APIs, the data model and the cloud infrastructure that keeps it all fast and reliable as more users arrive. I also run the technical side of the project, so the architecture, the scope and the Friday note come from me, and I would rather give you a clear no in week two than a surprise in week six.",
   },
 ];
 ---
@@ -30,12 +32,12 @@ const founders = [
     <header class="v5-head">
       <div>
         <p class="v5-label">The engineers behind Proofload</p>
-        <h2 class="v5-h2" id="v5-founders-title">Two full stack engineers. You always <br />know who owns your problem.</h2>
+        <h2 class="v5-h2" id="v5-founders-title">A web developer and an AI engineer. You always <br />know who owns your problem.</h2>
       </div>
       <p class="v5-head__aside">
         {site.experience} of building and supporting software for clients.
-        We both work across the whole stack and both have access to every project, so your
-        product never depends on one person.
+        Mohib owns what your users see, Saad owns the AI and the backend behind it, and we
+        both have access to every project, so your product never depends on one person.
       </p>
     </header>
 
@@ -48,7 +50,7 @@ const founders = [
               formats={["avif", "webp"]}
               widths={[400, 700, 1110]}
               sizes="(min-width: 900px) 50vw, 100vw"
-              alt={`${f.name}, full stack engineer and founder of Proofload`}
+              alt={`${f.name}, ${f.role[0].toLowerCase() + f.role.slice(1)} and founder of Proofload`}
               class="v5-team__img v5-team__photo"
               loading="lazy"
               decoding="async"
