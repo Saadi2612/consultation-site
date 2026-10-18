@@ -2890,6 +2890,14 @@ body.v5 {
 }
 
 .v5-project__img {
+}
+
+/* The frame clips the scroll zoom, so the screenshot never grows past the
+   padding of its card. The ring and shadow live here, not on the image. */
+.v5-project__frame {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 16px 40px rgba(0, 0, 0, 0.6);
 }
 

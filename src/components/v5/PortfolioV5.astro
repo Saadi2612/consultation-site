@@ -25,6 +25,7 @@ import { portfolio } from "../../lib/portfolio";
         portfolio.map((p, i) => (
           <article class:list={["v5-project", i < 2 && "v5-project--wide"]}>
             <div class="v5-project__media">
+              <div class="v5-project__frame">
               <Picture
                 src={p.image}
                 formats={["avif", "webp"]}
@@ -36,6 +37,7 @@ import { portfolio } from "../../lib/portfolio";
                 loading="lazy"
                 decoding="async"
               />
+              </div>
             </div>
             <div class="v5-project__body">
               <p class="v5-card__n">{p.kind}</p>
